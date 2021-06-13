@@ -1,0 +1,155 @@
+<div class="row " id="proBanner" style="padding: 0px 0px 40px 0px;">
+    <div class="col-md-12">
+        <h3 style="text-align: center;">
+            Add Overview
+        </h3>
+
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-7">
+                <div class="card-body" style="background-color: transparent;">
+
+                    <div class="pop">
+                        <span class="align-items-center purchase-popup">
+                <p>You can also add another option without entering Overview each time !</p>
+                <a [routerLink]="['/backtrustadd']" class="btn download-button purchase-button btn-purple ml-auto btn-primary" style="background-color: #313C64;border: none;">Add Trust data</a>
+                <i class="mdi mdi-close"  id="bannerClose"></i>
+              </span>
+                    </div>
+                    <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                        ADD SPAC
+                    </div>
+                    <!--<div class="card-body" style="background-color: transparent;">
+                    <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                        ADD OVERVIEW
+                    </div>
+                    <div class="table-responsive bg-light" style="padding: 20px; box-shadow: 2px 9px 9px 4px rgba(0,0,0,0.38);
+                   -webkit-box-shadow: 2px 9px 9px 4px rgba(0,0,0,0.38);
+                      -moz-box-shadow: 2px 9px 9px 4px rgba(0,0,0,0.38);">
+                        <form>
+                            <div class="form-group">
+                                <label for="fk_spac">Spac ID</label>
+                                <select id="fk_spac" class="form-control" required [(ngModel)]="overview.fk_spac" [ngModelOptions]="{standalone: true}">
+                    <option selected disabled>List spacs</option>
+                    <option *ngFor="let spacheck of spachecks" value="{{ spacheck.idspac }}">{{ spacheck.name }}</option>
+                  </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="current_market_cap">Current market cap</label>
+                                <input type="text" class="form-control" id="current_market_cap" required [(ngModel)]="overview.current_market_cap" aria-describedby="current_market_cap" placeholder="Current market cap" [ngModelOptions]="{standalone: true}">
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="monthly_admin_fees">Monhly administrative fees to affiliate of sponsor</label>
+                                <input type="text" class="form-control" id="monthly_admin_fees" required [(ngModel)]="overview.monthly_admin_fees" placeholder="Monhly administrative fees to affiliate of sponsor" [ngModelOptions]="{standalone: true}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ipo_lead_manager">IPO lead manager</label>
+                                <input type="text" class="form-control" id="ipo_lead_manager" required [(ngModel)]="overview.ipo_lead_manager" placeholder="IPO lead manager" [ngModelOptions]="{standalone: true}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="intended_industry_focus">Intended industry focus</label>
+                                <input type="text" class="form-control" id="intended_industry_focus" required [(ngModel)]="overview.intended_industry_focus" placeholder="Intended industry focus" [ngModelOptions]="{standalone: true}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="statuts">Status</label>
+                                <input type="text" class="form-control" id="statuts" required [(ngModel)]="overview.statuts" placeholder="Status" [ngModelOptions]="{standalone: true}">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="target">Target</label>
+                                <input type="text" class="form-control" id="target" required [(ngModel)]="overview.target" placeholder="Target" [ngModelOptions]="{standalone: true}">
+                            </div>
+
+                            <div class="submitted_overview">
+                                <button style="background-color: #181258;" class="btn btn-success" id="submitted_overview" (click)="newOverview()">Add</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+                -->
+                    <div class="card">
+                        <div class="card-body">
+
+                            <h4 class="card-title">Add Overview</h4>
+                            <p class="card-description">
+                                All information is validated with instructions
+                            </p>
+                            <form class="forms-sample">
+
+                                <div class="form-group">
+                                    <label for="fk_spac">Select SPAC</label>
+                                    <select class="form-control" id="fk_spac" required [(ngModel)]="overview.fk_spac" [ngModelOptions]="{standalone: true}">
+                                        <option selected disabled>List spacs</option>
+                                        <option *ngFor="let spacheck of spachecks" value="{{ spacheck.idspac }}" style="color: black;background-color: white;">{{ spacheck.name }}</option>
+                                      </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="current_market_cap">Current market cap ($)</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text text-white" style="background-color: #313C64;">$</span>
+                                        </div>
+                                        <input type="number" class="form-control" aria-label="Amount (to the nearest dollar)" id="current_market_cap" required [(ngModel)]="overview.current_market_cap" aria-describedby="current_market_cap" placeholder="Current market cap" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="monthly_admin_fees">Monhly administrative fees to affiliate of sponsor</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text text-white" style="background-color: #313C64;">$</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="monthly_admin_fees" required [(ngModel)]="overview.monthly_admin_fees" placeholder="Monhly administrative fees to affiliate of sponsor" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ipo_lead_manager">IPO lead manager</label>
+                                    <input type="text" class="form-control" id="ipo_lead_manager" required [(ngModel)]="overview.ipo_lead_manager" placeholder="IPO lead manager" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="intended_industry_focus">Intended industry focus</label>
+                                    <input type="text" class="form-control" id="intended_industry_focus" required [(ngModel)]="overview.intended_industry_focus" placeholder="Intended industry focus" [ngModelOptions]="{standalone: true}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="statuts">Status</label>
+                                    <select class="form-control" id="statuts" required [(ngModel)]="overview.statuts" [ngModelOptions]="{standalone: true}">
+                                        <option selected disabled>Boolen</option>
+                                        <option value="true" style="color: black;background-color: white;">Combination</option>
+                                        <option value="false" style="color: black;background-color: white;">No Combination</option>
+                                      </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="target">Target</label>
+                                    <input type="text" class="form-control" id="target" required [(ngModel)]="overview.target" placeholder="Target" [ngModelOptions]="{standalone: true}">
+                                </div>
+                                <div class="form-check form-check-flat form-check-primary">
+                                </div>
+                                <div style="justify-content: center;text-align: center;">
+                                    <button type="submit" class="btn btn-primary mr-2" id="submitted_overview" (click)="newOverview()" style="background-color: #313C64;border: none;">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+</div>

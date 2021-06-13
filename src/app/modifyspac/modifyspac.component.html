@@ -1,0 +1,378 @@
+<div class="content-page">
+    <div class="col-md-12 d-flex justify-content-center">
+        <h2 style="font-family:'Avenir Black', 'Arial Black', sans-serif;"><span style="color: #313C64;">{{ spac[0]?.name }} </span><span style="color: #1587B9;">{{ spac[0]?.ticker }} </span> </h2>
+    </div>
+    <div class="container-fluid">
+        <form class="form-exemple">
+
+            <div class="col-md-12" id="overview">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-body">
+
+                            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                                Latest News
+                            </div>
+                            <div class="table-responsive bg-light">
+                                <div class="table-responsive bg-light">
+                                    <table class="table table-hover">
+                                        <tbody style="background-color: transparent;">
+                                            <tr>
+                                                <td class="align-middle">Company name</td>
+                                                <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" value="{{ spac[0]?.name }}" [(ngModel)]="spacsfields.name" [ngModelOptions]="{standalone: true}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">Ticker</td>
+                                                <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" value="{{ spac[0]?.ticker }}" [(ngModel)]="spacsfields.ticker" [ngModelOptions]="{standalone: true}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">Cik</td>
+                                                <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" value="{{ spac[0]?.cik }}" [(ngModel)]="spacsfields.cik" [ngModelOptions]="{standalone: true}"></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="align-middle">Filins link</td>
+                                                <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" value="{{ spac[0]?.filins_link }}" [(ngModel)]="spacsfields.filins_link" [ngModelOptions]="{standalone: true}"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body" style="background-color: transparent;">
+
+                            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                                Overview
+                            </div>
+                            <div class="table-responsive bg-light">
+                                <table class="table table-hover">
+                                    <tbody style="background-color: transparent;">
+                                        <tr>
+                                            <td colspan="2">Market cap in $mm</td>
+                                            <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" value="{{ spacarray[0]?.current_market_cap }}" [(ngModel)]="overviews.current_market_cap" [ngModelOptions]="{standalone: true}"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Montdly administrative fees</td>
+                                            <td class="align-middle">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="background-color: #313C64;color:white">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control" placeholder="Montdly administrative fees" aria-label="Username" value="{{ spacarray[0]?.monthly_admin_fees }}" [(ngModel)]="overviews.monthly_admin_fees" [ngModelOptions]="{standalone: true}">
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">IPO lead manager</td>
+                                            <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" placeholder="No data" value="{{ spacarray[0]?.ipo_lead_manager }}" [(ngModel)]="overviews.ipo_lead_manager" [ngModelOptions]="{standalone: true}"></td>
+
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Intended industry focus</td>
+                                            <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" placeholder="" value="{{ spacarray[0]?.intended_industry_focus }}" [(ngModel)]="overviews.intended_industry_focus" [ngModelOptions]="{standalone: true}"></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">Status</td>
+                                            <td class="align-middle">
+                                                <select class="form-control  mr-sm-2" [(ngModel)]="overviews.statuts" [ngModelOptions]="{standalone: true}"><option value="false" [selected]="spacarray[0]?.statuts === true">true</option><option value="false" [selected]="spacarray[0]?.statuts === false">false</option></select>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+                <div class="card-body">
+                    <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                        Trust data and return calculations
+                    </div>
+                    <div class="table-responsive bg-light">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td class="align-middle">IPO date</td>
+                                    <td class="align-middle"><input class="form-control  mr-sm-2" type="date" value="{{ spacarray[0]?.ipo_date }}" name="releaseDate" useValueAsDate></td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">Termination date</td>
+                                    <td class="align-middle"><input class="form-control  mr-sm-2" type="date" value="{{ spacarray[0]?.term_date }}" name="releaseDate" useValueAsDate></td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">Original lengtd of combination period (montds) </td>
+                                    <td class="align-middle"> <input type="text" class="form-control  mr-sm-2" placeholder="" value="{{ spacarray[0]?.original_lengtd_comb_period }}"></td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">Extendable? </td>
+                                    <td class="align-middle"><select class="form-control  mr-sm-2"><option value="true">Possible</option><option value="false">No possible</option></select></td>
+                                </tr>
+                                <tr>
+
+                                    <td class="align-middle">Warrant / Unit at issuance</td>
+                                    <td class="align-middle">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control mr-1" placeholder="Warrant" value="{{ spacarray[0]?.warrant }}">
+                                            <input type="text" class="form-control ml-1" placeholder="Unit at issuance" value="{{ spacarray[0]?.unit }}">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">Date of latest filing</td>
+                                    <td class="align-middle"><input class="form-control  mr-sm-2" type="date" value="{{ spacarray[0]?.date_latest_filing }}" name="releaseDate" useValueAsDate></td>
+                                </tr>
+                                <tr>
+                                    <td class="align-middle">Most recent cash in trust</td>
+                                    <td class="align-middle">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text" style="background-color: #313C64;color: white;">$</span>
+                                            </div>
+                                            <input type="text" class="form-control mr-sm-2" placeholder="Most recent cash in trust" aria-label="Username" value="{{ spacarray[0]?.most_recent_cash_in_trust }}">
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-12 ">
+                <div class="row">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-8 justify-content-end">
+                        <h3 class="" style="text-align: center;color:#313C64;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
+                            Unit, common stock, warrant information
+                        </h3>
+                    </div>
+                    <div class="col-md-2">
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-12">
+                <a href="#haut"></a>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card-body" style="background-color: transparent;">
+                            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                                Unit information
+                            </div>
+                            <div class="table-responsive bg-light">
+                                <table class="table table-hover">
+                                    <tbody style="background-color: transparent;">
+                                        <tr>
+                                            <td class="align-middle">Ticker</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="Ticker" aria-label="Username" value="{{ Unit[0]?.ticker }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO date</td>
+                                            <td class="align-middle"><input class="form-control mr-sm-2" type="date" value="{{ Unit[0]?.ipo_date }}" name="releaseDate" useValueAsDate>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Last price</td>
+                                            <td class="align-middle">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="background-color: #313C64;color: white;">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control mr-sm-2" placeholder="Ticker" aria-label="Username" value="{{ Unit[0]?.last_price }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">30 Day ADV (shares)</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="Ticker" aria-label="Username" value="{{ Unit[0]?.tdirty_day_adv }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO price</td>
+                                            <td class="align-middle">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="background-color: #313C64;color: white;">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control mr-sm-2" placeholder="Ticker" aria-label="Username" value="{{ Unit[0]?.ipo_price }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO issuance (mm shares)</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="Ticker" aria-label="Username" value="{{ Unit[0]?.ipo_issuance }}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="card-body" style="background-color: transparent;">
+                            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                                Common stock information
+                            </div>
+                            <div class="table-responsive bg-light">
+                                <table class="table table-hover">
+                                    <tbody style="background-color: transparent;">
+                                        <tr>
+                                            <td class="align-middle">Ticker</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="Ticker" aria-label="Username" value="{{ Common[0]?.ticker }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO date</td>
+                                            <td class="align-middle"><input class="form-control mr-sm-2" type="date" value="{{ Common[0]?.ipo_date }}" name="releaseDate" useValueAsDate>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Last price</td>
+                                            <td class="align-middle">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="background-color: #313C64;color: white;">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control mr-sm-2" placeholder="Last price" aria-label="Username" value="{{ Common[0]?.last_price }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">30 Day ADV (shares)</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="30 Day ADV (shares)" aria-label="Username" value="{{ Common[0]?.tdirty_day_adv }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO price</td>
+                                            <td class="align-middle">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="background-color: #313C64;color: white;">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control mr-sm-2" placeholder="IPO price" aria-label="Username" value="{{ Common[0]?.ipo_price }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO issuance (mm shares)</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Common[0]?.ipo_issuance }}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body" style="background-color: transparent;">
+                            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                                Warrant information
+                            </div>
+                            <div class="table-responsive bg-light">
+                                <table class="table table-hover">
+                                    <tbody style="background-color: transparent;">
+                                        <tr>
+                                            <td class="align-middle">Ticker</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="Ticker" aria-label="Username" value="{{ Warrant[0]?.ticker }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO date</td>
+                                            <td class="align-middle"><input class="form-control mr-sm-2" type="date" value="{{ Warrant[0]?.ipo_date }}" name="releaseDate" useValueAsDate>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Last price</td>
+                                            <td class="align-middle">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="background-color: #313C64;color: white;">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control mr-sm-2" placeholder="Last price" aria-label="Username" value="{{ Warrant[0]?.last_price }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">30 Day ADV (shares)</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="30 Day ADV (shares)" aria-label="Username" value="{{ Warrant[0]?.tdirty_day_adv }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO price</td>
+                                            <td class="align-middle">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text" style="background-color: #313C64;color: white;">$</span>
+                                                    </div>
+                                                    <input type="text" class="form-control mr-sm-2" placeholder="IPO price" aria-label="Username" value="{{ Warrant[0]?.ipo_price }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">IPO issuance (mm shares)</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.ipo_issuance }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Underlying multiplier</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.underlying_multiplier }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">First exercise date</td>
+                                            <td class="align-middle"><input type="date" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.first_exrcise_date }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Underlying security</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.underlying_security }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Expiration</td>
+                                            <td class="align-middle"><input type="date" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.expiration }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Strike price</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.strike_price }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Delta</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.delta }}">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="align-middle">Implied volatility</td>
+                                            <td class="align-middle"><input type="text" class="form-control mr-sm-2" placeholder="IPO issuance (mm shares)" aria-label="Username" value="{{ Warrant[0]?.implied_volatility }}">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12 d-flex justify-content-center" style="padding-bottom: 10px;">
+                <button type="button" (click)="newOver()" class="btn " style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color:#fff;background: #313C64;">
+                    Modify spac
+                    <i class="fa fa-check-circle-o" aria-hidden="true" style="font-size: 10px;"></i>
+                  </button>
+            </div>
+        </form>
+    </div>
+</div>

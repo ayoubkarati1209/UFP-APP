@@ -1,0 +1,72 @@
+<div class="row " id="proBanner" style="padding: 0px 0px 40px 0px;">
+    <div class="col-md-12">
+        <h3 style="text-align: center;">
+            Add Overview
+        </h3>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-7">
+                <div class="card-body" style="background-color: transparent;">
+                    <div class="pop">
+                        <span class="align-items-center purchase-popup">
+                <p>You can also add another option without entering Overview each time !</p>
+                <a [routerLink]="['/backtrustadd']" class="btn download-button purchase-button btn-purple ml-auto btn-primary" style="background-color: #313C64;border: none;">Add Trust data</a>
+                <i class="mdi mdi-close"  id="bannerClose"></i>
+              </span>
+                        <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                            ADD DETAILS ADMINISTRATIVE
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+
+                                <h4 class="card-title">Add DETAILS ADMINISTRATIVE</h4>
+                                <p class="card-description">
+                                    All information is validated with instructions
+                                </p>
+                                <form>
+                                    <div class="form-group">
+                                        <label for="fk_admin">Admin ID</label>
+                                        <select id="fk_admin" class="form-control" required [(ngModel)]="admin_details.fk_admin" [ngModelOptions]="{standalone: true}">
+                 <option selected disabled>List Admins</option>
+                 <option *ngFor="let admincheck of adminchecks" value="{{ admincheck.idadmin }}">{{ admincheck.incorporation }}</option>
+                  </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="type">Type</label>
+                                        <select id="type" required [(ngModel)]="admin_details.type" class="form-control" [ngModelOptions]="{standalone: true}">
+                  <option selected disabled>List Types</option>
+                  <option value="Affiliates">Affiliates</option>
+                  <option value="Sponsor">Sponsor</option>
+                  <option value="Underwriters">Underwriters</option>
+                  <option value="Counsel">Counsel</option>
+                  <option value="Auditor">Auditor</option>
+                </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" id="name" required [(ngModel)]="admin_details.name" aria-describedby="name" placeholder="Name" [ngModelOptions]="{standalone: true}">
+                                    </div>
+
+                                    <div style="justify-content: center;text-align: center;">
+                                        <button type="submit" class="btn btn-primary mr-2" id="submitted_admin_details" (click)="newAdmin_details()" style="background-color: #313C64;border: none;">Submit</button>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            </div>

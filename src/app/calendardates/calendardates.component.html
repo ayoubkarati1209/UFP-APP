@@ -1,0 +1,82 @@
+<div class="row">
+    <div class="col-md-8">
+        <div class="input-group input-group-lg " style="margin-bottom:30px;">
+            <ng-autocomplete type="text" class="form-control align-center" [data]="spacssearch" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onchangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier="spacssearch" [itemTemplate]="itemTemplate"
+                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Search SPACs " style="border: none;font-size:23px;font-weight: lighter;"> </ng-autocomplete>
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="border: none;background-color: white;border-radius: 0px;color: #efefef;"><i class="mdi mdi-magnify" style="font-size: 23px;"></i></span>
+            <ng-template #itemTemplate let-item style="width:700px;">
+                <a [routerLink]="[ '/spacedet', item.idspac]" [innerHTML]="item.name"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
+
+        </div>
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <span class="badge badge-primary btn-fw" id="a1" ng-disabled="true" (click)="showipo()" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">IPO date</span>
+            <span class="badge badge-primary btn-fw" id="a2" (click)="showtermination()" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Terminaison date</span>
+            <span class="badge badge-primary btn-fw" id="a3" (click)="shownews()" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">News</span>
+            <span class="badge badge-primary btn-fw" id="a4" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Unit Unbundling date</span>
+            <span class="badge badge-primary btn-fw" id="a5" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Redemption date</span>
+            <span class="badge badge-primary btn-fw" id="a6" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Vote date</span>
+            <span class="badge badge-primary btn-fw" id="a7" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Listing date</span>
+
+        </div>
+        <div style="background-color: #fff;padding:10px;padding-bottom: -10px;">
+            <div class="row">
+                <div class="col-sm">
+                    <div class="form-group">
+                        <select #mySelect class="form-control form-control-sm mb-3" (change)="select_month(mySelect.value)" id="select"><option [value]="">Select Month</option><option [value]="1">January</option><option value="2">February</option><option value="3">March</option><option value="4" selected>April</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">August</option><option value="9">September</option><option value="10">October</option><option value="11">November</option><option value="12">December</option></select>
+                    </div>
+                </div>
+                <div class="col-sm">
+                    <div class="form-group">
+                        <select #mySelect2 class="form-control form-control-sm mb-3" (change)="select_year(mySelect2.value)" id="select"><option [value]="">Select Year</option><option [value]="2016">2016</option><option value="2017">2017</option><option value="2018">2018</option><option value="2019">2019</option><option value="2020">2020</option><option value="2021" selected>2021</option><option value="2022">2022</option><option value="2023">2023</option><option value="2024">2024</option></select>
+                    </div>
+                </div>
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+                </div>
+                <div class="col-sm">
+
+                </div>
+                <div class="col-sm">
+
+                </div>
+            </div>
+            <full-calendar #fullcalendar [options]="calendarOptions" deepChangeDetection="true" id="calendar"> </full-calendar>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card-body" style="background-color: transparent;">
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <div class="card-header" style="background-color: #1587B9;color:white;border-radius: 4px;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
+                Trending SPACs
+            </div>
+            <div class="table-responsive bg-light">
+                <table class="table table-hover">
+                    <thead style="background-color: transparent;">
+                        <tr>
+                            <th colspan="2">Company</th>
+                            <th>Ticker</th>
+                            <th>Market Cap</th>
+                        </tr>
+
+                    </thead>
+                    <tbody *ngFor="let spacone of allspacs | slice:0:6;let i= index">
+                        <tr>
+                            <td colspan="2"><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">{{ spacone.Company }}</a></td>
+                            <td><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">{{ spacone.ticker }}</a></td>
+                            <td><span *ngIf="spacone.overviews[i]"><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">{{ spacone.overviews[i].current_market_cap }}</a></span>
+                                <span *ngIf="!spacone.overviews[i]"><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">No d..</a></span>
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Everything you see below is just for the demo, you don't need to include it in your app -->

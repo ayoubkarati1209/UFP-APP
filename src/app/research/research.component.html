@@ -1,0 +1,138 @@
+<div class="row">
+
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-7 grid-margin stretch-card" id="infosspac">
+        <div class="card">
+            <div class="card-body performane-indicator-card">
+                <div class="d-sm-flex">
+                    <h4 class="card-title flex-shrink-1" *ngIf="newsDet">{{ newsDet.title }}</h4>
+                    <p class="m-sm-0 ml-sm-auto flex-shrink-0" *ngIf="newsDet">
+                        {{ newsDet.createdAt | date:'short'}}
+                    </p>
+                </div>
+                <div class="d-sm-flex flex-wrap mt-3">
+                    <p *ngIf="newsDet">
+                        {{ newsDet.caption }}
+                    </p>
+                </div>
+                <ng-template [ngIf]="resarch">
+                    <div class="d-sm-flex" id="a">
+                        <h4 class="card-title flex-shrink-1"></h4>
+                        <p class="m-sm-0 ml-sm-auto flex-shrink-0" id="lien">
+                            <a href="../../assets/pdf/1.pdf" target="_blank" class="btn btn-sm" style="text-decoration: none;"><span style="color: white;">Generate PDF </span><i class="fa fa-download" aria-hidden="true" style="color: white;"></i></a>
+                        </p>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class=" card-body " id="coll">
+            <div class="card-header " style="background-color: #313C64;margin-bottom:10px;border-radius: 4px;">
+                <h1 style="font-family: Arial Black; color: white;font-size: 20px; " *ngIf="spacs">{{ spacs.name }}</h1>
+                <h3 style="font-family: Arial Black; color: white;padding: 5px 0px 5px 0px; " *ngIf="spacs">{{ spacs.ticker }}</h3>
+                <p style="color: white; " *ngIf="spacs"><a href="{{ spacs.filins_link }}" target="_blank" style="text-decoration: none;color: white;">Company filings <i class="fa fa-external-link "></i></a></p>
+            </div>
+            <div class="card-body " style="background-color: white;color:black; ">
+
+                <table class="table table-hover ">
+                    <thead style="border: none; ">
+                        <tr style="border:none;" class="align-top ">
+                            <th scope="col" style="border: none; " class="align-middle "><i class="fa fa-chevron-right" aria-hidden="true" style="color:#6A707E;font-size:10px;"></i>
+                            </th>
+                            <th colspan="3 " style="border: none; " class="align-top ">Current Market Cap (common)</th>
+                            <th style="border: none; " class="align-top " *ngFor="let spaca of arrayspac">{{ spaca.currentmarket }}</th>
+                        </tr>
+                        <tr class="align-middle ">
+                            <th scope="col" style="border: none; " class="align-middle "><i class="fa fa-chevron-right" aria-hidden="true" style="color:#6A707E;font-size:10px;"></i>
+                            </th>
+                            <th colspan="3 " style="border:none; " class="align-top ">Intended industry focus</th>
+                            <th style="border:none; " class="align-top "><a *ngFor="let spaca of arrayspac">{{ spaca.industry }}</a></th>
+                        </tr>
+                        <tr class="align-middle ">
+                            <th scope="col" style="border: none; " class="align-middle "><i class="fa fa-chevron-right" aria-hidden="true" style="color:#6A707E;font-size:10px;"></i>
+                            </th>
+                            <th colspan="3 " style="border:none;" class="align-top">Status</th>
+                            <th style="border:none; " class="align-top ">No Combination announced</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1 ">
+    </div>
+    <div class="col-md-5 ">
+        <div class="card-body " id="similarspacs">
+            <p>You might also like </p>
+
+            <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
+                Similar SPACs
+            </div>
+            <div class="table-responsive bg-light ">
+                <table class="table table-hover ">
+                    <thead style="background-color: transparent; ">
+                        <tr>
+                            <th>Company</th>
+                            <th>Ticker</th>
+                            <th>Market Cap</th>
+                        </tr>
+
+                    </thead>
+                    <tbody *ngIf="similarspacs">
+                        <tr *ngFor="let spacs of (similarspacs.spacs || [])">
+                            <td><a [routerLink]="[ '/spacedet', spacs.idspac] " style="text-decoration: none;color:inherit; ">{{ spacs.name }}</a></td>
+                            <td><a [routerLink]="[ '/spacedet', spacs.idspac] " style="text-decoration: none;color:inherit; ">{{ spacs.ticker }}</a></td>
+                            <td><a [routerLink]="[ '/spacedet', spacs.idspac] " style="text-decoration: none;color:inherit; ">No data</a></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="d-sm-flex" style="margin-top: 10px;">
+                <h4 class="card-title flex-shrink-1"></h4>
+                <p class="m-sm-0 ml-sm-auto flex-shrink-0" id="lien">
+                    <a [routerLink]="[ '/spacs'] " class="btn btn-sm" style="text-decoration: none;"><span style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;text-align: center;color: white;">See more </span> <i class="fa fa-chevron-right " aria-hidden="true " style="font-size: 10px;text-align: right;color: white;"></i></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-6 ">
+        <div class="card-body " id="related ">
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
+                Related Research
+            </div>
+            <div class="table-responsive bg-light ">
+                <table class="table table-hover ">
+                    <thead style="background-color: transparent; ">
+                        <tr>
+                            <th>Date</th>
+                            <th>Title</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="newsresarch">
+                        <tr *ngFor="let time of newsresarch.spacs;let i=index ">
+                            <td>{{ time.date }}</td>
+                            <td>{{ time.title }}</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="d-sm-flex" style="margin-top: 10px;">
+                <h4 class="card-title flex-shrink-1"></h4>
+                <p class="m-sm-0 ml-sm-auto flex-shrink-0" id="lien">
+                    <a [routerLink]="[ '/home'] " class="btn btn-sm" style="text-decoration: none;"><span style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;text-align: center;color: white;">See more </span> <i class="fa fa-chevron-right " aria-hidden="true " style="font-size: 10px;text-align: right;color: white;"></i></a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,33 @@
+#hello div {
+    width: 330px;
+    margin-left: 1%;
+    top: 0;
+    padding-top: 9%;
+}
+
+.list-group .list-group-item {
+    margin-bottom: 5px;
+    border-radius: 5px;
+    box-shadow: 1px 9px 24px -19px rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: 1px 9px 24px -19px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 1px 9px 24px -19px rgba(0, 0, 0, 0.2);
+}
+
+.list-group .active {
+    background-color: #313C64;
+    border: none;
+}
+
+.list-group a:active,
+a:checked,
+a:focus {
+    background-color: #313C64;
+    border: none;
+    color: white;
+}
+
+@media only screen and (max-width: 600px) {
+    #hello {
+        display: none;
+    }
+}

@@ -1,0 +1,175 @@
+.date {}
+
+.date input {
+    border: none;
+}
+
+input[type=text] {
+    background-color: white;
+}
+
+.table {
+    background-color: red;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+    background: #1587B9;
+    border-radius: 100%;
+    box-shadow: 0px 2px 9px 0px rgba(128, 128, 128, 0.62);
+    -webkit-box-shadow: 0px 2px 9px 0px rgba(128, 128, 128, 0.62);
+    -moz-box-shadow: 0px 2px 9px 0px rgba(128, 128, 128, 0.62);
+}
+
+.my-pagination /deep/ .ngx-pagination .current::before {
+    background: #1587B9;
+    border-radius: 100%;
+}
+
+@media (min-width: 767px) {
+    table thead tr th {
+        width: 500px;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    #navi {
+        margin-left: -80px;
+    }
+}
+
+@media only screen and (min-width: 960px) {
+    /* styles for browsers larger than 960px; */
+}
+
+@media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+    #item3 {
+        height: 30px;
+        margin-left: 300px;
+        width: 200px;
+    }
+}
+
+@media only screen and (min-width: 1440px) {
+    /* styles for browsers larger than 1440px; */
+}
+
+@media only screen and (min-width: 1800px) {
+    /* for sumo sized (mac) screens */
+    #item3 {
+        height: 30px;
+        margin-left: 500px;
+        width: 200px;
+    }
+}
+
+@media only screen and (max-device-width: 480px) {
+    /* styles for mobile browsers smaller than 480px; (iPhone) */
+}
+
+@media only screen and (device-width: 768px) {
+    /* default iPad screens */
+}
+
+
+/* different techniques for iPad screening */
+
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1300px) and (orientation:portrait) {
+    /* For portrait layouts only */
+    #item3 {
+        height: 30px;
+        margin-left: 150px;
+        width: 200px;
+    }
+    #ul1 {
+        height: 30px;
+    }
+}
+
+@media (max-width:991px) {
+    #filter {
+        height: 65px;
+    }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait) {
+    /* For portrait layouts only */
+    #item3 {
+        height: 30px;
+        margin-left: 50px;
+        width: 200px;
+    }
+    #ul1 {
+        margin-left: 100px;
+    }
+}
+
+@media only screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape) {
+    /* For landscape layouts only */
+}
+
+@media only screen and (min-width: 600px) {
+    .navbar {
+        margin-top: 50px;
+        margin-bottom: 20px;
+        height: 50px;
+    }
+    .navbar-brand {
+        font-size: 14px;
+        color: #707070;
+        font-weight: lighter;
+    }
+    #item1 {
+        height: 30px
+    }
+    #item2 {
+        margin-left: 25px;
+    }
+    #ul1 {
+        margin-left: 100px;
+    }
+    #a1 {
+        border-radius: 5px;
+        border: 1px solid rgba(83, 83, 83, 0.151);
+        text-align: left;
+    }
+    #a2 {
+        width: 170px;
+    }
+    #a3 {
+        width: 20px;
+        height: 20px;
+        margin-top: 4px;
+        background-color: #313C64;
+        border-color: #313C64;
+        font-size: 3px;
+    }
+    #a4 {
+        font-size: 8px;
+        background-color: transparent;
+        border: none;
+        margin-left: -30px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .navbar {
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+    .navbar-brand {
+        font-size: 14px;
+        color: #707070;
+        font-weight: lighter;
+    }
+}
+
+.navbar {
+    background: #313C64;
+}
+
+@media (min-width: 767px) {
+    .navbar {
+        height: 65px;
+    }
+}

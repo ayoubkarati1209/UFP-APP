@@ -1,0 +1,153 @@
+@media only screen and (min-width:700px) {
+    /* For portrait layouts only */
+    #a1 {
+        background-color: #1587B9;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    #a2 {
+        margin-left: 30px;
+        background-color: #666D8B;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    #a3 {
+        margin-left: 30px;
+        background-color: #15B947;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    #a4 {
+        margin-left: 30px;
+        background-color: #B1A624;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    #a5 {
+        margin-left: 30px;
+        background-color: #B915A0;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    #a6 {
+        margin-left: 30px;
+        background-color: #3C3914;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+    #a7 {
+        margin-left: 30px;
+        background-color: #B10115;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+    }
+}
+
+.form-control-sm {
+    height: 30px;
+    line-height: 30px;
+}
+
+.form-control-sm {
+    height: calc(1.5em + .5rem + 2px);
+    padding: .25rem .5rem;
+    font-size: .75rem;
+    line-height: 1.5;
+    border-radius: 8px;
+}
+
+.btn-toolbar {
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width:700px) {
+    /* For portrait layouts only */
+    .btn-toolbar {
+        margin-bottom: 20px;
+        justify-content: center;
+    }
+    #a1 {
+        background-color: #1587B9;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-right: 10%;
+    }
+    #a2 {
+        background-color: #666D8B;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        margin-bottom: 5px;
+    }
+    #a3 {
+        margin-left: 0px;
+        background-color: #15B947;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        margin-bottom: 5px;
+        margin-right: 10%;
+    }
+    #a4 {
+        background-color: #B1A624;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        margin-bottom: 5px;
+    }
+    #a5 {
+        margin-left: 0px;
+        background-color: #B915A0;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        margin-bottom: 5px;
+        margin-right: 10%;
+    }
+    #a6 {
+        background-color: #3C3914;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        margin-bottom: 5px;
+    }
+    #a7 {
+        background-color: #B10115;
+        border-radius: 5px;
+        border: none;
+        cursor: pointer;
+        width: 40%;
+        justify-content: center;
+    }
+}
+
+.boot tr {
+    background-color: #1587B9;
+}
+
+.ng-autocomplete {
+     ::ng-deep .autocomplete-container {
+        box-shadow: none;
+        background-color: transparent;
+        font-weight: inherit;
+        color: inherit;
+        margin-left: -30px;
+        margin-top: -8px;
+    }
+}

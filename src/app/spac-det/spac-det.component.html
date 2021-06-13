@@ -1,0 +1,500 @@
+<div class="row " id="proBanner">
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="card-body" style="background-color: transparent;" id="fol">
+                    <button type="button" class="btn btn-primary btn-sm btn-block" style="background-color: #313C64;border:none;text-align: start;" id="follow">          
+                    <span style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">Follow</span> 
+                    <i class="mdi mdi-playlist-check" style="font-size: large;margin-left: 30px;"></i>           
+                </button>
+                </div>
+            </div>
+            <div class="col-md-10">
+                <div class="card-body" style="background-color: transparent;">
+                    <h2 style="font-family:'Avenir Black', 'Arial Black', sans-serif;"><span style="color: #313C64;" *ngIf="spacwithid">{{ spacwithid.name }} </span><span style="color: #1587B9;" *ngIf="spacwithid">{{ spacwithid.ticker }}</span> </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-9" id="overview">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card-body" style="background-color: transparent;">
+
+                    <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                        Overview
+                    </div>
+                    <div class="table-responsive bg-light">
+                        <table class="table table-hover">
+                            <thead style="background-color: transparent;">
+                                <tr>
+                                    <th colspan="2">Market cap in $mm</th>
+                                    <th>{{ tutorials.current_market_cap}}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Monthly administrative fees</th>
+                                    <th>{{ tutorials.monthly_admin_fees}}</th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">IPO lead manager</th>
+                                    <th *ngIf="tutorials.ipo_lead_manager"><a href="!#" target="_blank">{{ tutorials.ipo_lead_manager}}</a></th>
+                                    <th *ngIf="!tutorials.ipo_lead_manager"><a href="!#" target="_blank">UX</a></th>
+
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Intended industry focus</th>
+                                    <th><a href="!#" target="_blank">{{ tutorials.intended_industry_focus}}</a></th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Company filings link</th>
+                                    <th *ngIf="!filins_link">No data ...</th>
+                                    <th *ngIf="filins_link"><a href="{{ spacwithid.filins_link }}" target="_blank">{{ spacwithid.filins_link }}</a></th>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Status</th>
+                                    <th *ngIf="targetstatus">Combination</th>
+                                    <th *ngIf="!targetstatus">No combination </th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card-body">
+
+                    <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                        Latest News
+                    </div>
+                    <div class="table-responsive bg-light">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Type</th>
+                                    <th>Title</th>
+                                </tr>
+
+                            </thead>
+                            <tbody *ngFor="let time of resarch.spacs;let i=index ">
+                                <tr>
+
+                                    <td> <a [routerLink]="[ '/research', time.idnews] " style="text-decoration: none;color:#6A707E; ">{{ time.date }}</a></td>
+                                    <td> <a [routerLink]="[ '/research', time.idnews] " style="text-decoration: none;color:#6A707E; ">{{ time.category }}</a></td>
+                                    <td><a [routerLink]="[ '/research', time.idnews] " style="text-decoration: none;color:#6A707E; ">{{ time.title }}</a></td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-3" id="trust">
+    </div>
+    <div class="col-md-9">
+
+        <div class="card-body">
+            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                Trust data and return calculations
+            </div>
+            <div class="table-responsive bg-light">
+                <table class="table table-hover" *ngFor="let trut of (truts ? truts : []) ;let i = index">
+                    <thead *ngIf="trut.ipo_date">
+                        <tr>
+                            <th>IPO date</th>
+                            <th>{{trut.ipo_date}}</th>
+                        </tr>
+                        <tr>
+                            <th>Termination date</th>
+                            <th>{{trut.termination_date}}</th>
+                        </tr>
+                        <tr>
+                            <th>Original length of combination period (months)</th>
+                            <th>{{trut.original_length_comb_period}}</th>
+                        </tr>
+                        <tr>
+                            <th>Extendable?</th>
+                            <th *ngIf="trut.extendable">possible</th>
+                            <th *ngIf="!trut.extendable">No</th>
+                        </tr>
+                        <tr>
+                            <th>Warrant / Unit at issuance</th>
+                            <th>{{trut.warrants_units_at_issuance}}</th>
+                        </tr>
+                        <tr>
+                            <th>Date of latest filing</th>
+                            <th>{{trut.date_latest_filing}}</th>
+                        </tr>
+                        <tr>
+                            <th>Most recent cash in trust</th>
+                            <th>{{trut.most_recent_cash_in_trust}}</th>
+                        </tr>
+                        <tr>
+                            <th>Most recent shares outstanding (mm)</th>
+                            <th>${{trut.most_recent_shares_outsanding}}</th>
+                        </tr>
+                        <tr>
+                            <th>Most recent cash in trust per share</th>
+                            <th>${{trut.most_recent_cash_in_trust_per_share}}</th>
+                        </tr>
+                        <tr>
+                            <th>Estimated monthly accretion</th>
+                            <th>${{trut.estimated_monthly_accretion}}</th>
+                        </tr>
+                        <tr>
+                            <th>Estimated cash at termination</th>
+                            <th>${{trut.estimated_cash_at_termination}}</th>
+                        </tr>
+                        <tr>
+                            <th>Return to termination</th>
+                            <th>{{trut.return_to_termination}}%</th>
+                        </tr>
+                        <tr>
+                            <th>Annualized return to termination</th>
+                            <th>{{trut.annualized_return_termination}}%</th>
+                        </tr>
+
+                    </thead>
+                    <thead *ngIf="!trut.ipo_date">
+                        <tr>
+                            <th>test</th>
+
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-md-3" id="unit">
+    </div>
+
+    <div class="col-md-9 ">
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8 justify-content-end">
+                <h3 class="" style="text-align: center;color:#313C64;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
+                    Unit, common stock, warrant information
+                </h3>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9">
+        <a href="#haut"></a>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card-body" style="background-color: transparent;">
+                    <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                        <div class="row">
+                            <div class="col-md-8" *ngIf="elementUnit">{{ elementUnit }}</div>
+                            <div class="col-md-8" *ngIf="!elementUnit">{{ elementUnit }}</div>
+                            <div class="col-md-4">
+                                <div ngbDropdown id="drop">
+                                    <i class="fa fa-filter" aria-hidden="true" ngbDropdownToggle type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+                                    <div ngbDropdownMenu class="dropdown-menu">
+                                        <a class="dropdown-item" (click)="getUnit()">Unit information</a>
+                                        <a class="dropdown-item" (click)="getStock()">Common stock information</a>
+                                        <a class="dropdown-item" (click)="getWarrent()">Warrant information</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="table-responsive bg-light">
+                        <table class="table table-hover">
+                            <thead style="background-color: transparent;">
+                                <tr>
+                                    <th>Ticker</th>
+                                    <th>{{ unitinfos.ticker}}</th>
+                                </tr>
+                                <tr>
+                                    <th>IPO date</th>
+                                    <th>{{ unitinfos.ipo_date}}</th>
+                                </tr>
+                                <tr>
+                                    <th>Last price</th>
+                                    <th>${{ unitinfos.last_price}}</th>
+                                </tr>
+                                <tr>
+                                    <th>30 Day ADV (shares)</th>
+                                    <th>{{ unitinfos.thirty_day_adv}}</th>
+                                </tr>
+                                <tr>
+                                    <th>IPO price</th>
+                                    <th>${{ unitinfos.ipo_price}}</th>
+                                </tr>
+                                <tr>
+                                    <th>IPO issuance (mm shares)</th>
+                                    <th>{{ unitinfos.ipo_issuance}}</th>
+                                </tr>
+                                <tr *ngIf="stockplusinfos">
+                                    <th>Underlying multiplier</th>
+                                    <th>{{ unitinfos.underlying_multiplier}}</th>
+                                </tr>
+                                <tr *ngIf="stockplusinfos">
+                                    <th>First exercise date</th>
+                                    <th>{{ unitinfos.first_exrcise_date}}</th>
+                                </tr>
+                                <tr *ngIf="stockplusinfos">
+                                    <th>Underlying security</th>
+                                    <th>{{ unitinfos.underlying_security}}</th>
+                                </tr>
+                                <tr *ngIf="stockplusinfos">
+                                    <th>Expiration</th>
+                                    <th>{{ unitinfos.expiration}}</th>
+                                </tr>
+                                <tr *ngIf="stockplusinfos">
+                                    <th>Strike price</th>
+                                    <th>{{ unitinfos.strike_price}}</th>
+                                </tr>
+                                <tr *ngIf="stockplusinfos">
+                                    <th>Delta</th>
+                                    <th>{{ unitinfos.delta}}</th>
+                                </tr>
+                                <tr *ngIf="stockplusinfos">
+                                    <th>Implied volatility</th>
+                                    <th>{{ unitinfos.implied_volatility}}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card-body" style="background-color: transparent;">
+                    <div class="card" style="background-color: #fff;">
+                        <div class="card-header" style="background-color: transparent;font-size:17px;color:#313C64;">
+                            <span *ngIf="chartUnit">{{ chartUnit }}</span>
+                        </div>
+                        <div id="container" style="height: 280px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" id="filings">
+    </div>
+    <div class="col-md-9">
+        <div class="card-body">
+            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                Filings timeline
+            </div>
+            <div class="table-responsive bg-light">
+                <table class="table table-hover" id="timelinetable" mdbTable>
+                    <thead>
+                        <tr>
+                            <th *ngFor="let timeth of timelinesthdata; let i = index" aria-controls="timelinetable" scope="col" [mdbTableSort]="timelines" [sortBy]="timelinesth[i]">{{timeth | titlecase}}
+                                <i class="mdi mdi-menu-down"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let time of timelines | paginate : {
+                        itemsPerPage: tableSize,
+                        currentPage: page,
+                        totalItems: count};">
+                        <tr>
+                            <td>{{ time.date }}</td>
+                            <td>{{ time.type }}</td>
+                            <td style="max-width:70px;"><a href="{{ time.link }}" target="_blank">{{ time.title }}</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end ">
+                    <pagination-controls class="my-pagination rounded-circle " responsive="true " previousLabel="Prev " nextLabel="Next " (pageChange)="onTableDataChange($event) ">
+                    </pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" id="admins">
+    </div>
+    <div class="col-md-9">
+        <div class="card-body">
+            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                Administrative
+            </div>
+            <div class="table-responsive bg-light">
+                <table class="table table-hover" *ngFor="let types of administrators;let j=index">
+                    <tr>
+                        <td>Corporate Address</td>
+                        <td>{{ administrators[j].corporate_address }}</td>
+                    </tr>
+                    <tr>
+                        <td>Incorporation</td>
+                        <td>{{ administrators[j].incorporation }}</td>
+                    </tr>
+                    <tr>
+                        <td>Telephone</td>
+                        <td>{{ administrators[j].telephone }}</td>
+                    </tr>
+                    <tbody *ngFor="let types of administratorsTypes;let i=index">
+
+                        <tr>
+                            <td>{{ types.type }}</td>
+                            <td>
+                                <p *ngFor="let names of types.value;let l=count">{{ names.name }}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" id="directors">
+    </div>
+    <div class="col-md-9">
+        <div class="card-body">
+            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                Directors and officers
+
+            </div>
+            <div class="table-responsive bg-light">
+                <table class="table table-hover" id="tableSortExample" mdbTable>
+                    <thead>
+                        <tr>
+                            <th *ngFor="let head of headElementsth; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="directors" [sortBy]="headElements[i]">{{head | titlecase}}
+                                <i class="mdi mdi-menu-down"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let officiers of directors;let i=index">
+                        <tr>
+                            <td>{{ officiers.name }}</td>
+                            <td>{{ officiers.position }}</td>
+                            <td>{{ officiers.age }}</td>
+                            <td><i class="mdi mdi-file-document" (click)="test.toggle()"></i></td>
+                        </tr>
+                        <div class="" mdbCollapse #test="bs-collapse">
+                            <tr>
+                                <td>{{ officiers.description }}</td>
+                            </tr>
+                        </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3" id="13f">
+    </div>
+    <div class="col-md-9">
+        <div class="card-body">
+            <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                13F Shareholders
+
+            </div>
+            <div class="table-responsive bg-light">
+                <table class="table table-hover" id="tableSortshareholders" mdbTable>
+                    <thead>
+                        <tr>
+                            <th *ngFor="let headS of headElementsShareH; let j = index" aria-controls="tableSortshareholders" [mdbTableSort]="shareholdersD" [sortBy]="headElementsShareD[j]">{{headS | titlecase}}
+                                <i class="mdi mdi-menu-down"></i></th>
+                        </tr>
+                    </thead>
+                    <tbody *ngFor="let sharas of shareholdersD;let y=index;">
+                        <tr>
+                            <td>{{ sharas.fund_name }}</td>
+                            <td>{{ sharas.shares }}</td>
+                            <td>{{ sharas.percentage }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+    </div>
+    <div class="col-md-9" style="padding-bottom: 200px;">
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="card-body" style="background-color: transparent;">
+                    <p>You might also like </p>
+
+                    <div class="card-header" style="background-color: #1587B9;color:white;border-radius: 4px;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
+                        Similar SPACs
+                    </div>
+                    <div class="table-responsive bg-light">
+                        <table class="table table-hover">
+                            <thead style="background-color: transparent;">
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Ticker</th>
+                                    <th>Market Cap</th>
+                                </tr>
+
+                            </thead>
+                            <tbody *ngFor="let spacs of similarspacs.spacs | slice:0:6;let i= index">
+                                <tr>
+                                    <td><a [routerLink]="[ '/spacedet', spacs.idspac] " target="_blank" style="text-decoration: none;color:inherit; ">{{ spacs.name }}</a></td>
+                                    <td><a [routerLink]="[ '/spacedet', spacs.idspac] " target="_blank" style="text-decoration: none;color:inherit; ">{{ spacs.ticker }}</a></td>
+                                    <td><a [routerLink]="[ '/spacedet', spacs.idspac] " target="_blank" style="text-decoration: none;color:inherit; ">No data</a></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="d-sm-flex" style="margin-top: 10px;">
+                        <h4 class="card-title flex-shrink-1"></h4>
+                        <p class="m-sm-0 ml-sm-auto flex-shrink-0" id="lien">
+                            <a [routerLink]="[ '/spacs'] " class="btn btn-sm" style="text-decoration: none;background-color:#313C64;"><span style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;text-align: center;color: white;">See more </span> <i class="fa fa-chevron-right " aria-hidden="true " style="font-size: 10px;text-align: right;color: white;"></i></a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="card-body" style="background-color: transparent;">
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                    <div class="card-header" style="background-color: #1587B9;color:white;border-radius: 4px;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
+                        Related research
+                    </div>
+                    <div class="table-responsive bg-light">
+                        <table class="table table-hover">
+                            <thead style="background-color: transparent;">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Title</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let time of resarch.spacs;let i=index ">
+                                <tr>
+
+                                    <td> <a [routerLink]="[ '/research', time.idnews] " style="text-decoration: none;color:#6A707E; ">{{ time.date }}</a></td>
+                                    <td><a [routerLink]="[ '/research', time.idnews] " style="text-decoration: none;color:#6A707E; ">{{ time.title }}</a></td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="d-sm-flex" style="margin-top: 10px;">
+                        <h4 class="card-title flex-shrink-1"></h4>
+                        <p class="m-sm-0 ml-sm-auto flex-shrink-0" id="lien">
+                            <a href="../../assets/pdf/1.pdf" target="_blank" class="btn btn-sm" style="text-decoration: none;background-color:#313C64;"><span style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;text-align: center;color: white;">See more </span> <i class="fa fa-chevron-right " aria-hidden="true " style="font-size: 10px;text-align: right;color: white;"></i></a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

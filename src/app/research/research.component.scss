@@ -1,0 +1,36 @@
+.btn {
+    background-color: #313C64;
+    border: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #butmobile {
+        background-color: red;
+    }
+    #coll {
+        margin-top: 0px;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    #butbottom {
+        margin-left: 20px;
+        min-width: 60%;
+    }
+    #fol {
+        min-width: 60%;
+    }
+}
+
+@media only screen and (min-width: 600px) {
+    #similarspacs {
+        margin-left: -20px;
+    }
+    #related {
+        margin-right: 50px;
+        background-color: transparent;
+    }
+    #coll {
+        margin-top: -20px;
+    }
+}

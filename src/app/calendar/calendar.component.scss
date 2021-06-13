@@ -1,0 +1,23 @@
+h3 {
+    margin: 0 0 10px;
+}
+
+pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+}
+
+
+
+
+.ng-autocomplete {
+    ::ng-deep .autocomplete-container {
+        
+      box-shadow: none;
+      font-size: 22px;
+      font-weight: lighter;
+      width: 170%;
+      font-size: 22px;
+      font-weight: lighter;
+    }
+  }

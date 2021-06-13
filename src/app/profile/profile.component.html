@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="main-body">
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="main-breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a routerLink="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            </ol>
+        </nav>
+        <!-- /Breadcrumb -->
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card-body">
+                    <div class="card-header" style="background-color: white;font-size:17px;color:white;border: none;">
+
+                    </div>
+                    <div class="d-flex flex-column align-items-center text-center" style="background-color: white;">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" class="rounded-circle" width="150">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col-md-8 mb-3">
+                <div class="card-body">
+                    <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                        Profile Informations
+                    </div>
+                    <div class="table-responsive bg-light">
+                        <table class="table table-hover">
+                            <tr style="border:none;" class="align-top ">
+                                <th colspan="3 " style="border: none; " class="align-top ">First Name</th>
+                                <th style="border: none; " class="align-top ">{{ bdinfosuser?.first_name }}</th>
+                            </tr>
+                            <tr class="align-middle ">
+                                <th colspan="3 " style="border:none; " class="align-top ">Last Name</th>
+                                <th style="border:none; " class="align-top ">
+                                    {{ bdinfosuser?.last_name }}
+                                </th>
+                            </tr>
+                            <tr class="align-middle ">
+                                <th colspan="3 " style="border:none;" class="align-top">UserName</th>
+                                <th style="border:none; " class="align-top ">{{ bdinfosuser?.username }}</th>
+                            </tr>
+                            <tr class="align-middle ">
+                                <th colspan="3 " style="border:none;" class="align-top">Email</th>
+                                <th style="border:none; " class="align-top ">{{ bdinfosuser?.username }}</th>
+                            </tr>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
