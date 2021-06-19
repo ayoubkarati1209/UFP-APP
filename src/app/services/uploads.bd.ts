@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class upload {
   constructor(private http: HttpClient) { }
-  private baseUrl = 'http://localhost:8060/api/upload';
+  private baseUrl = 'http://localhost:8050/api/upload';
 
   upload(file: File,id:any,type:any): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
@@ -27,5 +27,7 @@ export class upload {
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/files`);
   }
-
+  get(id) {
+    return this.http.get(`${this.baseUrl}/getuploads/${id}`);
+  }
 }

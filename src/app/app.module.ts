@@ -80,6 +80,10 @@ import { UpdateresearchComponent } from './updateresearch/updateresearch.compone
 import { SpacpageComponent } from './spacpage/spacpage.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsComponent } from './terms/terms.component';
+import { EditComponent } from './updateresearch/edit/edit.component';
+import { AddComponent } from './updateresearch/add/add.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
   interactionPlugin,
@@ -129,9 +133,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     UpdateresearchComponent,
     SpacpageComponent,
     PrivacyComponent,
-    TermsComponent
+    TermsComponent,
+    EditComponent,
+    AddComponent
   ],
   imports: [ 
+    ModalModule.forRoot(),
     AngularFireModule.initializeApp({apiKey: "AIzaSyDawvTqfuYIkGIbkGky_NgMWN0MpG8kuaQ",
     authDomain: "ufp-spacs.firebaseapp.com",
     projectId: "ufp-spacs",

@@ -1,23 +1,26 @@
 <div class="content-page">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-4" *ngFor="let news of list.spacs" style="padding-bottom: 20px;">
-                <div class="card card-block card-stretch card-height blog blog-comments" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
-                    <a [routerLink]="['/research', news.idnews]" class="lien">
+            <div class="col-sm-6 col-md-6 col-lg-4" *ngFor="let news of list?.spacs" style="padding-bottom: 20px;">
+                <div class="card card-block card-stretch card-height blog blog-comments" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter; height: 100%;">
+                    <a [routerLink]="['/research', news.id]" class="lien">
 
-                        <div class="image-block position-relative">
-                            <img src="../../assets/images/img1.png" class="card-img-top" alt="blog-img">
+                        <div class="image-block position-relative" style="height: 300px;">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[0]?.type==0" src="http://18.206.59.178:8050/{{ news?.uploads[0]?.file }}" class="card-img-top" alt="blog-img">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[1]?.type==0" src="http://18.206.59.178:8050/{{ news?.uploads[1]?.file }}" class="card-img-top" alt="blog-img">
+
                             <div class="blog-meta-date rounded-pill">
-                                <div class="month" style="font-size: 12px;">{{ news.category }}</div>
+                                <div class="month" style="font-size: 12px;">Research</div>
                             </div>
+
                         </div>
                         <div class="card-body ">
                             <div class="blog-description mt-0">
                                 <div class="blog-meta d-flex align-items-center justify-content-between mb-2">
-                                    <div class="date" style="color: #707070;font-size: 12px;">{{ news.date | date:"dd MMM yyyy - hh-mm"}}</div>
+                                    <div class="date" style="color: #707070;font-size: 12px;">{{ news?.date | date:"dd MMM yyyy - hh-mm"}}</div>
                                 </div>
-                                <h5 class="mb-2" style="color: #464A53;">{{ news.title}}</h5>
-                                <p class="mb-0" style="color: #ABAFB3;">{{ news.caption }}</p>
+                                <h5 class="mb-2" style="color: #464A53;">{{ news?.title}}</h5>
+                                <p class="mb-0" style="color: #ABAFB3;">{{ news?.description }}</p>
                             </div>
                         </div>
                     </a>
@@ -29,13 +32,13 @@
         <div class="row">
             <div class="col-sm-6 col-md-6 col-lg-4"></div>
             <div class="col-sm-6 col-md-6 col-lg-4 align-middle" style="text-align: center;padding-bottom: 20px;">
-                <ng-template [ngIf]="paginationLimit < list.totalItems"><button type="button" (click)="showMoreItems()" class="btn " style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color:#fff;background: #313C64;">
+                <ng-template [ngIf]="paginationLimit < list?.totalItems"><button type="button" (click)="showMoreItems()" class="btn " style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color:#fff;background: #313C64;">
             Show more
             <i class="fa fa-plus" aria-hidden="true" style="font-size: 10px;"></i>
                   
           </button>
                 </ng-template>
-                <button *ngIf="paginationLimit > list.totalItems" type="button" (click)="showLessItems()" class="btn " style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color:#fff;background: #313C64;">
+                <button *ngIf="paginationLimit > list?.totalItems" type="button" (click)="showLessItems()" class="btn " style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color:#fff;background: #313C64;">
             Show less
             <i class="fa fa-minus" aria-hidden="true" style="font-size: 10px;"></i>
           </button>

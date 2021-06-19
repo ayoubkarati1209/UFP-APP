@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 //const baseUrl = 'http://18.206.59.178:8070/api/price_histories';
-const baseUrl = 'http://localhost:8060/api/research';
+const baseUrl = 'http://18.206.59.178:8050/api/research';
 
 @Injectable({
   providedIn: 'root'

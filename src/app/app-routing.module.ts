@@ -29,11 +29,13 @@ import { SpacpageComponent } from './spacpage/spacpage.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsComponent } from './terms/terms.component';
 import { RegisterComponent } from './authentification/register/register.component';
+import { EditComponent } from './updateresearch/edit/edit.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path : 'spacedet/:id',component:SpacDetComponent},
   { path : 'login',component:LoginComponent},
+  { path : 'edit',component:EditComponent},
   { path : 'Register',component:RegisterComponent},
   { path : 'allspac/:id',component:SpacpageComponent},
   { path : 'terms',component:TermsComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},

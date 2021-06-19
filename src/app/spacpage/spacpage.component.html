@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-10">
                 <div class="card-body" style="background-color: transparent;">
-                    <h2 style="font-family:'Avenir Black', 'Arial Black', sans-serif;"><span style="color: #313C64;">{{ spacsinfos?.name }}</span><span style="color: #1587B9;">{{ spacsinfos?.tickers[0]?.unit_ticker }}</span> </h2>
+                    <h2 style="font-family:'Avenir Black', 'Arial Black', sans-serif;"><span style="color: #313C64;">{{ spacsinfos?.name }}</span><span style="color: #1587B9;">&nbsp;&nbsp;&nbsp;{{ spacsinfos?.tickers[0]?.unit_ticker }}</span> </h2>
                 </div>
             </div>
         </div>
@@ -75,9 +75,9 @@
 
                             </thead>
                             <tbody>
-                                <tr *ngFor="let news of (allnews ? allnews : []) | slice:0:6;let i = index">
+                                <tr *ngFor="let news of (allnews ? allnews : []) | slice:0:4;let i = index">
                                     <td>{{ news?.date }}</td>
-                                    <td>{{ news?.type }}</td>
+                                    <td *ngIf="news?.id_types==3">Research</td>
                                     <td>{{ news?.title }}</td>
                                 </tr>
                             </tbody>
@@ -119,7 +119,7 @@
                         </tr>
                         <tr>
                             <td colspan="2">Date of latest filing</td>
-                            <td>{{ filing?.date }}</td>
+                            <td>{{ filing[0]?.date }}</td>
                         </tr>
                         <tr>
                             <td colspan="2">Most recent cash in trust</td>
@@ -272,10 +272,10 @@
                 <table class="table table-hover" id="timelinetable">
                     <thead>
 
-                        <th *ngFor="let timeth of timelinesthdata; let i = index" aria-controls="timelinetable" scope="col" [mdbTableSort]="filings" [sortBy]="timelinesth[i]" style="cursor: pointer;">{{timeth | titlecase}}
+                        <th *ngFor="let timeth of timelinesthdata; let i = index" aria-controls="timelinetable" scope="col" [mdbTableSort]="filing" [sortBy]="timelinesth[i]" style="cursor: pointer;">{{timeth | titlecase}}
                             <i class="mdi mdi-menu-down"></i></th>
                     </thead>
-                    <tbody *ngFor="let time of filings | paginate : {
+                    <tbody *ngFor="let time of filing | paginate : {
                         itemsPerPage: tableSize,
                         currentPage: page,
                         totalItems: count};">

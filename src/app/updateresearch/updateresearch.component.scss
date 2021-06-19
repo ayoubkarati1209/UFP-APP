@@ -1,5 +1,5 @@
 table tr td img {
-    width: 200px;
+    width: 100px;
     border-radius: 0!important;
     border: none;
     height: auto;
@@ -9,4 +9,9 @@ table tr td img {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+}
+
+.modal-footer {
+    text-align: center;
+    align-items: center;
 }

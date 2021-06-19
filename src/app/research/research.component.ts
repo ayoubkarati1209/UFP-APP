@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import {spacspage} from '../services/spacspage.bd';
 import {filings} from '../services/filings_timelines.bd';
 import {spacglobal} from '../services/spacglobal.bd'
-
+import { news_nv } from '../services/news-nv.bd';
+import { allinfos } from '../services/alltable.bd';
 @Component({ 
   selector: 'app-research',
   templateUrl: './research.component.html',
@@ -20,92 +21,56 @@ idspac=1;
 timelines:any;
 newsresarch:any;
 similarspacs:any;
-spacglobal:any;
+spacglobal:any; 
 arrayspac=[];
-  constructor(private spcasglobal:spacglobal,private news:spacs,private spac:spacspage ,private activeID:ActivatedRoute,private filing:filings,private similarspac:spacs) { }
+allspacs:any;
+allnews:any;
+  constructor(private allinfosspac:allinfos,private newsR:news_nv,private spcasglobal:spacglobal,private news:spacs,private spac:spacspage ,private activeID:ActivatedRoute,private filing:filings,private similarspac:spacs) { }
 
   ngOnInit() {
+    this.getspactickers()
     this.newsId=this.activeID.snapshot.paramMap.get("id");
-    this.news.getLimit().subscribe(
+    this.newsR.get(this.newsId).subscribe(
       data =>{
 this.newsresarch=data;
+console.log(data);
+this.allinfosspac.getStoR(this.newsresarch.spac_id).subscribe(
+  data =>{
+    this.spacglobal=data;
+console.log(this.spacglobal);
+  },
+  error =>{
+
+  });
       },
       error => {
       });
-      this.news.get(this.newsId)
+    this.getDetNews();
+this.getfilings();
+this.getSpacs();
+this.getNews();
+  }
+  getNews(){
+    this.newsR.getAll()
       .subscribe(
         data => {
-          this.newsDet = data;
-          if(data)
-          this.spac.get(this.newsDet.fk_spac)
-      
-          .subscribe(
-            response => {
-              
-              this.spacs = response;
-            },
-            error => {
-              console.log(error);
-            });
-            this.spcasglobal.getwhereid(this.newsDet.fk_spac).subscribe(
-              response => {
-              this.spacglobal=response;
-              for(let sg of this.spacglobal){
-                let index = this.spacglobal.findIndex(x => x.idspac ===sg.idspac);
-                this.arrayspac.push({company:sg.Company,ticker:sg.ticker,currentmarket:"",industry:"",status:""})
-                for(let o of sg.overviews){
-  this.arrayspac[index].currentmarket=o.current_market_cap
-  this.arrayspac[index].industry=o.intended_industry_focus
-  this.arrayspac[index].status=o.target
-  
-                }
-              }
-              },
-              error =>{
-  console.log(error)
-              }
-            )
-          if(this.newsDet.category=='Research'){
-          this.resarch=true;
-          }else
-          {
-            this.resarch=false;
-          }
+          this.allnews = data;
+          console.log(data);
         },
         error => {
           console.log(error);
         });
-        this.filing.getLimit()
-        .subscribe(
-          data => {
-            this.timelines = data;
-          
-          },
-          error => {
-            console.log(error);
-          });
-          this.spac.getLimit()
-          .subscribe(
-            data => {
-              this.similarspacs = data;
-            },
-            error => {
-              console.log(error);
-            });
-    this.getDetNews();
-this.getfilings();
-this.getSpacs();
-this.getNewsResearch()
   }
-  getNewsResearch(){
-    this.news.getLimit().subscribe(
-      data =>{
-this.newsresarch=data;
-      },
-      error => {
-      });
-    
-  }
+  getspactickers(){
+  this.allinfosspac.getspacticker()
+      .subscribe(
+        data => {
+          this.allspacs = data;
+          console.log(this.allspacs)
+        },
+        error => {
+        });
+}
   getDetNews() {
     
   }

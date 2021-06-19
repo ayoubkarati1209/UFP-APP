@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://localhost:8060/api/spacs';
+const baseUrl = 'http://18.206.59.178:8050/api/spacs';
 
 @Injectable({
   providedIn: 'root'

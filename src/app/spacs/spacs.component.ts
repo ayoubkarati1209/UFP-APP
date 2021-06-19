@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { MdbTableDirective, MdbTablePaginationComponent } from 'angular-bootstrap-md';
 import {spacglobal} from '../services/spacglobal.bd';
+import {allinfos} from '../services/alltable.bd';
 import { Pipe, PipeTransform } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";  
 import { Spinkit } from 'ng-http-loader'; // <============
@@ -15,10 +16,12 @@ import {KeycloakService } from 'keycloak-angular';
 import { AuthenticationService } from '../shared/authentication.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-spacs',
   templateUrl: './spacs.component.html',
-  styleUrls: ['./spacs.component.scss']
+  styleUrls: ['./spacs.component.scss'],
+  providers: [DatePipe]
 })
 @Pipe({
   name: 'tableFilter'
@@ -59,12 +62,14 @@ export class SpacsComponent implements OnInit,PipeTransform{
   targetyes:boolean=false;
   isLoading: boolean;
   arraysort=[];
+  ipo_date:any
+  allspacs:any=[];
+  targets:any;
   public userProfile: KeycloakProfile | null = null;
-  constructor(private auth:AuthenticationService,private keycloackService:KeycloakService,private cdRef: ChangeDetectorRef,private spacglobal:spacglobal,private SpinnerService: NgxSpinnerService,public afAuth: AngularFireAuth,public loadingBar: LoadingBarService) {
+  constructor(private datePipe:DatePipe,private allinfos:allinfos,private auth:AuthenticationService,private keycloackService:KeycloakService,private cdRef: ChangeDetectorRef,private spacglobal:spacglobal,private SpinnerService: NgxSpinnerService,public afAuth: AngularFireAuth,public loadingBar: LoadingBarService) {
     afAuth.authState.subscribe(auth => {
       if(auth) {
       } else {
-        console.log('not logged in');
       }
     });
   }
@@ -93,10 +98,65 @@ export class SpacsComponent implements OnInit,PipeTransform{
         }
       }
     )
-   this.initial()
-
+   this.getspacs()
   }
+  getspacs(){
+    this.allinfos.getAllspacs().subscribe(
+      data=>{
+        this.allspacs=data
+        for(let d of this.allspacs) {
+          this.elements.push({idspac:d.id,Company:d.name,ticker:"",intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
+          let index = this.elements.findIndex(x => x.idspac ===d.id);
 
+          for(let o of d.overviews){
+            if(o){
+              this.elements[index].current_market_cap=o.market_cap
+              this.elements[index].intended_industry_focus=o.industry.name
+              this.elements[index].statuts=o.status
+              this.allinfos.gettargets(o.id).subscribe(
+                datas=>{
+                  this.targets=datas;
+                  if(datas)
+                  {
+                    this.elements[index].target=this.targets.name
+
+                  }
+                },error=>{
+
+                }
+              );
+            }
+          }
+          for(let m of d.markets){
+            if(m){
+              if(m.type_id===1){
+              this.elements[index].last_price=m.price
+              }
+            }
+          }
+          for(let t of d.trusts){
+            if(t){
+              this.ipo_date=t.ipo_date
+              this.ipo_date=this.datePipe.transform(this.ipo_date, 'MM');
+              this.ipo_date=Number(this.ipo_date)+Number(t.combination_months)
+              this.elements[index].termination_date=this.ipo_date
+            }
+          }
+          for(let ti of d.tickers){
+            if(ti){
+              this.elements[index].ticker=ti.unit_ticker
+            }
+          }
+        }
+        console.log(this.elements);
+        this.mdbTable.setDataSource(this.elements);
+          this.allspacs = this.mdbTable.getDataSource();
+          this.previous = this.mdbTable.getDataSource();
+      },error=>{
+        console.log(error);
+      }
+    )
+  }
   initial(){
     this.spacglobal.getAlllimit100()
     .subscribe(
@@ -113,7 +173,6 @@ export class SpacsComponent implements OnInit,PipeTransform{
               this.elements[index].current_market_cap=o.current_market_cap
               this.elements[index].target=o.target
               this.elements[index].statuts=o.statuts
-              console.log(o);
             }
             else{
               this.elements.push({idspac:d.idspac,Company:d.Company,ticker:d.ticker,intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
@@ -130,7 +189,6 @@ export class SpacsComponent implements OnInit,PipeTransform{
           for(let t of d.trust_data_and_return_calculations){
             if(t){
               this.elements[index].termination_date=this.calculateDiff(t.ipo_date)
-              console.log(this.calculateDiff(t.termination_date))
             }
             else{
               this.elements.push({idspac:d.idspac,Company:d.Company,ticker:d.ticker,intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
@@ -211,15 +269,15 @@ if(this.index==0){
   }
   onTableDataChange(event){
     this.page = event;
-    this.mdbTable.setDataSource(this.elements);
-          this.elements = this.mdbTable.getDataSource();
+    this.mdbTable.setDataSource(this.allspacs);
+          this.allspacs = this.mdbTable.getDataSource();
           this.previous = this.mdbTable.getDataSource();
   }
   onTableSizeChange(event): void {
     this.tableSize = event.target.value;
     this.page = 1;
-    this.mdbTable.setDataSource(this.elements);
-    this.elements = this.mdbTable.getDataSource();
+    this.mdbTable.setDataSource(this.allspacs);
+    this.allspacs = this.mdbTable.getDataSource();
     this.previous = this.mdbTable.getDataSource();
   }  
   addNewRow() {
@@ -270,11 +328,11 @@ if(this.index==0){
 
     if (!this.searchText) {
       this.mdbTable.setDataSource(this.previous);
-      this.elementsts = this.mdbTable.getDataSource();
+      this.elements = this.mdbTable.getDataSource();
     }
 
     if (this.searchText) {
-      this.elementsts = this.mdbTable.searchLocalDataBy(this.searchText);
+      this.elements = this.mdbTable.searchLocalDataBy(this.searchText);
       this.mdbTable.setDataSource(prev);
     }
 

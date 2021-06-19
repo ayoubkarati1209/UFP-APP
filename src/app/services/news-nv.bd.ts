@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://localhost:8060/api/news';
-
+const baseUrl = 'http://localhost:8050/api/news';
+const headers= new HttpHeaders()
+  .set('content-type', 'application/json')
+  .set('Access-Control-Allow-Origin', '*');
 @Injectable({
   providedIn: 'root'
 })
@@ -11,7 +13,10 @@ export class news_nv {
   constructor(private http: HttpClient) { }
 
   getAll() {
-    return this.http.get(baseUrl);
+    return this.http.get(baseUrl,{'headers':headers});
+  }
+  getPagination(page,size){
+    return this.http.get(`${baseUrl}/pagination?page=${page}&size=${size}`);
   }
   get(id) {
     return this.http.get(`${baseUrl}/${id}`);
@@ -23,6 +28,6 @@ export class news_nv {
     return this.http.put(`${baseUrl}/${id}`, data);
   }
   delete(id) {
-    return this.http.delete(`${baseUrl}/${id}`);
+    return this.http.delete(`${baseUrl}/${id}`,{'headers':headers});
   }
 }

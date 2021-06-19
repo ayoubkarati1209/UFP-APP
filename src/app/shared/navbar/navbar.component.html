@@ -13,19 +13,19 @@
                 <li class="nav-item active "> <a class="nav-link" routerLink="/" (click)="collapseNav()"><i class="mdi mdi-home" style="font-size: 14px;"></i>&nbsp;&nbsp;Home </a> </li>
                 <li class="nav-item"><a class="nav-link" routerLink="/spacs" (click)="collapseNav()"><i class="mdi mdi-poll" style="font-size: 14px;"></i>&nbsp;&nbsp;SPACs </a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/calendar" (click)="collapseNav()"><i class="mdi mdi-calendar-clock" style="font-size: 14px;"></i>&nbsp;&nbsp;Calendar </a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/profile" (click)="collapseNav()" id="p"><i class="fa fa-user" aria-hidden="true" style="font-size: 14px;"></i>&nbsp;&nbsp;Profile </a></li>
-                <li *ngIf="admin" class="nav-item dropdown language-dropdown d-none d-sm-flex align-items-center" style="cursor: pointer;" ngbDropdown>
-                    <a class="nav-link d-flex align-items-center dropdown-toggle" id="LanguageDropdown" ngbDropdownToggle aria-expanded="false">
+
+                <li *ngIf="admin" class="nav-item align-items-center" style="cursor: pointer;" ngbDropdown>
+                    <a class="nav-link" id="LanguageDropdown" ngbDropdownToggle aria-expanded="false">
                         <div class="d-inline-flex">
                             <i class="fa fa-tachometer" aria-hidden="true"></i>
                         </div>
-                        <span class="profile-text font-weight-normal">Back office</span>
+                        <span class="profile-text font-weight-normal">&nbsp;&nbsp;Back office</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-left navbar-dropdown py-2" ngbDropdownMenu aria-labelledby="LanguageDropdown">
                         <a class="dropdown-item" routerLink="/Add-research">
-                            <span>Research index</span> </a>
+                            <span>Research</span> </a>
                         <a class="dropdown-item" routerLink="/spacs">
-                            <span>Spacs index</span> </a>
+                            <span>Spacs</span> </a>
                     </div>
                 </li>
             </ul>

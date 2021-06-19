@@ -7,6 +7,8 @@ import {spacspage} from '../services/spacspage.bd';
 import { Pipe, PipeTransform } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { orderBy } from 'lodash';
+import { allinfos } from '../services/alltable.bd';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -211,7 +213,7 @@ category="All";
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
 
-  constructor(calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal, private Spacspage:spacspage) {
+  constructor(private allinfos:allinfos,calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal, private Spacspage:spacspage) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   }
@@ -220,9 +222,19 @@ category="All";
     this.retrievespacsitems();
     this.getAllSpac();
     this.getAllSpacsResearch();
+    this.getspactickers();
   }
 
-                     
+  getspactickers() {
+    this.allinfos.getspacticker()
+      .subscribe(
+        data => {
+          this.allspacs = data;
+          console.log(this.allspacs)
+        },
+        error => {
+        });
+  }                
                                     
   selectEvent(item){
     
@@ -395,7 +407,6 @@ sort(){
     this.spacs.getAll()
       .subscribe(
         data => {
-          this.allspacs = data;
 
         },
         error => {

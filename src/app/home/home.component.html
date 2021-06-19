@@ -78,11 +78,10 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let spacone of allspacs | slice:0:6;let i= index">
-                                <td><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">{{ spacone.Company }}</a></td>
-                                <td><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">{{ spacone.ticker }}</a></td>
-                                <td> <span *ngIf="spacone.overviews[i]"><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">{{ spacone.overviews[i].current_market_cap }}</a></span>
-                                    <span *ngIf="!spacone.overviews[i]"><a [routerLink]="[ '/spacedet', spacone.idspac] " style="text-decoration: none;color:inherit; ">No d..</a></span>
-                                </td>
+                                <td><a [routerLink]="[ '/spacedet', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.name }}</a></td>
+                                <td><a [routerLink]="[ '/spacedet', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
+                                <td><a [routerLink]="[ '/spacedet', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
+
                             </tr>
                         </tbody>
 

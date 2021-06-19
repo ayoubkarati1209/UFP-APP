@@ -30,7 +30,7 @@ export class SpacpageComponent implements OnInit {
   oversinfos:any;
   spacId: any;
   allnews:any;
-  filing:any
+  filing:any=[]
   stockplusinfos:false
   elementUnit='Unit information';
   timelinesth = ['date', 'type', 'title'];
@@ -71,7 +71,7 @@ export class SpacpageComponent implements OnInit {
   spacsinfos:any;
   ngOnInit(): void {
     this.spacId=this.activeID.snapshot.paramMap.get("id");
-
+    this.getfilings();
     this.allinfos.getAllWhere(this.spacId)
       .subscribe(
         data => {
@@ -91,7 +91,7 @@ export class SpacpageComponent implements OnInit {
             this.indiceU++
             if(this.indiceU<=3){
               this.volumeU=this.volumeU+Number(m.volume)
-              this.averageU=this.volumeU/3
+              this.averageU=this.volumeU/30
             }
           }
           if(m.type_id==2){
@@ -99,7 +99,7 @@ export class SpacpageComponent implements OnInit {
             this.indiceS++
             if(this.indiceS<=3){
               this.volumeS=this.volumeS+Number(m.volume)
-              this.averageS=this.volumeS/3
+              this.averageS=this.volumeS/30
             }
           }
           if(m.type_id==3){
@@ -107,7 +107,7 @@ export class SpacpageComponent implements OnInit {
             this.indiceW++
             if(this.indiceW<=3){
               this.volumeW=this.volumeW+Number(m.volume)
-              this.averageW=this.volumeW/3
+              this.averageW=this.volumeW/30
             }
           }
           }
@@ -171,9 +171,6 @@ export class SpacpageComponent implements OnInit {
           }
           Highcharts.chart('container', this.options);
           console.log(this.pricearray);
-          for(let f of this.spacsinfos.filings){
-            this.filings.push({date:f.date,type:f.type,title:f.title})
-          }
           for(let d of this.spacsinfos.directors){
             this.directors.push({name:d.name,position:d.position,age:d.age,summary:d.description})
           }
@@ -211,7 +208,7 @@ export class SpacpageComponent implements OnInit {
         });
   }
   getfilings(){
-    this.allinfos.getfilings(this.spacId)
+    this.allinfos.getallfilings(this.spacId)
       .subscribe(
         data => {
           this.filing = data;

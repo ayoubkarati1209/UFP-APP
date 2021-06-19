@@ -5,7 +5,8 @@ import {spacs} from '../services/spacs.bd';
 import {spacglobal} from '../services/spacglobal.bd';
 import { Pipe, PipeTransform } from '@angular/core';
 import { ListAnimation } from './listanimation';
-
+import { news_nv } from '../services/news-nv.bd';
+import { allinfos } from '../services/alltable.bd';
 @Component({
   selector: 'app-home-all',
   templateUrl: './home-all.component.html',
@@ -182,7 +183,7 @@ category="All";
   paginationLimit:Number; 
   list:any;
   arraysort:any
-  constructor(calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal) {
+  constructor(private allinfos:allinfos,private news:news_nv,calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal) {
     this.startPage = 0;
     this.paginationLimit =9;
     this.fromDate = calendar.getToday();
@@ -195,6 +196,15 @@ category="All";
     this.retrievespacsitems();
     this.getAllSpac();
     this.getnews();
+  }
+  getspactickers() {
+    this.allinfos.getAll()
+      .subscribe(
+        data => {
+          this.allspacs = data;
+        },
+        error => {
+        });
   }
   getNewsC():void{
     if(this.retrievespacsitems)
@@ -215,7 +225,7 @@ this.category="News";
     console.log(this.list)
   }
   getnews(){
-    this.spacsS.getPagination(this.startPage,this.paginationLimit)
+    this.news.getPagination(this.startPage,this.paginationLimit)
     .subscribe(
       data => {
         this.list=data
@@ -239,7 +249,6 @@ this.category="News";
     this.spacs.getAll()
       .subscribe(
         data => {
-          this.allspacs = data;
         },
         error => {
         });
