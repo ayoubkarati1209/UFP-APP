@@ -8,7 +8,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { LoadingBarService } from '@ngx-loading-bar/core';
 import { orderBy } from 'lodash';
 import { allinfos } from '../services/alltable.bd';
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -104,7 +103,7 @@ title='';
       '#38ce3c',
       '#ff4d6b'
     ],
-  }];
+  }]; 
 
   doughnutPieLabels: [
     'Reassigned',
@@ -219,22 +218,10 @@ category="All";
   }
  
   ngOnInit():void{
-    this.retrievespacsitems();
     this.getAllSpac();
     this.getAllSpacsResearch();
-    this.getspactickers();
   }
-
-  getspactickers() {
-    this.allinfos.getspacticker()
-      .subscribe(
-        data => {
-          this.allspacs = data;
-          console.log(this.allspacs)
-        },
-        error => {
-        });
-  }                
+               
                                     
   selectEvent(item){
     
@@ -368,21 +355,16 @@ category="All";
   }
 
 
-  getNewsC():void{
-    if(this.retrievespacsitems)
-this.category="News";
-  }
 sort(){
   this.arraysort=this.spacsitems.sort((a,b) => a.title > b.title ? 1 : -1)
   this.spacsitems=this.arraysort
-  console.log(this.spacsitems)
 }
   getAllSpacsResearch() {
-    this.Spacspage.getAll()
+    this.allinfos.getspacpagination()
       .subscribe(
         data => {
-          this.spacssearch = data;
-          if(this.spacssearch){
+          this.allspacs = data;
+          if(this.allspacs){
             this.no_data=false
           }
           else{
@@ -393,55 +375,20 @@ sort(){
         });
   }
 
-  retrievespacsitems() {
-    this.spacsS.getAll()
-      .subscribe(
-        data => {
-          this.spacsitems = data;
-        },
-        error => {
-        });
-  }
+
 
   getAllSpac() {
-    this.spacs.getAll()
+    this.allinfos.getSpacs()
       .subscribe(
         data => {
-
-        },
-        error => {
-        });
-  }
-  refreshList() {
-    this.retrievespacsitems();
-    this.currentspac = null;
-    this.currentIndex = -1;
-  }
-
-  setActiveTutorial(tutorial, index) {
-    this.currentspac = tutorial;
-    this.currentIndex = index;
-  }
-
-  removeAllspacsitems() {
-    this.spacsS.deleteAll()
-      .subscribe(
-        response => {
-          this.refreshList();
+          this.spacssearch=data;
         },
         error => {
         });
   }
 
-  searchTitle() {
-    this.spacsS.findByTitle(this.title)
-      .subscribe(
-        data => {
-          this.spacsitems = data;
-        },
-        error => {
-        });
-  }
+
+
 
   style = {
     sources: {

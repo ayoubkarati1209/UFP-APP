@@ -57,14 +57,13 @@ navBarTogglerIsVisible() {
    this.auth.getUserState().subscribe(
      user=>{
        this.user=user;
-       if(user.email=='hello@dba.com'){
+       if(user.email=='admin@box-analytics.com'){
         this.admin=true;
       }
        this.users.get(user.email)
        .subscribe(
          data => {
          this.bdinfosuser=data;
-         console.log(this.bdinfosuser)
          },
          error => {
          });

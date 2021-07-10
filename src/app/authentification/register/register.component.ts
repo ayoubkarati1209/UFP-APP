@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
   }
   get f() { return this.registerform.controls; }
   showSuccess() {
-    this.toastr.success('Les informations sons ajoutés avec succès !','succes');
+    this.toastr.success('Account created');
   }
   showError($message) {
     this.toastr.error($message, 'error');

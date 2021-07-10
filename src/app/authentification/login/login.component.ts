@@ -25,10 +25,10 @@ navigation = this.router.getCurrentNavigation();
       this.redirectUrl="home";
   }
   showSuccess() {
-    this.toastr.success('Les informations sons ajoutés avec succès !','succes');
+    this.toastr.success('Login successful');
   }
   showError() {
-    this.toastr.error('Email or Password incorrect !', 'error');
+    this.toastr.error('Email or password incorrect');
   }
   ngOnInit(): void {
     const state = this.navigation.extras.state as {data: string};

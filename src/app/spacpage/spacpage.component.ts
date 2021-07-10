@@ -43,6 +43,9 @@ export class SpacpageComponent implements OnInit {
   page = 1;
   count = 0;
   tableSize = 6;
+  pageo = 1;
+  counto = 0;
+  tableSizeo = 6;
   unit=true
   stock=false
   warrent=false
@@ -60,6 +63,8 @@ export class SpacpageComponent implements OnInit {
   priceS=[]
   priceW=[]
   pricearray=[]
+  pricearraystock=[]
+  pricearraywarrant=[]
   filings=[]
   days:any
   public options: any
@@ -68,10 +73,16 @@ export class SpacpageComponent implements OnInit {
   constructor(private allinfos:allinfos,private activeID:ActivatedRoute,private overviews:overs,private news:news_nv,private datePipe:DatePipe) { 
 
   }
+  
   spacsinfos:any;
+  ngAfterViewInit() {
+    this.getfilings();
+    this.getNews()
+    this.getOvers()
+
+  }
   ngOnInit(): void {
     this.spacId=this.activeID.snapshot.paramMap.get("id");
-    this.getfilings();
     this.allinfos.getAllWhere(this.spacId)
       .subscribe(
         data => {
@@ -81,7 +92,6 @@ export class SpacpageComponent implements OnInit {
             this.ipo_date=s.ipo_date
             this.ipo_date=this.datePipe.transform(this.ipo_date, 'MM');
             this.ipo_date=Number(this.ipo_date)+Number(s.combination_months)
-            console.log(this.ipo_date)
           }
           for(let m of this.spacsinfos.markets){
             this.days=new Date(m.date)
@@ -95,6 +105,7 @@ export class SpacpageComponent implements OnInit {
             }
           }
           if(m.type_id==2){
+            this.pricearraystock.push([this.days.getTime(),Number(m.price)]);
             this.priceS.push({price:m.price});
             this.indiceS++
             if(this.indiceS<=3){
@@ -103,6 +114,7 @@ export class SpacpageComponent implements OnInit {
             }
           }
           if(m.type_id==3){
+            this.pricearraywarrant.push([this.days.getTime(),Number(m.price)]);
             this.priceW.push({price:m.price});
             this.indiceW++
             if(this.indiceW<=3){
@@ -170,25 +182,20 @@ export class SpacpageComponent implements OnInit {
                     }]
           }
           Highcharts.chart('container', this.options);
-          console.log(this.pricearray);
           for(let d of this.spacsinfos.directors){
             this.directors.push({name:d.name,position:d.position,age:d.age,summary:d.description})
           }
           for(let s of this.spacsinfos.shareholders){
             this.shareholdersD.push({title:s.percentage,shares:s.shares,name:s.fund_name})
           }
-          console.log(this.shareholdersD);
         },
         error => {
-          console.log(error);
         });
-        this.getOvers()
-        this.getNews()
+  
   }
   getOvers(){
     this.overviews.get(this.spacId).subscribe(
       data => {
-        console.log(data)
         this.oversinfos=data
       },
       error => {
@@ -197,11 +204,10 @@ export class SpacpageComponent implements OnInit {
     )
   }
   getNews(){
-    this.news.getAll()
+    this.news.getnewswitthidspac(this.spacId)
       .subscribe(
         data => {
           this.allnews = data;
-          console.log(data);
         },
         error => {
           console.log(error);
@@ -212,7 +218,6 @@ export class SpacpageComponent implements OnInit {
       .subscribe(
         data => {
           this.filing = data;
-          console.log(data);
         },
         error => {
           console.log(error);
@@ -222,16 +227,140 @@ export class SpacpageComponent implements OnInit {
     this.unit=true
     this.stock=false
     this.warrent=false
+    this.elementUnit='Unit informations'
+    Highcharts.chart('container', this.options);
   }
   getStock(){
 this.unit=false
 this.stock=true
 this.warrent=false
+this.elementUnit='Common stock information'
+this.pricearray=this.pricearraystock
+this.options = {
+  chart: {
+     zoomType: 'x',
+  },
+  title: {
+      text: ''
+  },
+  subtitle: {
+      text: document.ontouchstart === undefined ?
+          '' : ''
+  },
+  credits: {
+    enabled: false
+},
+  xAxis: {
+      type: 'datetime'
+  },
+  yAxis: {
+      title: {
+          text: ''
+      }
+  },
+  legend: {
+      enabled: false
+  },
+  plotOptions: {
+              area: {
+                  fillColor: {
+                      linearGradient: {
+                          x1: 0,
+                          y1: 0,
+                          x2: 0,
+                          y2: 1
+                      },
+                      stops: [
+                          [0, Highcharts.getOptions().colors[0]],
+                          [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                      ]
+                  },
+                  marker: {
+                      radius: 2
+                  },
+                  lineWidth: 1,
+                  states: {
+                      hover: {
+                          lineWidth: 1
+                      }
+                  },
+                  threshold: null
+              }
+          },
+  series: [{
+              type: 'area',
+              name: 'Price',
+              data: this.pricearraystock
+          }]
+}
+Highcharts.chart('container', this.options);
+
   }
   getWarrent(){
     this.unit=false
     this.stock=false
     this.warrent=true
+    this.elementUnit='Warrant information'
+    this.pricearray=this.pricearraywarrant
+    this.options = {
+      chart: {
+         zoomType: 'x',
+      },
+      title: {
+          text: ''
+      },
+      subtitle: {
+          text: document.ontouchstart === undefined ?
+              '' : ''
+      },
+      credits: {
+        enabled: false
+    },
+      xAxis: {
+          type: 'datetime'
+      },
+      yAxis: {
+          title: {
+              text: ''
+          }
+      },
+      legend: {
+          enabled: false
+      },
+      plotOptions: {
+                  area: {
+                      fillColor: {
+                          linearGradient: {
+                              x1: 0,
+                              y1: 0,
+                              x2: 0,
+                              y2: 1
+                          },
+                          stops: [
+                              [0, Highcharts.getOptions().colors[0]],
+                              [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                          ]
+                      },
+                      marker: {
+                          radius: 2
+                      },
+                      lineWidth: 1,
+                      states: {
+                          hover: {
+                              lineWidth: 1
+                          }
+                      },
+                      threshold: null
+                  }
+              },
+      series: [{
+                  type: 'area',
+                  name: 'Price',
+                  data: this.pricearraywarrant
+              }]
+    }
+    Highcharts.chart('container', this.options);
+
   }
   onTableDataChange(event){
     this.page = event;
@@ -241,5 +370,14 @@ this.warrent=false
     this.tableSize = event.target.value;
     this.page = 1;
     this.getfilings();
-  }    
+  }
+  onTableDataChangeo(event){
+    this.pageo = event;
+    this.directors
+  }
+  onTableSizeChangeo(event): void {
+    this.tableSizeo = event.target.value;
+    this.page = 1;
+    this.directors
+  }     
 }

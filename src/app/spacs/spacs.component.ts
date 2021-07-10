@@ -17,6 +17,7 @@ import { AuthenticationService } from '../shared/authentication.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import { DatePipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-spacs',
   templateUrl: './spacs.component.html',
@@ -65,8 +66,14 @@ export class SpacsComponent implements OnInit,PipeTransform{
   ipo_date:any
   allspacs:any=[];
   targets:any;
+  overs:any=[];
+  trusts:any=[];
+  markets:any=[];
+  pager = {};
+  pageOfItems = [];
   public userProfile: KeycloakProfile | null = null;
-  constructor(private datePipe:DatePipe,private allinfos:allinfos,private auth:AuthenticationService,private keycloackService:KeycloakService,private cdRef: ChangeDetectorRef,private spacglobal:spacglobal,private SpinnerService: NgxSpinnerService,public afAuth: AngularFireAuth,public loadingBar: LoadingBarService) {
+  constructor(private http: HttpClient,
+    private route: ActivatedRoute,private datePipe:DatePipe,private allinfos:allinfos,private auth:AuthenticationService,private keycloackService:KeycloakService,private cdRef: ChangeDetectorRef,private spacglobal:spacglobal,private SpinnerService: NgxSpinnerService,public afAuth: AngularFireAuth,public loadingBar: LoadingBarService) {
     afAuth.authState.subscribe(auth => {
       if(auth) {
       } else {
@@ -101,52 +108,35 @@ export class SpacsComponent implements OnInit,PipeTransform{
    this.getspacs()
   }
   getspacs(){
-    this.allinfos.getAllspacs().subscribe(
+    this.allinfos.spacpagination(0).subscribe(
       data=>{
         this.allspacs=data
-        for(let d of this.allspacs) {
+        for(let d of this.allspacs.admin_detail) {
           this.elements.push({idspac:d.id,Company:d.name,ticker:"",intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
           let index = this.elements.findIndex(x => x.idspac ===d.id);
-
-          for(let o of d.overviews){
-            if(o){
-              this.elements[index].current_market_cap=o.market_cap
-              this.elements[index].intended_industry_focus=o.industry.name
-              this.elements[index].statuts=o.status
-              this.allinfos.gettargets(o.id).subscribe(
-                datas=>{
-                  this.targets=datas;
-                  if(datas)
-                  {
-                    this.elements[index].target=this.targets.name
-
-                  }
-                },error=>{
-
-                }
-              );
-            }
+          this.allinfos.getovers(this.elements[index].idspac).subscribe(datas=>{
+            this.overs=datas;
+            this.elements[index].current_market_cap=this.overs?.market_cap
+            this.elements[index].intended_industry_focus=this.overs?.industry?.name
+            this.elements[index].statuts=this.overs?.status
+            this.elements[index].target=this.overs?.target?.name
+          },error=>{
+            console.log(error);
           }
-          for(let m of d.markets){
-            if(m){
-              if(m.type_id===1){
-              this.elements[index].last_price=m.price
-              }
-            }
-          }
-          for(let t of d.trusts){
-            if(t){
-              this.ipo_date=t.ipo_date
-              this.ipo_date=this.datePipe.transform(this.ipo_date, 'MM');
-              this.ipo_date=Number(this.ipo_date)+Number(t.combination_months)
-              this.elements[index].termination_date=this.ipo_date
-            }
-          }
-          for(let ti of d.tickers){
-            if(ti){
-              this.elements[index].ticker=ti.unit_ticker
-            }
-          }
+          )
+          this.allinfos.gettrusts(this.elements[index].idspac).subscribe(data=>{
+            this.trusts=data;
+            this.ipo_date=this.datePipe.transform(this.trusts?.ipo_date, 'MM');
+            this.elements[index].termination_date=Number(this.ipo_date)+Number(this.trusts?.combination_months)
+          },error=>{
+            console.log(error);
+          })
+          this.allinfos.getmarkets(this.elements[index].idspac).subscribe(data=>{
+            this.markets=data;
+            this.elements[index].last_price=this.markets?.price
+          },error=>{
+            console.log(error);
+          })
         }
         console.log(this.elements);
         this.mdbTable.setDataSource(this.elements);
@@ -157,110 +147,7 @@ export class SpacsComponent implements OnInit,PipeTransform{
       }
     )
   }
-  initial(){
-    this.spacglobal.getAlllimit100()
-    .subscribe(
-      data => {
-        this.spacsall = data;
-        for(let d of this.spacsall) {
-          this.elements.push({idspac:d.idspac,Company:d.Company,ticker:d.ticker,intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
 
-          let index = this.elements.findIndex(x => x.idspac ===d.idspac);
-
-          for(let o of d.overviews){
-            if(o){
-              this.elements[index].intended_industry_focus=o.intended_industry_focus
-              this.elements[index].current_market_cap=o.current_market_cap
-              this.elements[index].target=o.target
-              this.elements[index].statuts=o.statuts
-            }
-            else{
-              this.elements.push({idspac:d.idspac,Company:d.Company,ticker:d.ticker,intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
-            }
-          }
-          for(let u of d.unit_informations){
-            if(u){
-              this.elements[index].last_price=u.last_price
-            }
-            else{
-              this.elements.push({idspac:d.idspac,Company:d.Company,ticker:d.ticker,intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
-            }
-          }
-          for(let t of d.trust_data_and_return_calculations){
-            if(t){
-              this.elements[index].termination_date=this.calculateDiff(t.ipo_date)
-            }
-            else{
-              this.elements.push({idspac:d.idspac,Company:d.Company,ticker:d.ticker,intended_industry_focus:"",current_market_cap:"",last_price:"",target:"",termination_date:"",statuts:""})
-            }
-          }
-          this.arraysort=this.elements.sort((a,b) => a.Company > b.Company ? 1 : -1)
-
-          this.elementsts=this.arraysort
-          this.mdbTable.setDataSource(this.elementsts);
-          this.elementsts = this.mdbTable.getDataSource();
-          this.previous = this.mdbTable.getDataSource();
-        }
-        
-      },
-      error => {
-        
-      });
-
-  }
-  Target(){
-    this.isLoading = true;
-    this.targ=true;
-    this.notarg=false;
-this.targetyes=true;
-if(this.index==0){
-  this.index1=0
-  this.elementstarget=[];
-      this.spacglobal.getAlllimit100()
-      .subscribe(
-        data => {
-          this.spacsall = data;
-          for(let d of this.spacsall) {
-            let index = this.elements.findIndex(x => x.idspac ===d.idspac);
-          if(this.elements[index].target){
-            this.elementstarget.push({idspac:this.elements[index].idspac,Company:this.elements[index].Company,ticker:this.elements[index].ticker,intended_industry_focus:this.elements[index].intended_industry_focus,current_market_cap:this.elements[index].current_market_cap,last_price:this.elements[index].last_price,target:this.elements[index].target,termination_date:this.elements[index].termination_date})
-          }
-        }
-        this.elementsts=this.elementstarget
-        this.mdbTable.setDataSource(this.elementstarget);
-          this.elementstarget = this.mdbTable.getDataSource();
-          this.previous = this.mdbTable.getDataSource();
-        }
-      )
-      }
-    this.index=this.index+1;
-  }
-  NoTarget(){
-    this.notarg=true;
-    this.targ=false;
-    if(this.index1==0){
-      this.index=0
-      this.elementsnotarget=[];
-      this.spacglobal.getAlllimit100()
-      .subscribe(
-        data => {
-          this.spacsall = data;
-          for(let d of this.spacsall) {
-            let index = this.elements.findIndex(x => x.idspac ===d.idspac);
-          if(!this.elements[index].target){
-            this.elementsnotarget.push({idspac:this.elements[index].idspac,Company:this.elements[index].Company,ticker:this.elements[index].ticker,intended_industry_focus:this.elements[index].intended_industry_focus,current_market_cap:this.elements[index].current_market_cap,last_price:this.elements[index].last_price,target:this.elements[index].target,termination_date:this.elements[index].termination_date})
-          }
-        }
-        this.elementsts=this.elementsnotarget
-        this.mdbTable.setDataSource(this.elementsnotarget);
-          this.elementsnotarget = this.mdbTable.getDataSource();
-          this.previous = this.mdbTable.getDataSource();
-        }
-      )
-      }
-      this.index1=this.index1+1;
-
-  }
   ngAfterViewInit() {
     this.mdbTablePagination.setMaxVisibleItemsNumberTo(this.tableSize);
     this.mdbTablePagination.calculateFirstItemIndex();

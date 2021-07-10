@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://18.206.59.178:8070/api/spacglobals';
-const baseUrlfortable='http://18.206.59.178:8060/api/spacglobals'
+const baseUrl = 'http://54.205.210.47:8050/api/spacsglobal';
+const baseUrlfortable='http://54.205.210.47:8050/api/spacsglobal'
 @Injectable({
   providedIn: 'root'
 })

@@ -9,7 +9,6 @@ import { isPlatformBrowser } from '@angular/common';
 import { spacglobal } from '../services/spacglobal.bd';
 import {spacs} from '../services/spacs.bd';
 import { spacspage } from '../services/spacspage.bd';
-import { overview } from '../services/overview.bd';
 import {ToastrService} from 'ngx-toastr';
 import {trusts} from '../services/trust_datat_return.db';
 
@@ -130,7 +129,7 @@ filins_link:''
     most_recent_cash_in_trust:''
       }
    constructor(@Inject(PLATFORM_ID) private platformId,private trust:trusts,private latestnews:spacs, private zone: NgZone,private activeID:ActivatedRoute,private Price_histories:price_histories,private spacs:spacglobal
-     ,private spcs:spacs,private spa:spacspage,private spacglobal:spacglobal,private overview:overview,private toastr:ToastrService) { }
+     ,private spcs:spacs,private spa:spacspage,private spacglobal:spacglobal,private toastr:ToastrService) { }
      browserOnly(f: () => void) {
        if (isPlatformBrowser(this.platformId)) {
          this.zone.runOutsideAngular(() => {
@@ -148,7 +147,7 @@ filins_link:''
   this.getspacglobal()
    }
    showSuccess() {
-    this.toastr.success('Les informations sons ajoutés avec succès !','succes');
+    this.toastr.success('Data added successfully','succes');
   }
   showError() {
     this.toastr.error('Ops Error !', 'error');
@@ -221,18 +220,7 @@ filins_link:''
     };
     console.log(data)
 
-    this.overview.update(this.spacId,data)
-      .subscribe(
-        response => {
-          console.log(response);
-          if(data)
-         console.log('ok')
-         this.showSuccess()
-        },
-        error => {
-          this.showError()
-          console.log(error);
-        });
+
   }
   newOver(){
     console.log("hello")

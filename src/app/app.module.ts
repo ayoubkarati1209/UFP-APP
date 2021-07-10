@@ -34,14 +34,7 @@ import { JwPaginationModule } from 'jw-angular-pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ResearchComponent } from './research/research.component';
 import { CardnewsComponent } from './cardnews/cardnews.component';
-import { BackspacaddComponent } from './backspacadd/backspacadd.component';
 import { ToastrModule } from 'ngx-toastr';
-import { FixedmenubackComponent } from './fixedmenuback/fixedmenuback.component';
-import { BackoverviewaddComponent } from './backoverviewadd/backoverviewadd.component';
-import { BacktrustaddComponent } from './backtrustadd/backtrustadd.component';
-import { BackadminaddComponent } from './backadminadd/backadminadd.component';
-import { BackadmindetailsaddComponent } from './backadmindetailsadd/backadmindetailsadd.component';
-import { BackdiraoffaddComponent } from './backdiraoffadd/backdiraoffadd.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarModule, ButtonsModule } from 'angular-bootstrap-md'
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -83,6 +76,7 @@ import { TermsComponent } from './terms/terms.component';
 import { EditComponent } from './updateresearch/edit/edit.component';
 import { AddComponent } from './updateresearch/add/add.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { SpacstableComponent } from './spacstable/spacstable.component';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -109,13 +103,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FixedMenuComponent,
     ResearchComponent,
     CardnewsComponent,
-    BackspacaddComponent,
-    FixedmenubackComponent,
-    BackoverviewaddComponent,
-    BacktrustaddComponent,
-    BackadminaddComponent,
-    BackadmindetailsaddComponent,
-    BackdiraoffaddComponent,
     NavbarComponent,
     HomeComponent,
     CalendardatesComponent,
@@ -135,7 +122,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     PrivacyComponent,
     TermsComponent,
     EditComponent,
-    AddComponent
+    AddComponent,
+    SpacstableComponent
   ],
   imports: [ 
     ModalModule.forRoot(),

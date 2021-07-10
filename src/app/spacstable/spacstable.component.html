@@ -1,0 +1,58 @@
+<div class="row " id="proBanner">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+        <div class="input-group input-group-lg">
+            <ng-autocomplete type="text" class="form-control align-center" [data]="spacssearch" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onchangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier="spacssearch" [itemTemplate]="itemTemplate"
+                aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Search SPACs " style="border: none;font-size:23px;font-weight: lighter;"> </ng-autocomplete>
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="margin-left:-7px;border: none;background-color: white; color: #efefef;font-size: 23px;"><i class="mdi mdi-magnify"></i></span>
+            <ng-template #itemTemplate let-item style="width:700px;">
+                <a [routerLink]="[ '/allspac', item.id]" [innerHTML]="item.name"></a>
+            </ng-template>
+            <ng-template #notFoundTemplate let-notFound>
+                <div [innerHTML]="notFound"></div>
+            </ng-template>
+
+        </div>
+
+    </div>
+    <div class="col-md-2"></div>
+    <div class="col-lg-12 grid-margin stretch-card">
+
+        <div class="card" style="background-color: transparent;">
+            <div class="card-body">
+
+                <div class="table-responsive">
+                    <div class="card-body">
+                        <div class="table-responsive bg-light">
+                            <table class="table table-hover">
+                                <thead style="background-color: #1587B9;font-size:17px;color:white;
+                                        margin: 0px auto;
+                                        float: none;">
+                                    <tr class="align-top" style="cursor: pointer;">
+                                        <th class="align-top" *ngFor="let head of headThs; let i = index" [mdbTableSort]="elements" [sortBy]="headElements[i]" scope="col">{{head }}
+                                            <i class="mdi mdi-menu-down"></i></th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngFor="let spac of elements | paginate: { itemsPerPage: itemsPerPage , currentPage: p, totalItems: totalItems }">
+                                    <tr>
+                                        <th scope="row"><a [routerLink]="[ '/allspac', spac.idspac] " style="text-decoration: none;color:black; ">{{ spac.Company }}</a></th>
+                                        <td class="red-text"><a [routerLink]="[ '/spacedet', spac.idspac] " style="text-decoration: none;color:black; ">{{ spac.ticker }}</a></td>
+                                        <td>{{ spac.intended_industry_focus }}</td>
+                                        <td>{{ spac.current_market_cap }}</td>
+                                        <td>{{ spac.last_price}}</td>
+                                        <td><span *ngIf="spac.statuts==1">combination annonced</span><span *ngIf="spac.statuts!=1">no combination annonced</span></td>
+                                        <td>{{ spac.target}}</td>
+                                        <td>{{ spac.termination_date }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="d-flex justify-content-end ">
+                                <pagination-controls (pageChange)="getPage(p = $event)"></pagination-controls>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,9 +6,11 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TableFilterPipe implements PipeTransform {
 
   transform(list: any[], value: string) {
-  
-
-    return value ? list.filter(item => item.target === value) : list;
+    if(value=='Comb'){
+    return value ? list.filter(item => item.target !== "") : list;
+    }else{
+      return value ? list.filter(item => item.target === "") : list;
+    }
   }
 
 }

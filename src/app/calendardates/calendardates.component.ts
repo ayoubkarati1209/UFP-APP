@@ -12,6 +12,9 @@ import {AuthGuard} from '../util/app.gard';
 import { RouterModule, Routes } from '@angular/router';
 import {SpacDetComponent} from '../spac-det/spac-det.component';
 import { NgZone } from '@angular/core';
+import { allinfos } from '../services/alltable.bd';
+import bootstrapPlugin from '@fullcalendar/bootstrap';
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path : 'spacedet/:id',component:SpacDetComponent,canActivate:[AuthGuard]},
@@ -45,7 +48,7 @@ currentEvents=[];
   eventsipos=[];
   eventsnews=[];
   eventsterm=[];
-  constructor(private router: Router,private spacsS:spacglobal,private event:events,private newses:spacs,private ngZone:NgZone, private Spacspage:spacspage) { }
+  constructor(private allinfos:allinfos,private router: Router,private spacsS:spacglobal,private event:events,private newses:spacs,private ngZone:NgZone, private Spacspage:spacspage) { }
   ngOnInit(): void {
   
     forwardRef(() => Calendar);
@@ -60,101 +63,66 @@ currentEvents=[];
     }
       }
     )
-    this.event.getAll()
-    .subscribe(
-      data => {
-        this.events = data;
-        console.log(this.events)
-        for(let d of this.events) {
-          const date = new Date(d.dates.ipo_date)
-          if(d.dates.length!=0){
-            console.log(d);
-            for(let da of d.dates) {
-              console.log(da.ipo_date);
-              this.currentEvents.push({id:d.idspac,title: d.title, date:da.ipo_date,color:'#1587B9'})
-              this.eventsipos.push({id:d.idspac,title: d.title, date:da.ipo_date,color:'#1587B9'})
-              this.currentEvents.push({id:d.idspac,title: d.title, date:da.termination_date,color:'#666D8B'})
-              this.eventsterm.push({id:d.idspac,title: d.title, date:da.termination_date,color:'#666D8B'})
-
-            }
-           
-            console.log(d.dates.ipo_date)
-          }else{
-          }
-        }
-
-        this.calendarOptions= {
-          initialView: 'dayGridMonth',
-          events:this.currentEvents,
-          dayMaxEvents:4,
-          eventColor: '#378006',  
-          headerToolbar: {
-            left:'',
-            center:'',
-            //right:'dayGridMonth,timeGridWeek,timeGridDay'
-            right:'',
-           
-          },
-
-        };
-        console.log(this.currentEvents);
-      },
-      error => {
-        console.log(error);
-      });
+ 
+    this.calendarOptions= {
+      plugins: [ bootstrapPlugin ],
+      initialView: 'dayGridMonth',
+      events:this.currentEvents,
+      dayMaxEvents:4,
+      eventColor: '#378006',  
+      themeSystem: 'bootstrap'
+    };
   
-   this.retrievespacsitems();
-   console.log(this.month);
-   console.log(this.year);
 
-   
+
+   this.getspacs()
    this.getAllSpacsResearch();
   }
 
   showipo(){
-    if(this.indexipo==0){
-    this.calendarComponent.getApi().removeAllEvents();
-    this.calendarComponent.getApi().addEventSource(this.eventsipos)
-    }else{
-      if(this.indexipo%2==0){
-        this.calendarComponent.getApi().removeAllEvents();
-        this.calendarComponent.getApi().addEventSource(this.eventsipos)
-      }else{
-        this.calendarComponent.getApi().removeAllEvents();
-        this.calendarComponent.getApi().addEventSource(this.currentEvents)
-      }
-    }
-    this.indexipo=this.indexipo+1;
+    // if(this.indexipo==0){
+    // this.calendarComponent.getApi().removeAllEvents();
+    // this.calendarComponent.getApi().addEventSource(this.eventsipos)
+    // }else{
+    //   if(this.indexipo%2==0){
+    //     this.calendarComponent.getApi().removeAllEvents();
+    //     this.calendarComponent.getApi().addEventSource(this.eventsipos)
+    //   }else{
+    //     this.calendarComponent.getApi().removeAllEvents();
+    //     this.calendarComponent.getApi().addEventSource(this.currentEvents)
+    //   }
+    // }
+    // this.indexipo=this.indexipo+1;
   }
   shownews(){
-    if(this.indextermination==0){
-      this.calendarComponent.getApi().removeAllEvents();
-      this.calendarComponent.getApi().addEventSource(this.eventsnews)
-      }else{
-        if(this.indextermination%2==0){
-          this.calendarComponent.getApi().removeAllEvents();
-    this.calendarComponent.getApi().addEventSource(this.eventsnews)
-        }else{
-          this.calendarComponent.getApi().removeAllEvents();
-          this.calendarComponent.getApi().addEventSource(this.currentEvents)
-        }
-      }
-      this.indextermination=this.indextermination+1;
+    // if(this.indextermination==0){
+    //   this.calendarComponent.getApi().removeAllEvents();
+    //   this.calendarComponent.getApi().addEventSource(this.eventsnews)
+    //   }else{
+    //     if(this.indextermination%2==0){
+    //       this.calendarComponent.getApi().removeAllEvents();
+    // this.calendarComponent.getApi().addEventSource(this.eventsnews)
+    //     }else{
+    //       this.calendarComponent.getApi().removeAllEvents();
+    //       this.calendarComponent.getApi().addEventSource(this.currentEvents)
+    //     }
+    //   }
+    //   this.indextermination=this.indextermination+1;
   }
   showtermination(){
-    if(this.indexnews==0){
-      this.calendarComponent.getApi().removeAllEvents();
-      this.calendarComponent.getApi().addEventSource(this.eventsterm)
-      }else{
-        if(this.indexnews%2==0){
-          this.calendarComponent.getApi().removeAllEvents();
-          this.calendarComponent.getApi().addEventSource(this.eventsterm)
-        }else{
-          this.calendarComponent.getApi().removeAllEvents();
-          this.calendarComponent.getApi().addEventSource(this.currentEvents)
-        }
-      }
-      this.indexnews=this.indexnews+1;
+    // if(this.indexnews==0){
+    //   this.calendarComponent.getApi().removeAllEvents();
+    //   this.calendarComponent.getApi().addEventSource(this.eventsterm)
+    //   }else{
+    //     if(this.indexnews%2==0){
+    //       this.calendarComponent.getApi().removeAllEvents();
+    //       this.calendarComponent.getApi().addEventSource(this.eventsterm)
+    //     }else{
+    //       this.calendarComponent.getApi().removeAllEvents();
+    //       this.calendarComponent.getApi().addEventSource(this.currentEvents)
+    //     }
+    //   }
+    //   this.indexnews=this.indexnews+1;
  
   }
   fyn(){
@@ -166,8 +134,7 @@ currentEvents=[];
       .subscribe(
         data => {
           this.spacssearch = data;
-          if(this.spacssearch)
-          console.log(data);
+         
         },
         error => {
           console.log(error);
@@ -184,53 +151,51 @@ currentEvents=[];
   onFocused(e){
 
   }
-
-  retrievespacsitems() {
-    this.spacsS.getAll()
+  getspacs() {
+    this.allinfos.getspacpagination()
       .subscribe(
         data => {
           this.allspacs = data;
-          if(this.allspacs)
-          console.log(data);
+          
+         
         },
         error => {
-          console.log(error);
         });
   }
   redirectlien() {
    
 }
-  select_year(value:string) :void{
-    this.headeryear=value;
-    if(this.monthchange){
-    this.yearchange=value;
-    console.log(this.monthchange);
-    console.log(value+'-'+0+this.monthchange+'-15');
-    this.calendarComponent.getApi().gotoDate(value+'-'+0+this.monthchange+'-15');
-    }else{
-      this.calendarComponent.getApi().gotoDate(value+'-04-15');
-    }
-  }
-  select_month(value:string) :void{
-    this.headermonth=value;
-    this.monthchange=value;
-    console.log(this.yearchange)
-    if(this.yearchange){
-      if(this.monthchange<=9){
-      this.calendarComponent.getApi().gotoDate(this.yearchange+'-'+0+this.monthchange+'-15');
-      }
-      else{
-        this.calendarComponent.getApi().gotoDate(this.yearchange+'-'+this.monthchange+'-15');
-      }
-    }else{
-      if(this.monthchange<=9){
-    console.log('hey');
-    console.log("the selected value is " + value);
-    this.calendarComponent.getApi().gotoDate('2021-'+0+this.monthchange+'-15');
-      }else{
-        this.calendarComponent.getApi().gotoDate('2021-'+this.monthchange+'-15');
-      }
-    }
-  }
+  // select_year(value:string) :void{
+  //   this.headeryear=value;
+  //   if(this.monthchange){
+  //   this.yearchange=value;
+  //   console.log(this.monthchange);
+  //   console.log(value+'-'+0+this.monthchange+'-15');
+  //   this.calendarComponent.getApi().gotoDate(value+'-'+0+this.monthchange+'-15');
+  //   }else{
+  //     this.calendarComponent.getApi().gotoDate(value+'-04-15');
+  //   }
+  // }
+  // select_month(value:string) :void{
+  //   this.headermonth=value;
+  //   this.monthchange=value;
+  //   console.log(this.yearchange)
+  //   if(this.yearchange){
+  //     if(this.monthchange<=9){
+  //     this.calendarComponent.getApi().gotoDate(this.yearchange+'-'+0+this.monthchange+'-15');
+  //     }
+  //     else{
+  //       this.calendarComponent.getApi().gotoDate(this.yearchange+'-'+this.monthchange+'-15');
+  //     }
+  //   }else{
+  //     if(this.monthchange<=9){
+  //   console.log('hey');
+  //   console.log("the selected value is " + value);
+  //   this.calendarComponent.getApi().gotoDate('2021-'+0+this.monthchange+'-15');
+  //     }else{
+  //       this.calendarComponent.getApi().gotoDate('2021-'+this.monthchange+'-15');
+  //     }
+  //   }
+  // }
 
 }

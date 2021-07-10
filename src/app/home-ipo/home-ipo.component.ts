@@ -4,6 +4,7 @@ import { NgbDate, NgbCalendar, NgbInputDatepicker } from '@ng-bootstrap/ng-boots
 import {spacs} from '../services/spacs.bd'; 
 import {spacglobal} from '../services/spacglobal.bd';
 import { Pipe, PipeTransform } from '@angular/core';
+import { news_nv } from '../services/news-nv.bd';
 
 @Component({
   selector: 'app-home-ipo',
@@ -11,6 +12,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   styleUrls: ['./home-ipo.component.scss']
 })
 export class HomeIpoComponent implements OnInit {
+  newsnv:any=[];
   spacsitems:any;
   currentspac=null;
   currentIndex=-1;
@@ -173,7 +175,7 @@ category="All";
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
 
-  constructor(calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal) {
+  constructor(calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal,public news:news_nv) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
     this.startPage = 0;
@@ -193,22 +195,30 @@ console.log(this.category);
   }
 
   getnews(){
-    this.spacsS.getbycat(2,this.startPage,this.paginationLimit)
+    this.news.getPagination(this.startPage,this.paginationLimit)
     .subscribe(
       data => {
         this.list=data
-        console.log(data)
+        for (let index = 0; index < this.list.spacs.length; index++) {
+          if(this.list.spacs[index].id_types===2){
+          this.newsnv.push({id:this.list.spacs[index].id,date:this.list.spacs[index].date,title:this.list.spacs[index].title,caption:this.list.spacs[index].description,uploads:this.list.spacs[index].uploads});
+          }
+        }
+        console.log(this.newsnv)
       },
       error => {
       });
   }
   showMoreItems()
   {
+    this.newsnv.length=0;
      this.paginationLimit = Number(this.paginationLimit) + 9;    
      this.getnews()   
   }
   showLessItems()
   {
+    this.newsnv.length=0;
+
     if(this.paginationLimit!=9){
      this.paginationLimit = Number(this.paginationLimit) - 9;    
      this.getnews()   

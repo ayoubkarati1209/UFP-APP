@@ -49,12 +49,12 @@
                                     </td>
                                     <td>
                                         <span *ngFor="let uploads of research?.uploads;let i=index">
-                                        <img *ngIf="research?.uploads[i]?.type==0" src="http://18.206.59.178:8050/{{ research?.uploads[i]?.file }}" class="img-thumbnail" alt="...">
+                                        <img *ngIf="research?.uploads[i]?.type==0" src="http://54.205.210.47:8050/{{ research?.uploads[i]?.file }}" class="img-thumbnail" alt="...">
                                     </span>
                                     </td>
                                     <td>
                                         <span *ngFor="let uploads of research?.uploads;let i=index">
-                                        <a *ngIf="research?.uploads[i]?.type==1" href="http://18.206.59.178:8050/{{ research?.uploads[i]?.file }}">Click to download</a>
+                                        <a *ngIf="research?.uploads[i]?.type==1" href="http://54.205.210.47:8050/{{ research?.uploads[i]?.file }}">Click to download</a>
                                     </span>
                                     </td>
                                     <td>

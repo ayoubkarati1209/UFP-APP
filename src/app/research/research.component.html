@@ -16,11 +16,11 @@
                         {{ newsresarch?.description }}
                     </p>
                 </div>
-                <div class="d-sm-flex" id="a">
+                <div class="d-sm-flex">
                     <h4 class="card-title flex-shrink-1"></h4>
-                    <p class="m-sm-0 ml-sm-auto flex-shrink-0" id="lien">
+                    <p class="m-sm-0 ml-sm-auto flex-shrink-0" >
                         <span *ngFor="let uploads of newsresarch?.uploads;let i=index">
-                            <a *ngIf="newsresarch?.uploads[i]?.type==1" href="http://localhost:8050/{{ newsresarch?.uploads[i]?.file }}" target="_blank" class="btn btn-sm" style="text-decoration: none;"><span style="color: white;">Generate PDF </span>
+                            <a *ngIf="newsresarch?.uploads[i]?.type==1" href="http://54.205.210.47:8050/{{ newsresarch?.uploads[i]?.file }}" target="_blank" class="btn btn-sm" style="text-decoration: none;"><span style="color: white;">Generate PDF </span>
                         <i class="fa fa-download" aria-hidden="true" style="color: white;"></i>
                         </a>
                         </span>

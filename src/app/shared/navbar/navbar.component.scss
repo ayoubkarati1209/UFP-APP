@@ -21,6 +21,18 @@
     }
 }
 
+@media (max-width: 990px) {
+    #phidden {
+        display: block;
+    }
+}
+
+@media (min-width: 990px) {
+    #phidden {
+        display: none;
+    }
+}
+
 .navbar-nav {
     .nav-item {
         .nav-link {

@@ -8,7 +8,7 @@ const baseUrl = 'http://18.206.59.178:8060/api/spacevents/pagination';
 })
 export class events {
   constructor(private http: HttpClient) { }
-
+/*
   getAll() {
     return this.http.get(baseUrl);
   }
@@ -35,4 +35,6 @@ export class events {
   findByTitle(title) {
     return this.http.get(`${baseUrl}?title=${title}`);
   }
+  */
+
 }

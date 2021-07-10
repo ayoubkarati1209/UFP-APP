@@ -4,9 +4,9 @@
         <div class="input-group input-group-lg">
             <ng-autocomplete type="text" class="form-control align-center" [data]="spacssearch" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onchangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier="spacssearch" [itemTemplate]="itemTemplate"
                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Search SPACs " style="border: none;font-size:23px;font-weight: lighter;"> </ng-autocomplete>
-            <span class="input-group-text" id="inputGroup-sizing-lg" style="border: none;background-color: white;border-radius: 0px;color: #efefef;"><i class="mdi mdi-magnify" style="font-size: 23px;"></i></span>
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="margin-left:-7px;border: none;background-color: white; color: #efefef;font-size: 23px;"><i class="mdi mdi-magnify"></i></span>
             <ng-template #itemTemplate let-item style="width:700px;">
-                <a [routerLink]="[ '/spacedet', item.idspac]" [innerHTML]="item.name"></a>
+                <a [routerLink]="[ '/allspac', item.id]" [innerHTML]="item.name"></a>
             </ng-template>
             <ng-template #notFoundTemplate let-notFound>
                 <div [innerHTML]="notFound"></div>
@@ -25,9 +25,6 @@
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item " id="news_show_btn">
                             <a class="nav-link" (click)="ShowAllItems()"><span class="badge rounded-pill" [style.color]="colorAll" [style.background-color]="BackcolorAll" style="font-family: 'Avenir', Helvetica, sans-serif;font-weight: lighter;font-size: 15px;">All</span></a>
-                        </li>
-                        <li class="nav-item me-md-3" id="news_show_btn">
-                            <a class="nav-link" (click)="ShowNewsItems()"><span class="badge rounded-pill" [style.color]="colorNews" [style.background-color]="BackcolorNews"  style="font-family: 'Avenir', Helvetica, sans-serif;font-weight: lighter;font-size: 15px;" >News</span></a>
                         </li>
                         <li class="nav-item me-md-3" id="ipo_show_btn">
                             <a class="nav-link" (click)="ShowIpoItems()"><span class="badge rounded-pill" [style.color]="colorIpo" [style.background-color]="BackcolorIpo" style="font-family: 'Avenir', Helvetica, sans-serif;font-weight: lighter;font-size: 15px;">IPO</span></a>
@@ -77,11 +74,10 @@
 
                         </thead>
                         <tbody>
-                            <tr *ngFor="let spacone of allspacs | slice:0:6;let i= index">
-                                <td><a [routerLink]="[ '/spacedet', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.name }}</a></td>
-                                <td><a [routerLink]="[ '/spacedet', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
-                                <td><a [routerLink]="[ '/spacedet', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
-
+                            <tr *ngFor="let spacone of allspacs?.admin_detail">
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.name }}</a></td>
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
                             </tr>
                         </tbody>
 

@@ -1,6 +1,5 @@
 import { Component, OnInit,ViewChild,OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import {overview} from '../services/overview.bd';
 import {spacs} from '../services/spacs.bd';
 import {trusts} from '../services/trust_datat_return.db';
 import {units} from '../services/unit_informations.db';
@@ -104,7 +103,7 @@ export class SpacDetComponent implements OnInit,OnDestroy {
   Linechart = [];  
   targetstatus:boolean;
   filins_link:boolean;
-  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,private activeID:ActivatedRoute,private tutorialService: overview,private latestnews:spacs,private trust:trusts,private unit:units,
+  constructor(@Inject(PLATFORM_ID) private platformId, private zone: NgZone,private activeID:ActivatedRoute,private latestnews:spacs,private trust:trusts,private unit:units,
     private filing:filings,private admins:admins,private admin_details:adminsDet,private directors_officiers:directors,private shareholdersa:shareholders,private spacs:spacspage,
     private stock:stock,private warrant:warrant, private Price_histories:price_histories
     ) { }
@@ -192,7 +191,6 @@ export class SpacDetComponent implements OnInit,OnDestroy {
     }
     
     );
-    this.retrieveTutorials();
     this.LatestNews();
     this.getTruts();
     this.lineChartMethod();
@@ -303,24 +301,7 @@ console.log(this.resarch);
         console.log(error);
       });
   }
-  retrieveTutorials() {
-    this.tutorialService.get(this.spacId)
-      .subscribe(
-        data => {
-          this.tutorials = data;
-          console.log(data)
-          if(this.tutorials.statuts=='true'){
-            this.targetstatus=true
-            console.log(this.tutorials.statuts)
-          }else{
-            this.targetstatus=false
-            console.log(this.tutorials.statuts)
-          }
-        },
-        error => {
-     
-        });
-  }
+
   getAdmins() {
     this.admins.getAllWhere(this.spacId)
       .subscribe(
@@ -445,7 +426,6 @@ this.filins_link=true
         });
   }
   refreshList() {
-    this.retrieveTutorials();
     this.currentTutorial = null;
     this.currentIndex = -1;
   }
@@ -455,29 +435,8 @@ this.filins_link=true
     this.currentIndex = index;
   }
 
-  removeAllTutorials() {
-    this.tutorialService.deleteAll()
-      .subscribe(
-        response => {
-       
-          this.refreshList();
-        },
-        error => {
-       
-        });
-  }
 
-  searchTitle() {
-    this.tutorialService.findByTitle(this.title)
-      .subscribe(
-        data => {
-          this.tutorials = data;
-   
-        },
-        error => {
-       
-        });
-  }
+
   lineChartMethod() {
   
   }

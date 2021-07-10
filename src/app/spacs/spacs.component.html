@@ -4,7 +4,7 @@
         <div class="input-group input-group-lg">
             <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Search SPACs" style="border: none;font-size: 22px;font-weight: lighter;" [(ngModel)]="searchText" (keyup)="searchItems()" id="search-input"
                 mdbInput>
-            <span class="input-group-text" id="inputGroup-sizing-lg" style="border: none;background-color: white;border-radius: 0px;color: #efefef;"><i class="mdi mdi-magnify" style="font-size: 22px;"></i></span>
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="margin-left:-7px;border-radius:5px;border: none;background-color: white;color: #efefef;"><i class="mdi mdi-magnify" style="font-size: 22px;"></i></span>
 
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light" id="filter">
@@ -15,12 +15,13 @@
           </button>
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="ul1">
-                        <li class="nav-item " id="item1">
-                            <a class="nav-link" aria-current="page" (click)="Target()" style="cursor: pointer;"> <span class="rounded-pill" style="background-color: #313C64;color:white;padding:6px;" *ngIf="targ">Target</span><span *ngIf="!targ">Target</span></a>
-                        </li>
-                        <li class="nav-item me-md-3" id="item2">
-                            <a class="nav-link" (click)="NoTarget()" style="cursor: pointer;"><span class="rounded-pill" style="background-color: #313C64;color:white;padding: 6px;" *ngIf="notarg">No Target</span><span *ngIf="!notarg">No Target</span></a>
-                        </li>
+
+                        <select class="form-control" [(ngModel)]="target">
+      <option value="null" selected>Select option</option>      
+      <option value="Comb" >Comb</option>
+      <option value="No Comb">No Comb</option>
+    </select>
+
                         <!--
                         <li class="nav-item " id="item3">
                             <a class="nav-link" aria-current="page" href="#" style="font-size:12px;">IPO date between</a>

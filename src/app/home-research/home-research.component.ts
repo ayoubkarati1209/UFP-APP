@@ -4,6 +4,7 @@ import { NgbDate, NgbCalendar, NgbInputDatepicker } from '@ng-bootstrap/ng-boots
 import {spacs} from '../services/spacs.bd'; 
 import {spacglobal} from '../services/spacglobal.bd';
 import { Pipe, PipeTransform } from '@angular/core';
+import { news_nv } from '../services/news-nv.bd';
 
 @Component({
   selector: 'app-home-research',
@@ -12,6 +13,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class HomeResearchComponent implements OnInit {
   spacsitems:any;
+  newsnv:any=[];
   currentspac=null;
   currentIndex=-1;
   allspacs:any;
@@ -175,7 +177,7 @@ cat:any;
   startPage : Number;
   paginationLimit:Number; 
   list:any;
-  constructor(calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal) {
+  constructor(public news:news_nv,calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
   this.startPage=0
@@ -192,23 +194,27 @@ this.category="News";
 console.log(this.category);
   }
   retrievespacsitems() {
-    this.cat=4;
-    this.spacsS.getbycat(this.cat,this.startPage,this.paginationLimit)
-      .subscribe(
-        data => {
-          this.spacsitems = data;
-          if(this.spacsitems)
-          console.log(data);
-        },
-        error => {
-          console.log(error);
-        });
+    this.news.getPagination(this.startPage,this.paginationLimit)
+    .subscribe(
+      data => {
+        this.list=data
+        for (let index = 0; index < this.list.spacs.length; index++) {
+          if(this.list.spacs[index].id_types===3){
+          this.newsnv.push({id:this.list.spacs[index].id,date:this.list.spacs[index].date,title:this.list.spacs[index].title,caption:this.list.spacs[index].description,uploads:this.list.spacs[index].uploads});
+          }
+        }
+        console.log(this.newsnv)
+      },
+      error => {
+      });
   }
   showMoreItems(){
+    this.newsnv.length=0;
     this.paginationLimit=Number(this.paginationLimit)+9;
     this.retrievespacsitems()
   }
   showLessItems(){
+    this.newsnv.length=0;
     this.paginationLimit=Number(this.paginationLimit)-9;
     this.retrievespacsitems()
   }

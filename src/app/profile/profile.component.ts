@@ -35,13 +35,16 @@ export class ProfileComponent implements OnInit {
       if(auth) {
 
       } else {
-        console.log('not logged in');
+
       }
     });
 
   }
 
   public async ngOnInit(){
+  this.getinfos()
+  }
+  getinfos(){
     this.auth.getUserState().subscribe(
       user=>{
         this.user=user;
@@ -58,7 +61,6 @@ export class ProfileComponent implements OnInit {
             last_name:data['last_name'],
             username:data['username'],
           })
-          console.log(this.bdinfosuser)
           },
           error => {
           });
@@ -81,14 +83,16 @@ export class ProfileComponent implements OnInit {
     });
   }
   onModify():any{
-    console.log("click");
     this.users.update(this.iduser,this.profile_infos.value)
     .subscribe(
       data => {
         this.showSuccess()
+        this.modalRef.hide();
+        this.bdinfosuser.length=0
+        this.getinfos()
       },error=>{
         this.showError()
       }
     );
-  }
+  } 
 }

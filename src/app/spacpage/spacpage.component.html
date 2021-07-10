@@ -34,7 +34,7 @@
                             <tbody style="background-color: transparent;">
                                 <tr>
                                     <td colspan="2">Market cap in $mm</td>
-                                    <td>{{ spacsinfos?.overviews[0]?.market_cap }}</td>
+                                    <td>{{ spacsinfos?.overviews[0]?.market_cap | number }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">IPO lead manager</td>
@@ -42,7 +42,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">Intended industry focus</td>
-                                    <td>{{ oversinfos?.industries[0]?.name }}</td>
+                                    <td>{{spacsinfos?.overviews[0]?.industry?.name }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Company filings link</td>
@@ -75,8 +75,8 @@
 
                             </thead>
                             <tbody>
-                                <tr *ngFor="let news of (allnews ? allnews : []) | slice:0:4;let i = index">
-                                    <td>{{ news?.date }}</td>
+                                <tr *ngFor="let news of allnews;let i = index">
+                                    <td>{{ news?.date | date:"dd-MM-yyyy"}}</td>
                                     <td *ngIf="news?.id_types==3">Research</td>
                                     <td>{{ news?.title }}</td>
                                 </tr>
@@ -102,7 +102,7 @@
                     <tbody style="background-color: transparent;">
                         <tr>
                             <td colspan="2">IPO date</td>
-                            <td>{{ spacsinfos?.trusts[0]?.ipo_date }}</td>
+                            <td>{{ spacsinfos?.trusts[0]?.ipo_date | date:"dd-MM-yyyy"}}</td>
                         </tr>
                         <tr>
                             <td colspan="2">Original length of combination period (months)</td>
@@ -119,19 +119,19 @@
                         </tr>
                         <tr>
                             <td colspan="2">Date of latest filing</td>
-                            <td>{{ filing[0]?.date }}</td>
+                            <td>{{ filing[0]?.date | date:"dd-MM-yyyy"}}</td>
                         </tr>
                         <tr>
                             <td colspan="2">Most recent cash in trust</td>
-                            <td>{{ spacsinfos?.trusts[0]?.recent_cash }}</td>
+                            <td>${{ spacsinfos?.trusts[0]?.recent_cash }}</td>
                         </tr>
                         <tr>
                             <td colspan="2">Most recent shares outstanding (mm)</td>
-                            <td>${{ spacsinfos?.trusts[0]?.recent_shares }}</td>
+                            <td>{{ spacsinfos?.trusts[0]?.recent_shares }}</td>
                         </tr>
                         <tr>
                             <td colspan="2">Most recent cash in trust per share</td>
-                            <td>{{ (spacsinfos?.trusts[0]?.recent_cash/spacsinfos?.trusts[0]?.recent_shares).toFixed(2) }}</td>
+                            <td>${{ (spacsinfos?.trusts[0]?.recent_cash/spacsinfos?.trusts[0]?.recent_shares).toFixed(2) }}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -194,7 +194,7 @@
                                 </tr>
                                 <tr>
                                     <td>IPO date</td>
-                                    <td>{{ spacsinfos?.trusts[0]?.ipo_date }}</td>
+                                    <td>{{ spacsinfos?.trusts[0]?.ipo_date | date:"dd-MM-yyyy"}}</td>
 
                                 </tr>
                                 <tr>
@@ -215,7 +215,7 @@
                                 </tr>
                                 <tr>
                                     <td>IPO issuance</td>
-                                    <td>{{ spacsinfos?.trusts[0]?.ipo_issuance }}</td>
+                                    <td>{{ spacsinfos?.trusts[0]?.ipo_issuance | number}}</td>
                                 </tr>
                                 <tr *ngIf="warrent">
                                     <td>Underlying multiplier</td>
@@ -280,7 +280,7 @@
                         currentPage: page,
                         totalItems: count};">
                         <tr>
-                            <td>{{ time?.date }}</td>
+                            <td>{{ time?.date | date:"dd-MM-yyyy"}}</td>
                             <td>{{ time?.type }}</td>
                             <td style="max-width:70px;"><a href="{{ time?.link }}" target="_blank">{{ time?.title }}</a></td>
                         </tr>
@@ -303,18 +303,30 @@
             </div>
             <div class="table-responsive bg-light">
                 <table class="table table-hover" id="tableSortExample" mdbTable>
-                    <thead>
-                        <tr>
-                            <th *ngFor="let head of headElementsth; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="directors" [sortBy]="headElements[i]">{{head | titlecase}}
+                    <thead class="align-top">
+                        <tr class="align-top">
+                            <th class="align-top" *ngFor="let head of headElementsth; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="directors" [sortBy]="headElements[i]">{{head | titlecase}}
                                 <i class="mdi mdi-menu-down"></i></th>
                         </tr>
                     </thead>
-                    <tbody *ngFor="let officiers of directors;let i=index">
+                    <tbody *ngFor="let officiers of directors;">
                         <tr>
                             <td>{{ officiers?.name }}</td>
                             <td>{{ officiers?.position }}</td>
                             <td>{{ officiers?.age }}</td>
-                            <td>{{ officiers?.summary }}</td>
+                            <td><button class="waves-light btn-xs" type="button" (click)="test.toggle()" mdbWavesEffect>
+                                <i class="fa fa-bars" aria-hidden="true"></i>
+                              </button>
+
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="4" style="border: none;">
+                                <div mdbCollapse #test="bs-collapse">
+                                    <p>{{ officiers?.summary }}</p>
+                                </div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
