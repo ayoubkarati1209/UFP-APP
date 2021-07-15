@@ -1,12 +1,11 @@
-<div class="card">
-    <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Research</h3>
-    <div class="card-body">
+<div class="card" style="background-color: transparent;">
+    <div class="card-body" style="background-color: transparent;">
         <div id="table" class="table-editable">
             <span class="table-add float-right mb-3 mr-2">
         </span>
 
             <div class="card" style="background-color: transparent;">
-                <div class="card-body">
+                <div class="card-body" style="background-color: transparent;">
                     <span class="table-add float-right mb-3 mr-2">
                         <div class="template-demo d-flex justify-content-between flex-nowrap">
                             <button type="button" class="btn btn-success btn-rounded btn-icon" (click)="openModal(createNews)">
@@ -14,14 +13,12 @@
                             </button>
                             </div>
                       </span>
-                    <div class="table-responsive">
+                    <div class="table-responsive custom-table-responsive">
 
                         <ngx-loading-bar [fixed]="false" [color]="'white'" [height]="'12'"></ngx-loading-bar>
 
-                        <table class="table table-hover">
-                            <thead style="background-color: #1587B9;font-size:17px;color:white;
-                            margin: 0px auto;
-                            float: none;">
+                        <table class="table custom-table">
+                            <thead>
                                 <tr>
                                     <th>Date</th>
                                     <th>Title</th>
@@ -31,9 +28,10 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody *ngFor="let research of (allresarch ? allresarch : []) ;let i = index">
+                                <tr class="spacer"><td colspan="100"></td></tr>
 
-                                <tr *ngFor="let research of (allresarch ? allresarch : []) ;let i = index">
+                                <tr >
 
                                     <td>
                                         {{ research?.date }}
@@ -44,7 +42,7 @@
                                     </td>
                                     <td>
                                         <p class="align-left" style="text-align: left;max-width:300px;">
-                                            {{ research?.description }}
+                                            {{ research?.description | slice:0:100}}
                                         </p>
                                     </td>
                                     <td>
@@ -57,19 +55,19 @@
                                         <a *ngIf="research?.uploads[i]?.type==1" href="http://54.205.210.47:8050/{{ research?.uploads[i]?.file }}">Click to download</a>
                                     </span>
                                     </td>
-                                    <td>
-                                        <div class="template-demo d-flex justify-content-between flex-nowrap" style="width: 20px;">
-                                            <button type="button" class="btn btn-sm btn-icon" style="background-color: transparent;" (click)="GetResearch(modifynews,research?.id)">
-                                                <i class="fa fa-pencil" aria-hidden="true" style="color: green;"></i>
+                                    <th>
+                                        <div class="d-flex justify-content-center">
+                                            <button type="button" class="btn btn-icon" style="background-color: #1587B9;border-radius: 7px;" (click)="GetResearch(modifynews,research?.id)" >
+                                                <i class="fa fa-pencil" aria-hidden="true" style="color: white;"></i>
                                             </button>
-                                            <button type="button" class="btn btn-sm btn-icon" style="background-color: transparent;">
-                                                <a [routerLink]="['/research',research?.id]" style="color: blue;"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                            <button type="button" class="btn btn-icon" style="background-color: #1587B9;border-radius: 7px;">
+                                                <a [routerLink]="['/research',research?.id]"><i class="fa fa-eye" aria-hidden="true" style="color: white;"></i></a>
                                             </button>
-                                            <button type="button" class="btn btn-sm btn-icon" (click)="deleteR(removeresearch,research?.id)" style="background-color: transparent;">
-                                                <i class="fa fa-trash-o" aria-hidden="true" style="color: red;"></i>
+                                            <button type="button" class="btn btn-icon" (click)="deleteR(removeresearch,research?.id)" style="background-color: #1587B9;border-radius: 7px;">
+                                                <i class="fa fa-trash-o" aria-hidden="true" style="color: white;"></i>
                                             </button>
                                         </div>
-                                    </td>
+                                    </th>
                                 </tr>
 
 

@@ -10,6 +10,7 @@ const baseUrl6 = 'http://54.205.210.47:8050/api/spacs/page';
 const baseUrl4='http://54.205.210.47:8050/api/overview-section';
 const trusts='http://54.205.210.47:8050/api/trusts';
 const markets='http://54.205.210.47:8050/api/markets';
+const tickers = 'http://54.205.210.47:8050/api/spacsglobal/r';
 @Injectable({
   providedIn: 'root'
 })
@@ -21,6 +22,9 @@ export class allinfos {
   }
   getSpacs() {
     return this.http.get(baseUrl3);
+  }
+  getSpacsid(id) {
+    return this.http.get(`${baseUrl3}/${id}`);
   }
   getovers(id) {
     return this.http.get(`${baseUrl4}/${id}`);
@@ -59,5 +63,8 @@ export class allinfos {
   getallfilings(id){
     return this.http.get(`${baseUrl1}/all/${id}`);
 
+  }
+  getAlltrusts(){
+    return this.http.get(`${trusts}/`);
   }
 }

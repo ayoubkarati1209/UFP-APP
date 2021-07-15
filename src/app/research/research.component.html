@@ -16,7 +16,7 @@
                         {{ newsresarch?.description }}
                     </p>
                 </div>
-                <div class="d-sm-flex">
+                <div class="d-sm-flex" *ngIf="newsresarch?.id_types">
                     <h4 class="card-title flex-shrink-1"></h4>
                     <p class="m-sm-0 ml-sm-auto flex-shrink-0" >
                         <span *ngFor="let uploads of newsresarch?.uploads;let i=index">

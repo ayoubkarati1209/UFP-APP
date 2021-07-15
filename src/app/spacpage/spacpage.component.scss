@@ -1,3 +1,42 @@
 .dropdown-toggle::after {
     display: none;
 }
+
+.nav-link-filter {
+    font-size: 15px;
+    font-weight: 400;
+    padding: 8px 15px 8px 15px;
+    border-radius: 6px;
+    color: #868686 !important;
+    text-decoration: none !important;
+    transition: .3s;
+}
+
+.nav-link-filter:hover {
+    background-color: #313C64;
+    color: #FFF !important;
+}
+
+.nav-active {
+    background-color: #313C64;
+    color: #FFF !important;
+}
+
+.fil-span {
+    height: 90%;
+    width: 80px;
+    border-right: 1.7px solid #e0e0e0;
+    color: #868686;
+}
+
+.sort-span {
+    color: #868686;
+}
+.my-pagination /deep/ .ngx-pagination .current {
+    background: #313C64;
+    border-radius: 4px;
+  }
+
+  .card-header{
+      border-radius: 5px;
+  }

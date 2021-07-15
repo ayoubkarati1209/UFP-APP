@@ -77,6 +77,7 @@ import { EditComponent } from './updateresearch/edit/edit.component';
 import { AddComponent } from './updateresearch/add/add.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SpacstableComponent } from './spacstable/spacstable.component';
+import { TabModule } from '@syncfusion/ej2-angular-navigations';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin,
@@ -126,6 +127,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SpacstableComponent
   ],
   imports: [ 
+    TabModule,
     ModalModule.forRoot(),
     AngularFireModule.initializeApp({apiKey: "AIzaSyDawvTqfuYIkGIbkGky_NgMWN0MpG8kuaQ",
     authDomain: "ufp-spacs.firebaseapp.com",

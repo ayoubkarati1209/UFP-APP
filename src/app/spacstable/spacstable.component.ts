@@ -16,17 +16,12 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
   styleUrls: ['./spacstable.component.scss'],
   providers: [DatePipe]
 })
-@Pipe({ name: 'sortBy' })
-export class SpacstableComponent implements OnInit {
-  transform(value: any[], order :any, column: string = ''): any[] {
-    if (!value || order === '' || !order) { return value; } // no array
-    if (value.length <= 1) { return value; } // array with only one item
-    if (!column || column === '') { 
-      if(order==='asc'){return value.sort()}
-      else{return value.sort().reverse();}
-    } // sort 1d array
-    return orderBy(value, [column], [order]);
-  }
+@Pipe({
+  name: 'tableFilter'
+})
+export class SpacstableComponent implements OnInit,PipeTransform {
+  target: string;
+
   keyword = 'name';
   collection: any;
   p: number;
@@ -39,8 +34,8 @@ export class SpacstableComponent implements OnInit {
   elements: any = [];
   markets:any=[];
   spacssearch:any;
-  headElements = ['Company', 'ticker', 'intended_industry_focus', 'current_market_cap','last_price','Combination_Announced' ,'target','termination_date'];
-  headThs = ['Company', 'Ticker', 'Industry focus', ' Market cap in $mm',' Last price ( in $)','Combination announced ?' ,'Target','Remaining life'];
+  headElements = ['ID','Company', 'ticker', 'intended_industry_focus', 'current_market_cap','last_price','Combination_Announced' ,'target','termination_date'];
+  headThs = ['id','Company', 'Ticker', 'Industry focus', ' Market cap in $mm',' Last price ( in $)','Combination announced ?' ,'Target','Remaining life'];
   constructor(private datePipe:DatePipe,public allinfos:allinfos, private http: HttpClient) {}
 
 
@@ -49,7 +44,11 @@ export class SpacstableComponent implements OnInit {
     this.getAllData();
     this.getAllSpac();
   }
-                                    
+  transform(list: any[], value: string) {
+  
+
+    return value ? list.filter(item => item.target === value) : list;
+  }                               
                                          
   selectEvent(item){
     
@@ -101,7 +100,8 @@ export class SpacstableComponent implements OnInit {
   })
 }
 
-getPage(page) { 
+getPage(page) {
+  page=page-1; 
   const url = `http://54.205.210.47:8050/api/spacs/page?page=${page}&size=${this.itemsPerPage}`;
   this.http.get(url).subscribe((data: any) => {
     this.elements.length=0;
@@ -146,5 +146,4 @@ getAllSpac() {
       error => {
       });
 }
-
 }

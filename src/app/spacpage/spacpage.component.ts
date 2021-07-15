@@ -6,6 +6,8 @@ import { news_nv } from '../services/news-nv.bd';
 import { DatePipe } from '@angular/common';
 import * as Highcharts from 'highcharts';
 import * as cdata from './data';
+import { TabComponent } from '@syncfusion/ej2-angular-navigations';
+
 const More = require('highcharts/highcharts-more');
 More(Highcharts);
 
@@ -26,6 +28,8 @@ Accessibility(Highcharts);
 })
 export class SpacpageComponent implements OnInit {
   public datac= cdata.TimeChartData;
+  public headerText: Object = [{ text: 'HTML' }, { text: 'C Sharp(C#)' }, { text: 'Java' }, { text: 'VB.Net' },
+  { text: 'Xamarin' }, { text: 'ASP.NET' }, { text: 'ASP.NET MVC' }, { text: 'JavaScript' }];
 
   oversinfos:any;
   spacId: any;
@@ -129,12 +133,11 @@ export class SpacpageComponent implements OnInit {
                zoomType: 'x',
             },
             title: {
-                text: ''
+                text: 'Unit informations'
             },
             subtitle: {
-                text: document.ontouchstart === undefined ?
-                    '' : ''
-            },
+              text: ""
+           },
             credits: {
               enabled: false
           },
@@ -143,11 +146,11 @@ export class SpacpageComponent implements OnInit {
             },
             yAxis: {
                 title: {
-                    text: ''
+                    text: 'prices'
                 }
             },
             legend: {
-                enabled: false
+                enabled: true
             },
             plotOptions: {
                         area: {
@@ -177,7 +180,7 @@ export class SpacpageComponent implements OnInit {
                     },
             series: [{
                         type: 'area',
-                        name: 'Price',
+                        name: 'dates',
                         data: this.pricearray
                     }]
           }
@@ -241,7 +244,7 @@ this.options = {
      zoomType: 'x',
   },
   title: {
-      text: ''
+      text: 'Common stock information'
   },
   subtitle: {
       text: document.ontouchstart === undefined ?
@@ -307,7 +310,7 @@ Highcharts.chart('container', this.options);
          zoomType: 'x',
       },
       title: {
-          text: ''
+          text: 'Warrant information'
       },
       subtitle: {
           text: document.ontouchstart === undefined ?

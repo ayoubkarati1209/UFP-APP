@@ -4,74 +4,115 @@
         <div class="input-group input-group-lg">
             <ng-autocomplete type="text" class="form-control align-center" [data]="spacssearch" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onchangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier="spacssearch" [itemTemplate]="itemTemplate"
                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Search SPACs " style="border: none;font-size:23px;font-weight: lighter;"> </ng-autocomplete>
-            <span class="input-group-text" id="inputGroup-sizing-lg" style="margin-left:-7px;border: none;background-color: white; color: #efefef;font-size: 23px;"><i class="mdi mdi-magnify"></i></span>
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="margin-left:-7px;border: none;background-color: white; color: #EFEFEF;font-size: 23px;border-radius: 7px;"><i class="mdi mdi-magnify"></i></span>
             <ng-template #itemTemplate let-item style="width:700px;">
                 <a [routerLink]="[ '/allspac', item.id]" [innerHTML]="item.name"></a>
             </ng-template>
             <ng-template #notFoundTemplate let-notFound>
                 <div [innerHTML]="notFound"></div>
             </ng-template>
-
         </div>
     </div>
     <div class="col-md-2"></div>
     <div class="col-lg-9">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" id="hero">
+        <nav class="navbar navbar-expand-lg bg-white shadow-sm" id="hero" >
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" style="padding: 0;border:none;">
                     <i class="fa fa-bars" aria-hidden="true" style="color: #6A6A6A;"></i>
-          </button>
+                </button>
                 <div class="collapse navbar-collapse" id="navbarText">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item " id="news_show_btn">
-                            <a class="nav-link" (click)="ShowAllItems()"><span class="badge rounded-pill" [style.color]="colorAll" [style.background-color]="BackcolorAll" style="font-family: 'Avenir', Helvetica, sans-serif;font-weight: lighter;font-size: 15px;">All</span></a>
+                    <ul class="navbar-nav mx-auto" style="display: flex; justify-content: space-between; align-items: center;">
+                        <li class="nav-item" id="news_show_btn">
+                            <a class="nav-link-filter flink flink-all nav-active" (click)="filter_all()">ALL</a>
                         </li>
                         <li class="nav-item me-md-3" id="ipo_show_btn">
-                            <a class="nav-link" (click)="ShowIpoItems()"><span class="badge rounded-pill" [style.color]="colorIpo" [style.background-color]="BackcolorIpo" style="font-family: 'Avenir', Helvetica, sans-serif;font-weight: lighter;font-size: 15px;">IPO</span></a>
+                            <a class="nav-link-filter flink flink-ipo" (click)="filter_ipo()">IPO</a>
                         </li>
                         <li class="nav-item me-md-3" id="sec_show_btn">
-                            <a class="nav-link" (click)="ShowSecItems()"><span class="badge rounded-pill" [style.color]="colorSec" [style.background-color]="BackcolorSec" style="font-family: 'Avenir', Helvetica, sans-serif;font-weight: lighter;font-size: 15px;">SEC</span></a>
+                            <a class="nav-link-filter flink flink-sec" (click)="filter_sec()">SEC</a>
                         </li>
                         <li class="nav-item me-md-3" id="research_show_btn">
-                            <a class="nav-link" (click)="ShowResearchItems()"><span class="badge rounded-pill" [style.color]="colorResearch" [style.background-color]="BackcolorResearch" style="font-family: 'Avenir', Helvetica, sans-serif;font-weight: lighter;font-size: 15px;">Research</span></a>
+                            <a class="nav-link-filter flink flink-res" (click)="filter_res()">Research</a>
                         </li>
                     </ul>
                 </div>
             </div>
-
         </nav>
         <ngx-loading-bar [fixed]="false" color="#1587B9" [height]="'12'"></ngx-loading-bar>
-
-
     </div>
     <div class="col-lg-9" style="margin-top:10px;padding: 0 !important;">
-
-        <app-home-all contentAnimate *ngIf="ShowAll">
+        <!-- <app-home-all contentAnimate *ngIf="ShowAll">
         </app-home-all>
         <app-home-news contentAnimate *ngIf="ShowNews"><i class="fa fa-frown-o" aria-hidden="true" *ngIf="no_data"></i></app-home-news>
         <app-home-ipo contentAnimate *ngIf="ShowIpo"><i class="fa fa-frown-o" aria-hidden="true" *ngIf="no_data"></i></app-home-ipo>
         <app-home-sec contentAnimate *ngIf="ShowSec"><i class="fa fa-frown-o" aria-hidden="true" *ngIf="no_data"></i></app-home-sec>
-        <app-home-research contentAnimate *ngIf="ShowResearch"><i class="fa fa-frown-o" aria-hidden="true" *ngIf="no_data"></i></app-home-research>
-
-
+        <app-home-research contentAnimate *ngIf="ShowResearch"><i class="fa fa-frown-o" aria-hidden="true" *ngIf="no_data"></i></app-home-research> -->
+        <div class="row p-2">
+            <div *ngFor="let news of list?.spacs" class="col-sm-6 col-md-6 col-lg-4 filter-{{ news?.id_types }} spacos" style="padding-bottom: 20px;">
+                <div class="card card-block card-stretch card-height blog blog-comments rounded shadow-sm">
+                    <a [routerLink]="['/research', news.id]" class="lien">
+                        <div class="image-block position-relative" style="height: 280px; padding: 17px 17px 0px 17px;">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[0]?.type==0" src="http://54.205.210.47:8050/{{ news?.uploads[0]?.file }}" class="card-img-top rounded" alt="blog-img">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[1]?.type==0" src="http://54.205.210.47:8050/{{ news?.uploads[1]?.file }}" class="card-img-top rounded" alt="blog-img">
+                            <div *ngIf="news?.id_types == 2" class="blog-meta-date rounded-pill">
+                                <div class="month" style="font-size: 12px;">
+                                    IPO
+                                </div>
+                            </div>
+                            <div *ngIf="news?.id_types == 3" class="blog-meta-date rounded-pill">
+                                <div class="month" style="font-size: 12px;">
+                                    Research
+                                </div>
+                            </div>
+                            <div *ngIf="news?.id_types == 1" class="blog-meta-date rounded-pill">
+                                <div class="month" style="font-size: 12px;">
+                                    SEC
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body ">
+                            <div class="blog-description mt-0">
+                                <div class="blog-meta d-flex align-items-center justify-content-between mb-2">
+                                    <div class="date" style="color: #707070;font-size: 12px;">{{ news?.date | date:"dd MMM yyyy - hh-mm"}}</div>
+                                </div>
+                                <h5 class="mb-2" style="color: #464A53;">{{ news?.title}}</h5>
+                                <p class="mb-0" style="color: #ABAFB3;">{{ news?.description | slice:0:150}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="col-sm-6 col-md-6 col-lg-4"></div>
+            <div class="col-sm-6 col-md-6 col-lg-4 align-middle" style="text-align: center;padding-bottom: 20px;">
+                <ng-template [ngIf]="paginationLimit < list?.totalItems"><button type="button" (click)="showMoreItems()" class="btn " style="color:#fff;background: #313C64;">
+            Show more
+            <i class="fa fa-plus" aria-hidden="true" style="font-size: 10px;"></i>
+          </button>
+                </ng-template>
+                <!-- <button *ngIf="paginationLimit > list?.totalItems" type="button" (click)="showLessItems()" class="btn " style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color:#fff;background: #313C64;">
+            Show less
+            <i class="fa fa-minus" aria-hidden="true" style="font-size: 10px;"></i>
+          </button> -->
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-4"></div>
+        </div>
     </div>
-
     <div class="col-lg-3" id="bottommobile">
         <div class="row">
             <div class="card-body">
-                <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
-                    <i class="mdi mdi-fire"></i>Trending SPACs
+                <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;">
+                    <i class="mdi mdi-fire"></i>The hot list
                 </div>
                 <div class="table-responsive bg-light ">
                     <table class="table table-hover ">
                         <thead style="background-color: transparent; ">
-
                             <tr>
                                 <th class="align-top" style="width:50%;">Company</th>
                                 <th class="align-top">Ticker</th>
                                 <th class="align-top">Market Cap</th>
                             </tr>
-
                         </thead>
                         <tbody>
                             <tr *ngFor="let spacone of allspacs?.admin_detail">
@@ -80,7 +121,6 @@
                                 <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
                             </tr>
                         </tbody>
-
                     </table>
                 </div>
             </div>
@@ -94,9 +134,4 @@
             </div>
         </div>
     </div>
-
-
-
-
-
 </div>

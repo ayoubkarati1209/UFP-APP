@@ -1,86 +1,128 @@
-import { Component, OnInit, ViewChild,ElementRef } from '@angular/core';
-import { FixedScaleAxis } from 'chartist';
-import { NgbDate, NgbCalendar, NgbInputDatepicker } from '@ng-bootstrap/ng-bootstrap';
-import {spacs} from '../services/spacs.bd'; 
-import {spacglobal} from '../services/spacglobal.bd';
-import {spacspage} from '../services/spacspage.bd';
-import { Pipe, PipeTransform } from '@angular/core';
-import { LoadingBarService } from '@ngx-loading-bar/core';
-import { orderBy } from 'lodash';
-import { allinfos } from '../services/alltable.bd';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  ElementRef
+} from '@angular/core';
+import {
+  FixedScaleAxis
+} from 'chartist';
+import {
+  NgbDate,
+  NgbCalendar,
+  NgbInputDatepicker
+} from '@ng-bootstrap/ng-bootstrap';
+import {
+  spacs
+} from '../services/spacs.bd';
+import {
+  spacglobal
+} from '../services/spacglobal.bd';
+import {
+  spacspage
+} from '../services/spacspage.bd';
+import {
+  Pipe,
+  PipeTransform
+} from '@angular/core';
+import {
+  LoadingBarService
+} from '@ngx-loading-bar/core';
+import {
+  orderBy
+} from 'lodash';
+import {
+  allinfos
+} from '../services/alltable.bd';
+import { news_nv } from '../services/news-nv.bd';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-@Pipe({ name: 'sortBy' })
-export class HomeComponent implements OnInit,PipeTransform {
-  transform(value: any[], order :any, column: string = ''): any[] {
-    if (!value || order === '' || !order) { return value; } // no array
-    if (value.length <= 1) { return value; } // array with only one item
-    if (!column || column === '') { 
-      if(order==='asc'){return value.sort()}
-      else{return value.sort().reverse();}
+@Pipe({
+  name: 'sortBy'
+})
+export class HomeComponent implements OnInit, PipeTransform {
+  transform(value: any[], order: any, column: string = ''): any[] {
+    if (!value || order === '' || !order) {
+      return value;
+    } // no array
+    if (value.length <= 1) {
+      return value;
+    } // array with only one item
+    if (!column || column === '') {
+      if (order === 'asc') {
+        return value.sort()
+      } else {
+        return value.sort().reverse();
+      }
     } // sort 1d array
     return orderBy(value, [column], [order]);
   }
   keyword = 'name';
   public showNavbar: boolean = true;
-  public  showFooter: boolean = true;
+  public showFooter: boolean = true;
 
+  private cards:any;
+  private flink:any;
+
+  showitem=false;
 
   colorAll = "white";
   BackcolorAll = "#313C64";
-  
+
   colorNews = "inherit";
   BackcolorNews = "";
-  
+
   colorIpo = "inherit";
   BackcolorIpo = "";
-  
+
   colorSec = "inherit";
   BackcolorSec = "";
 
   colorResearch = "inherit";
   BackcolorResearch = "";
- 
-  ShowAll : boolean = true;
-  ShowNews : boolean = false;
-  ShowIpo : boolean = false;
-  ShowSec : boolean = false;
-  ShowResearch : boolean = false;
-  
-  spacssearch:any;
-  spacsitems:any;
-  currentspac=null;
-  currentIndex=-1;
-  allspacs:any;
-  no_data:boolean=false;
-title='';
+
+  ShowAll: boolean = true;
+  ShowNews: boolean = false;
+  ShowIpo: boolean = false;
+  ShowSec: boolean = false;
+  ShowResearch: boolean = false;
+
+  spacssearch: any;
+  spacsitems: any;
+  currentspac = null;
+  currentIndex = -1;
+  allspacs: any;
+  no_data: boolean = false;
+  title = '';
   toggleProBanner(event) {
     event.preventDefault();
     document.querySelector('body').classList.toggle('removeProbanner');
   }
-  @ViewChild('d', {static: false}) datepicker: NgbInputDatepicker;
+  @ViewChild('d', {
+    static: false
+  }) datepicker: NgbInputDatepicker;
 
-// Performance indicator chart
+  // Performance indicator chart
   performanceIndicatorBarchartData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'may', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     series: [
-      [30, 25, 50, 25, 50, 25, 50, 55, 20, 35, 25, 30 ],
-      [25, 50, 10, 35, 30, 15, 20, 20, 30, 25, 10, 15 ],
-      [45, 25, 40, 40, 20, 60, 30, 25, 50, 40, 65, 55 ]
+      [30, 25, 50, 25, 50, 25, 50, 55, 20, 35, 25, 30],
+      [25, 50, 10, 35, 30, 15, 20, 20, 30, 25, 10, 15],
+      [45, 25, 40, 40, 20, 60, 30, 25, 50, 40, 65, 55]
     ]
   };
 
   performanceIndicatorBarchartOptions = {
     stackBars: true,
-            height: 200,
-            axisY: {
-              type: FixedScaleAxis,
-              ticks: [0, 25, 50, 75, 100]
-            },
-            showGridBackground: false
+    height: 200,
+    axisY: {
+      type: FixedScaleAxis,
+      ticks: [0, 25, 50, 75, 100]
+    },
+    showGridBackground: false
   };
 
   performanceIndicatorBarchartResponsiveOptions = [
@@ -94,16 +136,16 @@ title='';
   doughnutPieData = [{
     data: [55, 25, 20],
     backgroundColor: [
-        '#ffca00',
-        '#38ce3c',
-        '#ff4d6b'
+      '#ffca00',
+      '#38ce3c',
+      '#ff4d6b'
     ],
     borderColor: [
       '#ffca00',
       '#38ce3c',
       '#ff4d6b'
     ],
-  }]; 
+  }];
 
   doughnutPieLabels: [
     'Reassigned',
@@ -119,14 +161,14 @@ title='';
     maintainAspectRatio: true,
     showScale: true,
     legend: {
-        display: false
+      display: false
     },
     layout: {
       padding: {
-          left: 0,
-          right: 0,
-          top: 0,
-          bottom: 0
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0
       }
     }
   };
@@ -134,7 +176,7 @@ title='';
   // Income expense chart date range picker properties
 
   hoveredDate: NgbDate;
-category="All";
+  category = "All";
   fromDate: NgbDate;
   toDate: NgbDate;
   onFirstSelection: boolean = true;
@@ -173,8 +215,8 @@ category="All";
       }
     }]
   ];
-  arraysort=[]
-  arraynotsort:any
+  arraysort = []
+  arraynotsort: any
   // Income expense chart date range picker methods
 
   onDateSelection(date: NgbDate) {
@@ -192,10 +234,10 @@ category="All";
     }
   }
 
-  toNativeDate(date:NgbDate) {
-    if(date){
+  toNativeDate(date: NgbDate) {
+    if (date) {
       return new Date(date.year, date.month, date.day);
-    }else {
+    } else {
       return "";
     }
   }
@@ -212,33 +254,53 @@ category="All";
     return date.equals(this.fromDate) || date.equals(this.toDate) || this.isInside(date) || this.isHovered(date);
   }
 
-  constructor(private allinfos:allinfos,calendar: NgbCalendar,  private spacsS:spacs,private spacs:spacglobal, private Spacspage:spacspage) {
+  startPage : Number;
+  paginationLimit:Number; 
+  list:any;
+
+  constructor(private news:news_nv,private allinfos: allinfos, calendar: NgbCalendar, private spacsS: spacs, private spacs: spacglobal, private Spacspage: spacspage, private elRef:ElementRef) {
     this.fromDate = calendar.getToday();
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 10);
+    this.startPage = 0;
+    this.paginationLimit =9;
   }
- 
-  ngOnInit():void{
+
+  getnews(){
+    this.news.getPagination(this.startPage,this.paginationLimit)
+    .subscribe(
+      data => {
+        this.list=data
+        console.log(data)
+      },
+      error => {
+      });
+  }
+
+  ngOnInit(): void {
     this.getAllSpac();
     this.getAllSpacsResearch();
+    // this.retrievespacsitems();
+    // this.getAllSpac();
+    this.getnews();
   }
-               
-                                    
-  selectEvent(item){
-    
-  }  
   
-  onchangeSearch(search: string){
+
+
+  selectEvent(item) {
 
   }
 
-  onFocused(e){
+  onchangeSearch(search: string) {
 
   }
-                                    
-  HomeResearch():void{
+
+  onFocused(e) {
+
   }
 
-  ShowAllItems():void{
+  HomeResearch(): void {}
+
+  ShowAllItems(): void {
 
     this.ShowAll = true;
     this.ShowNews = false;
@@ -248,20 +310,20 @@ category="All";
 
     this.colorAll = "white";
     this.BackcolorAll = "#313C64";
-    
+
     this.colorNews = "inherit";
     this.BackcolorNews = "";
-    
+
     this.colorIpo = "inherit";
     this.BackcolorIpo = "";
-    
+
     this.colorSec = "inherit";
     this.BackcolorSec = "";
 
     this.colorResearch = "inherit";
     this.BackcolorResearch = "";
-  }                                                                
-  ShowNewsItems():void{
+  }
+  ShowNewsItems(): void {
 
     this.ShowAll = false;
     this.ShowNews = true;
@@ -271,20 +333,20 @@ category="All";
 
     this.colorAll = "inherit";
     this.BackcolorAll = "";
-    
+
     this.colorNews = "white";
     this.BackcolorNews = "#313C64";
-    
+
     this.colorIpo = "inherit";
     this.BackcolorIpo = "";
-    
+
     this.colorSec = "inherit";
     this.BackcolorSec = "";
 
     this.colorResearch = "inherit";
     this.BackcolorResearch = "";
-  }                                                                
-  ShowIpoItems():void{
+  }
+  ShowIpoItems(): void {
 
     this.ShowAll = false;
     this.ShowNews = false;
@@ -294,20 +356,20 @@ category="All";
 
     this.colorAll = "inherit";
     this.BackcolorAll = "";
-    
+
     this.colorNews = "inherit";
     this.BackcolorNews = "";
-    
+
     this.colorIpo = "white";
     this.BackcolorIpo = "#313C64";
-    
+
     this.colorSec = "inherit";
     this.BackcolorSec = "";
 
     this.colorResearch = "inherit";
     this.BackcolorResearch = "";
-  }                                                                
-  ShowSecItems():void{
+  }
+  ShowSecItems(): void {
 
     this.ShowAll = false;
     this.ShowNews = false;
@@ -317,20 +379,20 @@ category="All";
 
     this.colorAll = "inherit";
     this.BackcolorAll = "";
-    
+
     this.colorNews = "inherit";
     this.BackcolorNews = "";
-    
+
     this.colorIpo = "inherit";
     this.BackcolorIpo = "";
-    
+
     this.colorSec = "white";
     this.BackcolorSec = "#313C64";
 
     this.colorResearch = "inherit";
     this.BackcolorResearch = "";
-  }                                                                
-  ShowResearchItems():void{
+  }
+  ShowResearchItems(): void {
 
     this.ShowAll = false;
     this.ShowNews = false;
@@ -340,13 +402,13 @@ category="All";
 
     this.colorAll = "inherit";
     this.BackcolorAll = "";
-    
+
     this.colorNews = "inherit";
     this.BackcolorNews = "";
-    
+
     this.colorIpo = "inherit";
     this.BackcolorIpo = "";
-    
+
     this.colorSec = "inherit";
     this.BackcolorSec = "";
 
@@ -355,24 +417,22 @@ category="All";
   }
 
 
-sort(){
-  this.arraysort=this.spacsitems.sort((a,b) => a.title > b.title ? 1 : -1)
-  this.spacsitems=this.arraysort
-}
+  sort() {
+    this.arraysort = this.spacsitems.sort((a, b) => a.title > b.title ? 1 : -1)
+    this.spacsitems = this.arraysort
+  }
   getAllSpacsResearch() {
     this.allinfos.getspacpagination()
       .subscribe(
         data => {
           this.allspacs = data;
-          if(this.allspacs){
-            this.no_data=false
-          }
-          else{
-            this.no_data=true;
+          if (this.allspacs) {
+            this.no_data = false
+          } else {
+            this.no_data = true;
           }
         },
-        error => {
-        });
+        error => {});
   }
 
 
@@ -381,14 +441,85 @@ sort(){
     this.allinfos.getSpacs()
       .subscribe(
         data => {
-          this.spacssearch=data;
+          this.spacssearch = data;
         },
-        error => {
-        });
+        error => {});
   }
 
+  filter_all(): void {
 
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
 
+    this.elRef.nativeElement.querySelector('.flink-all').classList.add('nav-active');
+    
+    this.cards = this.elRef.nativeElement.querySelectorAll('.spacos');
+    this.cards.forEach(element => {
+      element.classList.remove('d-none');
+    });
+  }
+
+  filter_ipo(): void {
+
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
+
+    this.elRef.nativeElement.querySelector('.flink-ipo').classList.add('nav-active');
+
+    this.cards = this.elRef.nativeElement.querySelectorAll('.spacos');
+    this.cards.forEach(element => {
+      if (!element?.classList.contains('filter-2')) element.classList.add('d-none');
+      else element.classList.remove('d-none');
+    });
+  }
+
+  filter_res(): void {
+
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
+
+    this.elRef.nativeElement.querySelector('.flink-res').classList.add('nav-active');
+
+    this.cards = this.elRef.nativeElement.querySelectorAll('.spacos');
+    this.cards.forEach(element => {
+      if (!element?.classList.contains('filter-3')) element.classList.add('d-none');
+      else element.classList.remove('d-none');
+    });
+  }
+
+  filter_sec(): void {
+
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
+
+    this.elRef.nativeElement.querySelector('.flink-sec').classList.add('nav-active');
+
+    this.cards = this.elRef.nativeElement.querySelectorAll('.spacos');
+    this.cards.forEach(element => {
+      if (!element?.classList.contains('filter-1')) element.classList.add('d-none');
+      else element.classList.remove('d-none');
+    });
+  }
+
+  showMoreItems()
+  {
+    this.showitem= this.showitem ? false:true;
+     this.paginationLimit = Number(this.paginationLimit) + 9;    
+     this.getnews()   
+  }
+  showLessItems()
+  {
+    this.paginationLimit = Number(this.paginationLimit) - 9;
+    this.getnews()   
+  }
 
   style = {
     sources: {
@@ -398,8 +529,7 @@ sort(){
       }
     },
     version: 8,
-    layers: [
-      {
+    layers: [{
         "id": "countries-fill",
         "type": "fill",
         "source": "world",

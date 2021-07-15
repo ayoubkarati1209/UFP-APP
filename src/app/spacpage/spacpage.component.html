@@ -21,6 +21,7 @@
     <div class="col-md-3">
 
     </div>
+
     <div class="col-md-9" id="overview">
         <div class="row">
             <div class="col-md-7">
@@ -30,7 +31,7 @@
                         Overview
                     </div>
                     <div class="table-responsive bg-light">
-                        <table class="table table-hover">
+                        <table class="table table-hover shadow-sm">
                             <tbody style="background-color: transparent;">
                                 <tr>
                                     <td colspan="2">Market cap in $mm</td>
@@ -38,7 +39,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">IPO lead manager</td>
-                                    <td>Warning</td>
+                                    <td>IPO lead manager</td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Intended industry focus</td>
@@ -46,7 +47,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">Company filings link</td>
-                                    <td><a href="https://sec.report/CIK/{{ spacsinfos?.cik }}" target="_blank">{{ spacsinfos?.cik }}</a></td>
+                                    <td><a href="https://sec.report/CIK/{{ spacsinfos?.cik }}" target="_blank">https://sec.report/CIK/{{ spacsinfos?.cik }}</a></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Status</td>
@@ -65,7 +66,7 @@
                         Latest News
                     </div>
                     <div class="table-responsive bg-light">
-                        <table class="table table-hover">
+                        <table class="table table-hover shadow-sm">
                             <thead>
                                 <tr>
                                     <td>Date</td>
@@ -98,7 +99,7 @@
                 Trust data and return calculations
             </div>
             <div class="table-responsive bg-light">
-                <table class="table table-hover">
+                <table class="table table-hover shadow-sm">
                     <tbody style="background-color: transparent;">
                         <tr>
                             <td colspan="2">IPO date</td>
@@ -183,7 +184,7 @@
                         </div>
                     </div>
                     <div class="table-responsive bg-light">
-                        <table class="table table-hover">
+                        <table class="table table-hover shadow-sm">
                             <tbody style="background-color: transparent;">
                                 <tr>
                                     <td>Ticker</td>
@@ -253,9 +254,7 @@
             <div class="col-md-6">
                 <div class="card-body" style="background-color: transparent;">
                     <div class="card" style="background-color: #fff;">
-                        <div class="card-header" style="background-color: transparent;font-size:17px;color:#313C64;">
-                        </div>
-                        <div id="container" style="height: 280px;"></div>
+                        <div id="container" style="height: 355px;"></div>
                     </div>
                 </div>
             </div>
@@ -269,7 +268,7 @@
                 Filings timeline
             </div>
             <div class="table-responsive bg-light">
-                <table class="table table-hover" id="timelinetable">
+                <table class="table table-hover shadow-sm" id="timelinetable">
                     <thead>
 
                         <th *ngFor="let timeth of timelinesthdata; let i = index" aria-controls="timelinetable" scope="col" [mdbTableSort]="filing" [sortBy]="timelinesth[i]" style="cursor: pointer;">{{timeth | titlecase}}
@@ -302,7 +301,7 @@
 
             </div>
             <div class="table-responsive bg-light">
-                <table class="table table-hover" id="tableSortExample" mdbTable>
+                <table class="table table-hover shadow-sm" id="tableSortExample" mdbTable>
                     <thead class="align-top">
                         <tr class="align-top">
                             <th class="align-top" *ngFor="let head of headElementsth; let i = index" aria-controls="tableSortExample" scope="col" [mdbTableSort]="directors" [sortBy]="headElements[i]">{{head | titlecase}}
@@ -314,8 +313,8 @@
                             <td>{{ officiers?.name }}</td>
                             <td>{{ officiers?.position }}</td>
                             <td>{{ officiers?.age }}</td>
-                            <td><button class="waves-light btn-xs" type="button" (click)="test.toggle()" mdbWavesEffect>
-                                <i class="fa fa-bars" aria-hidden="true"></i>
+                            <td><button class="waves-light btn-s" type="button" (click)="test.toggle()" mdbWavesEffect style="background-color:#313C64;border: none;border-radius: 3px;">
+                                <i class="fa fa-bars" aria-hidden="true" style="color: white;"></i>
                               </button>
 
                             </td>
@@ -342,7 +341,7 @@
 
             </div>
             <div class="table-responsive bg-light">
-                <table class="table table-hover" id="tableSortshareholders" mdbTable>
+                <table class="table table-hover shadow-sm" id="tableSortshareholders" mdbTable>
                     <thead>
                         <tr>
                             <th *ngFor="let headS of headElementsShareH; let j = index" aria-controls="tableSortshareholders" [mdbTableSort]="shareholdersD" [sortBy]="headElementsShareD[j]">{{headS | titlecase}}

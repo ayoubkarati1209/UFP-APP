@@ -1,47 +1,48 @@
-<div class="row">
+<div class="row mb-3">
+    <div class="col-md-2"></div>
     <div class="col-md-8">
-        <div class="input-group input-group-lg " style="margin-bottom:30px;">
-            <ng-autocomplete type="text" class="form-control align-center" [data]="spacssearch" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onchangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier="spacssearch" [itemTemplate]="itemTemplate"
+        <div class="input-group input-group-lg">
+            <ng-autocomplete type="text" class="form-control align-center input-search" [data]="spacssearch" [searchKeyword]="keyword" (selected)='selectEvent($event)' (inputChanged)='onchangeSearch($event)' (inputFocused)='onFocused($event)' historyIdentifier="spacssearch" [itemTemplate]="itemTemplate"
                 aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" placeholder="Search SPACs " style="border: none;font-size:23px;font-weight: lighter;"> </ng-autocomplete>
-            <span class="input-group-text" id="inputGroup-sizing-lg" style="border: none;background-color: white;border-radius: 0px;color: #efefef;"><i class="mdi mdi-magnify" style="font-size: 23px;"></i></span>
+            <span class="input-group-text" id="inputGroup-sizing-lg" style="margin-left:-7px;border: none;background-color: white; color: #EFEFEF;font-size: 23px;border-radius: 7px;"><i class="mdi mdi-magnify"></i></span>
             <ng-template #itemTemplate let-item style="width:700px;">
                 <a [routerLink]="[ '/allspac', item.id]" [innerHTML]="item.name"></a>
             </ng-template>
             <ng-template #notFoundTemplate let-notFound>
                 <div [innerHTML]="notFound"></div>
             </ng-template>
-
         </div>
+    </div>
+    <div class="col-md-2"></div>
+</div>
+<div class="row mt-5 mb-5">
+    <div class="col-lg-9 mb-2">
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <span class="badge badge-primary btn-fw" id="a1" ng-disabled="true" (click)="showipo()" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">IPO date</span>
             <span class="badge badge-primary btn-fw" id="a2" (click)="showtermination()" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Terminaison date</span>
-            <span class="badge badge-primary btn-fw" id="a3" (click)="shownews()" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">News</span>
+            <span class="badge badge-primary  btn-fw" id="a3" (click)="shownews()" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">News</span>
             <span class="badge badge-primary btn-fw" id="a4" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Unit Unbundling date</span>
             <span class="badge badge-primary btn-fw" id="a5" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Redemption date</span>
             <span class="badge badge-primary btn-fw" id="a6" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Vote date</span>
             <span class="badge badge-primary btn-fw" id="a7" style="font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;color: white;">Listing date</span>
-
         </div>
-        <div style="background-color: #fff;padding:10px;padding-bottom: -10px;">
-           
+        <div style="background-color: #fff;padding:10px;">
             <full-calendar #fullcalendar [options]="calendarOptions" deepChangeDetection="true" id="calendar"> </full-calendar>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card-body" style="background-color: transparent;">
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <div class="card-header" style="background-color: #1587B9;color:white;border-radius: 4px;font-family: 'Avenir', Helvetica,sans-serif;font-weight: lighter;">
-                Trending SPACs
+    <div class="col-lg-3" style="margin-top: -20px;">
+        <div class="card-body">
+            <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;">
+                <i class="mdi mdi-fire"></i>The hot list
             </div>
-            <div class="table-responsive bg-light">
-                <table class="table table-hover">
-                    <thead style="background-color: transparent;">
+            <div class="table-responsive bg-light" style="overflow-x: hidden;">
+                <table class="table table-hover" style="overflow-x: hidden; color: #6A707E !important;">
+                    <thead style="background-color: transparent; ">
                         <tr>
-                            <th>Company</th>
-                            <th>Ticker</th>
-                            <th>Market Cap</th>
+                            <th class="align-top" style="width:50%;">Company</th>
+                            <th class="align-top">Ticker</th>
+                            <th class="align-top">Market Cap</th>
                         </tr>
-
                     </thead>
                     <tbody>
                         <tr *ngFor="let spacone of allspacs?.admin_detail">
@@ -50,8 +51,6 @@
                             <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
                         </tr>
                     </tbody>
-
-
                 </table>
             </div>
         </div>

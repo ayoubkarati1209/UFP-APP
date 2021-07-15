@@ -1,19 +1,16 @@
-<!-- Navbar -->
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark shadow-sm">
     <div class="container-fluid">
         <a class="navbar-brand" routerLink="/">
             <a class="navbar-brand" routerLink="/"> <img src="../../../assets/images/UFP_TransparentRés.svg" alt="logo" class="logo-dark" /></a>
         </a>
         <button #navbarToggler class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation" style="padding: 0;border:none;">
-            <i class="fa fa-bars" aria-hidden="true" style="color: #efefef;"></i>
+            <i class="fa fa-bars" aria-hidden="true" style="color: #EFEFEF;"></i>
           </button>
-
         <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo02" [class.collapse]="collapsed">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item active "> <a class="nav-link" routerLink="/" (click)="collapseNav()"><i class="mdi mdi-home" style="font-size: 14px;"></i>&nbsp;&nbsp;Home </a> </li>
-                <li class="nav-item"><a class="nav-link" routerLink="/spacs" (click)="collapseNav()"><i class="mdi mdi-poll" style="font-size: 14px;"></i>&nbsp;&nbsp;SPACs </a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/calendar" (click)="collapseNav()"><i class="mdi mdi-calendar-clock" style="font-size: 14px;"></i>&nbsp;&nbsp;Calendar </a></li>
-
+                <li class="nav-item"> <a class="nav-link" routerLink="/home" routerLinkActive="active" (click)="collapseNav()"><i class="mdi mdi-home" ></i>&nbsp;&nbsp;Home </a> </li>
+                <li class="nav-item"><a class="nav-link" routerLink="/spacs" routerLinkActive="active" (click)="collapseNav()"><i class="mdi mdi-poll" ></i>&nbsp;&nbsp;SPACs </a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/calendar" routerLinkActive="active" (click)="collapseNav()"><i class="mdi mdi-calendar-clock" ></i>&nbsp;&nbsp;Calendar </a></li>
                 <li *ngIf="admin" class="nav-item align-items-center" style="cursor: pointer;" ngbDropdown>
                     <a class="nav-link" id="LanguageDropdown" ngbDropdownToggle aria-expanded="false">
                         <div class="d-inline-flex">
@@ -28,12 +25,23 @@
                             <span>Spacs</span> </a>
                     </div>
                 </li>
+                <li class="nav-item dropdown d-xl-none d-md-none d-sm-inline user-dropdown" ngbDropdown>
+                    <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle aria-expanded="false">
+                        <span class="font-weight-normal">{{ bdinfosuser?.first_name }}</span></a>
+                    <div class="dropdown-menu dropdown-menu-right navbar-dropdown" ngbDropdownMenu aria-labelledby="UserDropdown">
+                        <a class="dropdown-item" routerLink="/profile"><i class="dropdown-item-icon icon-user text-primary"></i> <span translate>My Profile</span> <span class="badge badge-pill badge-danger">1</span></a>
+                        <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> <span translate>FAQ</span></a>
+                        <a class="dropdown-item" (click)="logout()"><i class="dropdown-item-icon icon-power text-primary"></i><span translate>Sign Out</span></a>
+                    </div>
+                </li>
             </ul>
         </div>
         <ul class="nav navbar-nav navbar-right" id="profile">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown" ngbDropdown>
-                <a class="nav-link dropdown-toggle" id="UserDropdown" ngbDropdownToggle aria-expanded="false">
-                    <span class="font-weight-normal">{{ bdinfosuser?.first_name }}</span></a>
+                <a class="nav-link dropdown-toggle d-flex align-items-center" id="UserDropdown" ngbDropdownToggle aria-expanded="false">
+                    <span class="font-weight-bold">Hi ,{{ bdinfosuser?.first_name }}</span><span class=" ml-2 font-weight-bold px-2" style="background-color: #1587B9;border: 7px solid #1587B9;border-radius: 6px;">
+                        {{ bdinfosuser?.first_name | slice:0:1 | uppercase}}
+                      </span></a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" ngbDropdownMenu aria-labelledby="UserDropdown">
                     <a class="dropdown-item" routerLink="/profile"><i class="dropdown-item-icon icon-user text-primary"></i> <span translate>My Profile</span> <span class="badge badge-pill badge-danger">1</span></a>
                     <a class="dropdown-item"><i class="dropdown-item-icon icon-question text-primary"></i> <span translate>FAQ</span></a>
