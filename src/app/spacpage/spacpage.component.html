@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-10">
                 <div class="card-body" style="background-color: transparent;">
-                    <h2 style="font-family:'Avenir Black', 'Arial Black', sans-serif;"><span style="color: #313C64;">{{ spacsinfos?.name }}</span><span style="color: #1587B9;">&nbsp;&nbsp;&nbsp;{{ spacsinfos?.tickers[0]?.unit_ticker }}</span> </h2>
+                    <h2 style="font-family:'palab';"><span style="color: #313C64;">{{ spacsinfos?.name }}</span><span style="color: #1587B9;">&nbsp;&nbsp;&nbsp;{{ spacsinfos?.tickers[0]?.unit_ticker }}</span> </h2>
                 </div>
             </div>
         </div>
@@ -47,7 +47,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="2">Company filings link</td>
-                                    <td><a href="https://sec.report/CIK/{{ spacsinfos?.cik }}" target="_blank">https://sec.report/CIK/{{ spacsinfos?.cik }}</a></td>
+                                    <td><a href="https://sec.report/CIK/{{ spacsinfos?.cik }}" target="_blank">Link</a></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">Status</td>
@@ -90,10 +90,11 @@
         </div>
 
     </div>
-    <div class="col-md-3" id="trust">
+    <div class="col-md-3">
     </div>
-    <div class="col-md-9">
 
+    <div class="col-md-9">
+        <section id="trust">
         <div class="card-body">
             <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
                 Trust data and return calculations
@@ -138,7 +139,9 @@
                 </table>
             </div>
         </div>
+        </section>
     </div>
+   
 
 
     <div class="col-md-3" id="unit">
@@ -165,22 +168,27 @@
             <div class="col-md-6">
                 <div class="card-body" style="background-color: transparent;">
                     <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
-                        <div class="row" style="align-items: center;">
-                            <div class="col-md-8" *ngIf="elementUnit">{{ elementUnit }}</div>
-                            <div class="col-md-3">
-                                <div class="dropdown">
-                                    <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: none;">
-                                        <i class="fa fa-filter" style="color: white;"></i>
+                        <div class="row justify-content-center" style="align-items: center;">
+                            <nav class="navbar navbar-expand-lg">
+                                <div class="container-fluid" >
+                                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" style="padding: 0;border:none;">
+                                        <i class="fa fa-bars" aria-hidden="true" style="color: #6A6A6A;"></i>
                                     </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" (click)="getUnit()">Unit information</a>
-                                        <a class="dropdown-item" (click)="getStock()">Common stock information</a>
-                                        <a class="dropdown-item" (click)="getWarrent()">Warrant information</a>
+                                    <div class="collapse navbar-collapse" id="navbarText">
+                                        <ul class="navbar-nav mx-auto" style="display: flex; justify-content: space-between; align-items: center;color:white;cursor: pointer;">
+                                            <li class="nav-item mr-2" id="news_show_btn">
+                                                <a class="nav-link-filter flink flink-all nav-active" (click)="getUnit()" style="color: white !important;">Unit </a>
+                                            </li>
+                                            <li class="nav-item me-md-3 mr-2" id="ipo_show_btn">
+                                                <a class="nav-link-filter flink flink-ipo " (click)="getStock()" style="color: white !important;">Common stock </a>
+                                            </li>
+                                            <li class="nav-item me-md-3" id="sec_show_btn">
+                                                <a class="nav-link-filter flink flink-sec" (click)="getWarrent()" style="color: white !important;">Warrant </a>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
-
-                            </div>
-
+                            </nav>
                         </div>
                     </div>
                     <div class="table-responsive bg-light">

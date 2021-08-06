@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { allinfos } from '../services/alltable.bd';
 import { overs } from '../services/overview-section.bd';
@@ -69,12 +69,14 @@ export class SpacpageComponent implements OnInit {
   pricearray=[]
   pricearraystock=[]
   pricearraywarrant=[]
+  priceUnit=[]
   filings=[]
   days:any
   public options: any
   directors=[]
   shareholdersD=[]
-  constructor(private allinfos:allinfos,private activeID:ActivatedRoute,private overviews:overs,private news:news_nv,private datePipe:DatePipe) { 
+  flink:any
+  constructor(private allinfos:allinfos,private activeID:ActivatedRoute,private overviews:overs,private news:news_nv,private datePipe:DatePipe,private elRef:ElementRef) { 
 
   }
   
@@ -86,6 +88,13 @@ export class SpacpageComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
+
+    this.elRef.nativeElement.querySelector('.flink-all').classList.add('nav-active');
     this.spacId=this.activeID.snapshot.paramMap.get("id");
     this.allinfos.getAllWhere(this.spacId)
       .subscribe(
@@ -108,7 +117,8 @@ export class SpacpageComponent implements OnInit {
               this.averageU=this.volumeU/30
             }
           }
-          if(m.type_id==2){
+          this.priceUnit=this.pricearray
+          if(m.type_id==3){
             this.pricearraystock.push([this.days.getTime(),Number(m.price)]);
             this.priceS.push({price:m.price});
             this.indiceS++
@@ -117,7 +127,7 @@ export class SpacpageComponent implements OnInit {
               this.averageS=this.volumeS/30
             }
           }
-          if(m.type_id==3){
+          if(m.type_id==2){
             this.pricearraywarrant.push([this.days.getTime(),Number(m.price)]);
             this.priceW.push({price:m.price});
             this.indiceW++
@@ -127,7 +137,7 @@ export class SpacpageComponent implements OnInit {
             }
           }
           }
-         
+          
           this.options = {
             chart: {
                zoomType: 'x',
@@ -227,13 +237,84 @@ export class SpacpageComponent implements OnInit {
         });
   }
   getUnit(){
+        
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
+
+    this.elRef.nativeElement.querySelector('.flink-all').classList.add('nav-active');
     this.unit=true
     this.stock=false
     this.warrent=false
     this.elementUnit='Unit informations'
+    this.options = {
+      chart: {
+         zoomType: 'x',
+      },
+      title: {
+          text: 'Unit informations'
+      },
+      subtitle: {
+          text: document.ontouchstart === undefined ?
+              '' : ''
+      },
+      credits: {
+        enabled: false
+    },
+      xAxis: {
+          type: 'datetime'
+      },
+      yAxis: {
+          title: {
+              text: ''
+          }
+      },
+      legend: {
+          enabled: false
+      },
+      plotOptions: {
+                  area: {
+                      fillColor: {
+                          linearGradient: {
+                              x1: 0,
+                              y1: 0,
+                              x2: 0,
+                              y2: 1
+                          },
+                          stops: [
+                              [0, Highcharts.getOptions().colors[0]],
+                              [1, Highcharts.color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                          ]
+                      },
+                      marker: {
+                          radius: 2
+                      },
+                      lineWidth: 1,
+                      states: {
+                          hover: {
+                              lineWidth: 1
+                          }
+                      },
+                      threshold: null
+                  }
+              },
+      series: [{
+                  type: 'area',
+                  name: 'Price',
+                  data: this.priceUnit
+              }]
+    }
     Highcharts.chart('container', this.options);
   }
   getStock(){
+    
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
+
+    this.elRef.nativeElement.querySelector('.flink-ipo').classList.add('nav-active');
 this.unit=false
 this.stock=true
 this.warrent=false
@@ -300,6 +381,13 @@ Highcharts.chart('container', this.options);
 
   }
   getWarrent(){
+    this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+    this.flink.forEach(element => {
+      element.classList.remove('nav-active');
+    });
+
+    this.elRef.nativeElement.querySelector('.flink-sec').classList.add('nav-active');
+
     this.unit=false
     this.stock=false
     this.warrent=true

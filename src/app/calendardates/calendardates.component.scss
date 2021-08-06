@@ -167,3 +167,8 @@ background-color: red;
        }
    }
 }
+
+
+a:not([href]) {
+    color: inherit; /* natural color for navlinks */
+  }

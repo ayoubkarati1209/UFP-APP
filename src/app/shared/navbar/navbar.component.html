@@ -39,7 +39,7 @@
         <ul class="nav navbar-nav navbar-right" id="profile">
             <li class="nav-item dropdown d-none d-xl-inline-flex user-dropdown" ngbDropdown>
                 <a class="nav-link dropdown-toggle d-flex align-items-center" id="UserDropdown" ngbDropdownToggle aria-expanded="false">
-                    <span class="font-weight-bold">Hi ,{{ bdinfosuser?.first_name }}</span><span class=" ml-2 font-weight-bold px-2" style="background-color: #1587B9;border: 7px solid #1587B9;border-radius: 6px;">
+                    <span class="font-weight-bold">Hi, {{ bdinfosuser?.first_name }}</span><span class=" ml-2 font-weight-bold px-2" style="background-color: #1587B9;border: 7px solid #1587B9;border-radius: 6px;">
                         {{ bdinfosuser?.first_name | slice:0:1 | uppercase}}
                       </span></a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" ngbDropdownMenu aria-labelledby="UserDropdown">

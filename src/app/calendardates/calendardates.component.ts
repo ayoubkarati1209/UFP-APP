@@ -84,7 +84,6 @@ currentEvents=[];
     )
  
     this.calendarOptions= {
-      plugins: [ bootstrapPlugin ],
       initialView: 'dayGridMonth',
       events:this.currentEvents,
       dayMaxEvents:4,

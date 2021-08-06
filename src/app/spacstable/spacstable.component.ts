@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import {allinfos} from '../services/alltable.bd';
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
@@ -16,12 +16,16 @@ import { LoadingBarService } from '@ngx-loading-bar/core';
   styleUrls: ['./spacstable.component.scss'],
   providers: [DatePipe]
 })
-@Pipe({
-  name: 'tableFilter'
-})
-export class SpacstableComponent implements OnInit,PipeTransform {
-  target: string;
 
+export class SpacstableComponent implements OnInit,PipeTransform {
+  c=0
+  d=0
+  e=0
+  f=0
+  g=0
+  flink:any
+  target: string;
+  nodata=false
   keyword = 'name';
   collection: any;
   p: number;
@@ -34,9 +38,9 @@ export class SpacstableComponent implements OnInit,PipeTransform {
   elements: any = [];
   markets:any=[];
   spacssearch:any;
-  headElements = ['ID','Company', 'ticker', 'intended_industry_focus', 'current_market_cap','last_price','Combination_Announced' ,'target','termination_date'];
-  headThs = ['id','Company', 'Ticker', 'Industry focus', ' Market cap in $mm',' Last price ( in $)','Combination announced ?' ,'Target','Remaining life'];
-  constructor(private datePipe:DatePipe,public allinfos:allinfos, private http: HttpClient) {}
+  headElements = ['Company', 'ticker', 'intended_industry_focus', 'current_market_cap','last_price','Combination_Announced','termination_date'];
+  headThs = ['Company', 'Ticker', 'Industry focus', ' Market cap in $mm',' Last price ( in $)','Combination announced ?' ,'Remaining life'];
+  constructor(private datePipe:DatePipe,public allinfos:allinfos, private http: HttpClient,private elRef:ElementRef) {}
 
 
 
@@ -92,7 +96,9 @@ export class SpacstableComponent implements OnInit,PipeTransform {
           })
           this.allinfos.getmarkets(this.elements[index].idspac).subscribe(data=>{
             this.markets=data;
+            if(this.markets.type_id==1){
             this.elements[index].last_price=this.markets?.price
+            }
           },error=>{
             console.log(error);
           })
@@ -145,5 +151,91 @@ getAllSpac() {
       },
       error => {
       });
+}
+preipo(){
+  this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+  this.flink.forEach(element => {
+    element.classList.remove('nav-active');
+  });
+  this.elRef.nativeElement.querySelector('.flink-preipo').classList.add('nav-active');
+  this.c++
+  if(this.c%2!=0){
+  this.nodata=true
+}else{
+  this.nodata=false
+}
+
+}
+ipo(){
+  this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+  this.flink.forEach(element => {
+    element.classList.remove('nav-active');
+  });
+  this.elRef.nativeElement.querySelector('.flink-ipo').classList.add('nav-active');
+  this.d++
+  if(this.d%2!=0){
+  this.nodata=true
+}else{
+  this.nodata=false
+}
+
+}
+units(){
+  this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+  this.flink.forEach(element => {
+    element.classList.remove('nav-active');
+  });
+  this.elRef.nativeElement.querySelector('.flink-sec').classList.add('nav-active');
+
+  this.e++
+  if(this.e%2!=0){
+  this.nodata=true
+}else{
+  this.nodata=false
+}
+
+}
+business(){
+  
+  this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+  this.flink.forEach(element => {
+    element.classList.remove('nav-active');
+  });
+
+  this.elRef.nativeElement.querySelector('.flink-res').classList.add('nav-active');
+  this.f++
+  if(this.f%2!=0){
+  this.nodata=true
+}else{
+  this.nodata=false
+}
+
+}
+all(){
+  this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+  this.flink.forEach(element => {
+    element.classList.remove('nav-active');
+  });
+
+  this.elRef.nativeElement.querySelector('.flink-all').classList.add('nav-active');
+  this.nodata=false
+  this.elements.length=0
+  this.getAllData()
+}
+de(){
+  
+  this.flink = this.elRef.nativeElement.querySelectorAll('.flink');
+  this.flink.forEach(element => {
+    element.classList.remove('nav-active');
+  });
+
+  this.elRef.nativeElement.querySelector('.flink-de').classList.add('nav-active');
+  this.g++
+  if(this.g%2!=0){
+  this.nodata=true
+}else{
+  this.nodata=false
+}
+ 
 }
 }

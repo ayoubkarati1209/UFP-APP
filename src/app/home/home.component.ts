@@ -21,28 +21,17 @@ import {
 import {
   spacspage
 } from '../services/spacspage.bd';
-import {
-  Pipe,
-  PipeTransform
-} from '@angular/core';
-import {
-  LoadingBarService
-} from '@ngx-loading-bar/core';
-import {
-  orderBy
-} from 'lodash';
-import {
-  allinfos
-} from '../services/alltable.bd';
+import {Pipe,PipeTransform} from '@angular/core';
+import {LoadingBarService} from '@ngx-loading-bar/core';
+import { orderBy} from 'lodash';
+import {allinfos} from '../services/alltable.bd';
 import { news_nv } from '../services/news-nv.bd';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-@Pipe({
-  name: 'sortBy'
-})
+
 export class HomeComponent implements OnInit, PipeTransform {
   transform(value: any[], order: any, column: string = ''): any[] {
     if (!value || order === '' || !order) {

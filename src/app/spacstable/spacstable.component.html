@@ -24,18 +24,24 @@
               </button>
               <div class="collapse navbar-collapse" id="navbarText">
                   <ul class="navbar-nav mx-auto" style="display: flex; justify-content: space-between; align-items: center;">
+                    <li class="nav-item" id="news_show_btn">
+                        <a class="nav-link-filter flink flink-all nav-active" (click)="all()">All</a>
+                    </li>
                       <li class="nav-item" id="news_show_btn">
-                          <a class="nav-link-filter flink flink-all nav-active">Com</a>
+                          <a class="nav-link-filter flink flink-preipo" (click)="preipo()">Pre-IPO</a>
                       </li>
                       <li class="nav-item me-md-3" id="ipo_show_btn">
-                          <a class="nav-link-filter flink flink-ipo">No Com</a>
+                          <a class="nav-link-filter flink flink-ipo" (click)="ipo()">IPO</a>
                       </li>
                       <li class="nav-item me-md-3" id="sec_show_btn">
-                          <a class="nav-link-filter flink flink-sec">New SPAC</a>
+                          <a class="nav-link-filter flink flink-sec" (click)="units()">Units separated</a>
                       </li>
                       <li class="nav-item me-md-3" id="research_show_btn">
-                          <a class="nav-link-filter flink flink-res">Old SPAC</a>
+                          <a class="nav-link-filter flink flink-res" (click)="business()">Business Announced</a>
                       </li>
+                      <li class="nav-item me-md-3" id="research_show_btn">
+                        <a class="nav-link-filter flink flink-de" (click)="de()">De-SPAC</a>
+                    </li>
                   </ul>
               </div>
           </div>
@@ -45,11 +51,11 @@
   <div class="col-lg-2"></div> 
 </div>
 <div class="row">
-    <div class="col-lg-12 p-sm-0 grid-margin stretch-card rounded">
+    <div class="col-lg-12 p-sm-0 grid-margin stretch-card rounded" *ngIf='!nodata'>
       <div class="card p-sm-0"  style="background-color: transparent;">
         <div class="card-body p-sm-0">
         
-            <div class="table-responsive custom-table-responsive">
+            <div class="table-responsive custom-table-responsive" >
 
                 <table class="table custom-table">
               <thead>
@@ -62,14 +68,12 @@
               <tbody *ngFor="let spac of elements | paginate: { itemsPerPage: itemsPerPage , currentPage: p, totalItems: totalItems }">
 
                 <tr class="mb-3 sphover">
-                    <td>{{spac.idspac}}</td>
                     <td scope="row"><a [routerLink]="[ '/allspac', spac.idspac] " >{{ spac.Company }}</a></td>
-                    <td class="red-text"><a [routerLink]="[ '/spacedet', spac.idspac] ">{{ spac.ticker }}</a></td>
+                    <td class="red-text"><a [routerLink]="[ '/allspac', spac.idspac] ">{{ spac.ticker }}</a></td>
                     <td>{{ spac.intended_industry_focus }}</td>
-                    <td>{{ spac.current_market_cap }}</td>
+                    <td>{{ spac.current_market_cap | number}}</td>
                     <td>{{ spac.last_price}}</td>
                     <td><span *ngIf="spac.statuts==1">combination annonced</span><span *ngIf="spac.statuts!=1">no combination annonced</span></td>
-                    <td>{{ spac.target}}</td>
                     <td>{{ spac.termination_date }}</td>
                 </tr>
                 <tr class="spacer"><td colspan="100"></td></tr>
@@ -86,5 +90,12 @@
     </div>
         </div>
       </div>
+    </div>
+    <div class="col-lg-12 p-sm-0 grid-margin stretch-card rounded" *ngIf='nodata'>
+        <div class="card p-sm-0 justify-content-center align-items-center"  style="background-color: transparent;">
+            <div class="card-body p-sm-0 justify-content-center align-items-center">
+                <img src="../../assets/images/c.png" alt="">
+            </div>
+        </div>
     </div>
   </div>

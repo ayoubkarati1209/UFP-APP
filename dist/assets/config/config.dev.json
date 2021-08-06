@@ -1,0 +1,5 @@
+{
+    "KEYCLOAK_URL": "http://localhost:8080/auth",
+    "KEYCLOAK_REALM": "UFP",
+    "KEYCLOAK_CLIENT_ID": "UFP"
+}
