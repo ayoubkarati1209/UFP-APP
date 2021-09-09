@@ -24,12 +24,12 @@ import { EditComponent } from './updateresearch/edit/edit.component';
 import { SpacstableComponent } from './spacstable/spacstable.component';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path : 'spacedet/:id',component:SpacDetComponent},
-  { path : 'login',component:LoginComponent},
-  { path : 'testspac',component:SpacstableComponent},
-  { path : 'edit',component:EditComponent},
-  { path : 'Register',component:RegisterComponent},
+  { path: '', redirectTo: '/home', pathMatch: 'full' ,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path : 'spacedet/:id',component:SpacDetComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path : 'login',component:LoginComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path : 'testspac',component:SpacstableComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path : 'edit',component:EditComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path : 'Register',component:RegisterComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
   { path : 'allspac/:id',component:SpacpageComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
   { path : 'terms',component:TermsComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
   { path : 'privacy',component:PrivacyComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
