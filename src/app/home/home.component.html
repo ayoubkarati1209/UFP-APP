@@ -84,8 +84,8 @@
             </div>
         </div>
         <div class="row p-2">
-            <div class="col-sm-6 col-md-6 col-lg-4"></div>
-            <div class="col-sm-6 col-md-6 col-lg-4 align-middle" style="text-align: center;padding-bottom: 20px;">
+            <div class="col-sm-4 col-md-4 col-lg-4"></div>
+            <div class="col-sm-4 col-md-4 col-lg-4 align-middle d-flex justify-content-center" style="text-align: center;padding-bottom: 20px;">
                 <ng-template [ngIf]="paginationLimit < list?.totalItems"><button type="button" (click)="showMoreItems()" class="btn " style="color:#fff;background: #313C64;">
             Show more
             <i class="fa fa-plus" aria-hidden="true" style="font-size: 10px;"></i>
@@ -96,7 +96,7 @@
             <i class="fa fa-minus" aria-hidden="true" style="font-size: 10px;"></i>
           </button> -->
             </div>
-            <div class="col-sm-6 col-md-6 col-lg-4"></div>
+            <div class="col-sm-4 col-md-4 col-lg-4"></div>
         </div>
     </div>
     <div class="col-lg-3 col-sm-12" id="bottommobile">
@@ -116,7 +116,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let spacone of allspacs?.admin_detail">
-                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit;">{{ spacone?.name }}</a></td>
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit;">{{ spacone?.name | titlecase }}</a></td>
                                 <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
                                 <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
                             </tr>
@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="card-body dashboard-inline-datepicker datepicker-custom">
-                <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;">
+                <div class="card-header" style="background-color: #1587B9;font-size:17px;color:white;border-radius: 4px;">
                     <i class="mdi mdi-calendar-clock"></i> IPO Calendar
                 </div>
                 <div class="card-body bg-light">

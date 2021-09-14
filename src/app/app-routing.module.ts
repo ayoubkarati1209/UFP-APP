@@ -26,7 +26,7 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' ,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
   { path : 'spacedet/:id',component:SpacDetComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
-  { path : 'login',component:LoginComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
+  { path : 'login',component:LoginComponent},
   { path : 'testspac',component:SpacstableComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
   { path : 'edit',component:EditComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},
   { path : 'Register',component:RegisterComponent,canActivate: [AngularFireAuthGuard], data: { authGuardPipe: redirectUnauthorizedToLogin }},

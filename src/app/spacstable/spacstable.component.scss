@@ -296,6 +296,7 @@ body {
         right: -5%;
     }
     #hero {
+        border-radius: 5px;
         margin-top: 50px;
         margin-bottom: 20px;
         background-color: white;
@@ -312,6 +313,7 @@ body {
 
 @media only screen and (min-width: 600px) {
     #hero {
+        border-radius: 5px;
         margin-top: 50px;
         margin-bottom: 20px;
     }

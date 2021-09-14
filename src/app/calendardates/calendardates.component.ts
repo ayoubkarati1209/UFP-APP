@@ -14,7 +14,7 @@ import {SpacDetComponent} from '../spac-det/spac-det.component';
 import { NgZone,Inject, LOCALE_ID } from '@angular/core';
 import { allinfos } from '../services/alltable.bd';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
-import { formatDate } from '@angular/common';
+import { formatDate, CommonModule } from '@angular/common';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -207,5 +207,6 @@ currentEvents=[];
   //     }
   //   }
   // }
+  
 
 }

@@ -47,7 +47,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let spacone of allspacs?.admin_detail">
-                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit;text-transform:capitalize;">{{ spacone?.name }}</a></td>
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit;">{{ spacone?.name | titlecase }}</a></td>
                                 <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
                                 <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
                             </tr>

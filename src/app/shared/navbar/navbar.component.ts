@@ -9,6 +9,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { first } from 'rxjs/operators';
 import { AuthenticationService } from '../authentication.service';
 import { users } from 'src/app/services/users.bd';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html', 
@@ -30,12 +32,28 @@ export class NavbarComponent implements OnInit {
   isCollapsed: boolean = false;
   bdinfosuser:any
   public userProfile: KeycloakProfile | null = null;
-  constructor(private users:users,private auth:AuthenticationService,config: NgbDropdownConfig, translate: TranslateService,private keycloackService:KeycloakService,public afAuth: AngularFireAuth) {
+  constructor(private route:Router,private users:users,private auth:AuthenticationService,config: NgbDropdownConfig, translate: TranslateService,private keycloackService:KeycloakService,public afAuth: AngularFireAuth) {
     afAuth.authState.subscribe(auth => {
       if(auth) {
-
+        this.auth.getUserState().subscribe(
+          user=>{
+            this.user=user;
+            if(user.email=='admin@box-analytics.com'){
+             this.admin=true;
+           }
+            this.users.get(user.email)
+            .subscribe(
+              data => {
+              this.bdinfosuser=data;
+              },
+              error => {
+              });
+           
+          }
+        )
       } else {
-        console.log('not logged in');
+        firebase.auth().signOut();
+    this.route.navigate(['login']);
       }
     });
     
@@ -54,22 +72,7 @@ navBarTogglerIsVisible() {
   }
   public async ngOnInit() {
 
-   this.auth.getUserState().subscribe(
-     user=>{
-       this.user=user;
-       if(user.email=='admin@box-analytics.com'){
-        this.admin=true;
-      }
-       this.users.get(user.email)
-       .subscribe(
-         data => {
-         this.bdinfosuser=data;
-         },
-         error => {
-         });
-      
-     }
-   )
+
     let body = document.querySelector('body');
     body.classList.add('sidebar-hidden');
   }
