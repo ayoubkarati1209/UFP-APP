@@ -6,8 +6,8 @@
                     <a [routerLink]="['/research', news.id]" class="lien">
 
                         <div class="image-block position-relative" style="height: 300px;">
-                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[0]?.type==0" src="http://54.205.210.47:8050/{{ news?.uploads[0]?.file }}" class="card-img-top" alt="blog-img">
-                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[1]?.type==0" src="http://54.205.210.47:8050/{{ news?.uploads[1]?.file }}" class="card-img-top" alt="blog-img">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[0]?.type==0" src="http://localhost:8050/{{ news?.uploads[0]?.file }}" class="card-img-top" alt="blog-img">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[1]?.type==0" src="http://localhost:8050/{{ news?.uploads[1]?.file }}" class="card-img-top" alt="blog-img">
 
                             <div class="blog-meta-date rounded-pill">
                                 <div class="month" style="font-size: 12px;">IPO</div>

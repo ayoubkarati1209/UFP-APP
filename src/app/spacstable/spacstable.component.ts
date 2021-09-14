@@ -69,7 +69,7 @@ export class SpacstableComponent implements OnInit,PipeTransform {
   HomeResearch():void{
   }
   getAllData() {
-    const url = `http://54.205.210.47:8050/api/spacs/page?page=${0}&size=${this.itemsPerPage}`;
+    const url = `http://localhost:8050/api/spacs/page?page=${0}&size=${this.itemsPerPage}`;
   this.http.get(url).subscribe((data: any) => {
     this.totalItems = data.totalItems;
     this.allspacs=data
@@ -108,7 +108,7 @@ export class SpacstableComponent implements OnInit,PipeTransform {
 
 getPage(page) {
   page=page-1; 
-  const url = `http://54.205.210.47:8050/api/spacs/page?page=${page}&size=${this.itemsPerPage}`;
+  const url = `http://localhost:8050/api/spacs/page?page=${page}&size=${this.itemsPerPage}`;
   this.http.get(url).subscribe((data: any) => {
     this.elements.length=0;
     this.totalItems = data.totalItems;

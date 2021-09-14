@@ -71,11 +71,7 @@ exports.findAllPage = (req, res) => {
             where: condition,
             limit,
             offset,
-            include: [{
-                    model: db.tickers.findOne({
-                        where:{id=2}
-                    })
-                }, {
+            include: [ {
                     model: db.overviews
                 },
                 {

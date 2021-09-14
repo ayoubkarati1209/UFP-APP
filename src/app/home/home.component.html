@@ -52,8 +52,8 @@
                 <div class="card card-block card-stretch card-height blog blog-comments rounded shadow-sm">
                     <a [routerLink]="['/research', news.id]" class="lien">
                         <div class="image-block position-relative" style="height: 280px; padding: 17px 17px 0px 17px;">
-                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[0]?.type==0" src="http://54.205.210.47:8050/{{ news?.uploads[0]?.file }}" class="card-img-top rounded" alt="blog-img">
-                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[1]?.type==0" src="http://54.205.210.47:8050/{{ news?.uploads[1]?.file }}" class="card-img-top rounded" alt="blog-img">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[0]?.type==0" src="http://localhost:8050/{{ news?.uploads[0]?.file }}" class="card-img-top rounded" alt="blog-img">
+                            <img style="width: 100%; height: 100%; object-fit: cover;" *ngIf="news?.uploads[1]?.type==0" src="http://localhost:8050/{{ news?.uploads[1]?.file }}" class="card-img-top rounded" alt="blog-img">
                             <div *ngIf="news?.id_types == 2" class="blog-meta-date rounded-pill">
                                 <div class="month" style="font-size: 12px;">
                                     IPO
@@ -99,9 +99,9 @@
             <div class="col-sm-6 col-md-6 col-lg-4"></div>
         </div>
     </div>
-    <div class="col-lg-3" id="bottommobile">
+    <div class="col-lg-3 col-sm-12" id="bottommobile">
         <div class="row">
-            <div class="card-body">
+            <div class="card-body" style="margin: 0px !important;">
                 <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;">
                     <i class="mdi mdi-fire"></i>The hot list
                 </div>
@@ -116,7 +116,7 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let spacone of allspacs?.admin_detail">
-                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.name }}</a></td>
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit;">{{ spacone?.name }}</a></td>
                                 <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
                                 <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
                             </tr>

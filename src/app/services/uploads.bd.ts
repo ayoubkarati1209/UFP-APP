@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient,HttpRequest,HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs';
-//const baseUrl = 'http://54.205.210.47:8050/api/price_histories';
+//const baseUrl = 'http://localhost:8050/api/price_histories';
 
 @Injectable({
   providedIn: 'root'
 })
 export class upload {
   constructor(private http: HttpClient) { }
-  private baseUrl = 'http://54.205.210.47:8050/api/upload';
+  private baseUrl = 'http://localhost:8050/api/upload';
 
   upload(file: File,id:any,type:any): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();

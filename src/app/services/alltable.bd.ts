@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-const baseUrl = 'http://54.205.210.47:8050/api/spacsglobal';
-const baseUrl1 = 'http://54.205.210.47:8050/api/filings/';
-const baseUrl2 = 'http://54.205.210.47:8050/api/targets/';
-const baseUrl3 = 'http://54.205.210.47:8050/api/spacs/';
-const baseUrl6 = 'http://54.205.210.47:8050/api/spacs/page';
-const baseUrl4='http://54.205.210.47:8050/api/overview-section';
-const trusts='http://54.205.210.47:8050/api/trusts';
-const markets='http://54.205.210.47:8050/api/markets';
-const tickers = 'http://54.205.210.47:8050/api/spacsglobal/r';
+const baseUrl = 'http://localhost:8050/api/spacsglobal';
+const baseUrl1 = 'http://localhost:8050/api/filings/';
+const baseUrl2 = 'http://localhost:8050/api/targets/';
+const baseUrl3 = 'http://localhost:8050/api/spacs/';
+const baseUrl6 = 'http://localhost:8050/api/spacs/page';
+const baseUrl4='http://localhost:8050/api/overview-section';
+const trusts='http://localhost:8050/api/trusts';
+const markets='http://localhost:8050/api/markets';
+const tickers = 'http://localhost:8050/api/spacsglobal/r';
 @Injectable({
   providedIn: 'root'
 })

@@ -31,29 +31,32 @@
         </div>
     </div>
     <div class="col-lg-3" style="margin-top: -20px;">
-        <div class="card-body">
-            <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;">
-                <i class="mdi mdi-fire"></i>The hot list
-            </div>
-            <div class="table-responsive bg-light" style="overflow-x: hidden;">
-                <table class="table table-hover" style="overflow-x: hidden; color: #6A707E !important;">
-                    <thead style="background-color: transparent; ">
-                        <tr>
-                            <th class="align-top" style="width:50%;">Company</th>
-                            <th class="align-top">Ticker</th>
-                            <th class="align-top">Market Cap</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let spacone of allspacs?.admin_detail">
-                            <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.name }}</a></td>
-                            <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
-                            <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="row">
+            <div class="card-body">
+                <div class="card-header " style="background-color: #1587B9;color:white;border-radius: 4px;">
+                    <i class="mdi mdi-fire"></i>The hot list
+                </div>
+                <div class="table-responsive bg-light">
+                    <table class="table table-hover" style="overflow-x: hidden; color: #6A707E !important;">
+                        <thead style="background-color: transparent; ">
+                             <tr>
+                                <th class="align-top" style="width:50%;">Company</th>
+                                <th class="align-top">Ticker</th>
+                                <th class="align-top">Market Cap</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let spacone of allspacs?.admin_detail">
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit;text-transform:capitalize;">{{ spacone?.name }}</a></td>
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.tickers[0]?.unit_ticker }}</a></td>
+                                <td><a [routerLink]="[ '/allspac', spacone.id] " style="text-decoration: none;color:inherit; ">{{ spacone?.overviews[0]?.market_cap }}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+     
     </div>
 </div>
 <!-- Everything you see below is just for the demo, you don't need to include it in your app -->
