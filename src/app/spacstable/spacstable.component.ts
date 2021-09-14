@@ -40,6 +40,7 @@ export class SpacstableComponent implements OnInit,PipeTransform {
   spacssearch:any;
   headElements = ['Company', 'ticker', 'intended_industry_focus', 'current_market_cap','last_price','Combination_Announced','termination_date'];
   headThs = ['Company', 'Ticker', 'Industry focus', ' Market cap in $mm',' Last price ( in $)','Combination announced ?' ,'Remaining life'];
+  sortable=false;
   constructor(private datePipe:DatePipe,public allinfos:allinfos, private http: HttpClient,private elRef:ElementRef) {}
 
 
@@ -105,7 +106,10 @@ export class SpacstableComponent implements OnInit,PipeTransform {
         }
   })
 }
+sortTable(element){
+this.sortable=true
 
+}
 getPage(page) {
   page=page-1; 
   const url = `http://localhost:8050/api/spacs/page?page=${page}&size=${this.itemsPerPage}`;
