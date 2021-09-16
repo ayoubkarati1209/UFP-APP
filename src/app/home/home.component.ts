@@ -1,6 +1,7 @@
 import {
   Component,
   OnInit,
+  OnDestroy,
   ViewChild,
   ElementRef
 } from '@angular/core';
@@ -26,13 +27,16 @@ import {LoadingBarService} from '@ngx-loading-bar/core';
 import { orderBy} from 'lodash';
 import {allinfos} from '../services/alltable.bd';
 import { news_nv } from '../services/news-nv.bd';
+import {  takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
 
-export class HomeComponent implements OnInit, PipeTransform {
+export class HomeComponent implements OnInit, PipeTransform,OnDestroy  {
+  destroy$: Subject<boolean> = new Subject<boolean>();
   transform(value: any[], order: any, column: string = ''): any[] {
     if (!value || order === '' || !order) {
       return value;
@@ -255,7 +259,7 @@ export class HomeComponent implements OnInit, PipeTransform {
   }
 
   getnews(){
-    this.news.getPagination(this.startPage,this.paginationLimit)
+    this.news.getPagination(this.startPage,this.paginationLimit).pipe(takeUntil(this.destroy$))
     .subscribe(
       data => {
         this.list=data
@@ -273,7 +277,11 @@ export class HomeComponent implements OnInit, PipeTransform {
     this.getnews();
   }
   
-
+  ngOnDestroy() {
+    this.destroy$.next(true);
+    // Unsubscribe from the subject
+    this.destroy$.unsubscribe();
+  }
 
   selectEvent(item) {
 

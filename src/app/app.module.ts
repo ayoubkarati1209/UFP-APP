@@ -22,7 +22,6 @@ import { ContentAnimateDirective } from './shared/directives/content-animate.dir
 import { SpacsComponent } from './spacs/spacs.component';
 import { SpacDetComponent } from './spac-det/spac-det.component';
 import { ChartjsComponent } from './chartjs/chartjs.component';
-import { CalendarComponent } from './calendar/calendar.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { MdbScrollspyModule } from 'mdb-angular-ui-kit';
 import {Ng2PageScrollModule} from 'ng2-page-scroll';
@@ -33,7 +32,6 @@ import { CollapseModule,WavesModule } from 'angular-bootstrap-md';
 import { JwPaginationModule } from 'jw-angular-pagination';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ResearchComponent } from './research/research.component';
-import { CardnewsComponent } from './cardnews/cardnews.component';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
 import { NavbarModule, ButtonsModule } from 'angular-bootstrap-md'
@@ -46,11 +44,6 @@ import { TableFilterPipe } from './spacs/tableFilter.pipe';
 import * as echarts from 'echarts';
 import { CalendardatesComponent } from './calendardates/calendardates.component';
 import { SpacdatableComponent } from './spacdatable/spacdatable.component';
-import { HomeAllComponent } from './home-all/home-all.component';
-import { HomeIpoComponent } from './home-ipo/home-ipo.component';
-import { HomeNewsComponent } from './home-news/home-news.component';
-import { HomeResearchComponent } from './home-research/home-research.component';
-import { HomeSecComponent } from './home-sec/home-sec.component';
 import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 import { NgxSpinnerModule } from "ngx-spinner";  
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -60,7 +53,6 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { AbboutComponent } from './shared/abbout/abbout.component';
 import { ProfileComponent } from './profile/profile.component';
-import { ModifyspacComponent } from './modifyspac/modifyspac.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -69,12 +61,9 @@ import { AuthenticationService } from './shared/authentication.service';
 import { LoginComponent } from './authentification/login/login.component';
 import { RegisterComponent } from './authentification/register/register.component';
 import  firebase from 'firebase';
-import { UpdateresearchComponent } from './updateresearch/updateresearch.component';
 import { SpacpageComponent } from './spacpage/spacpage.component';
 import { PrivacyComponent } from './privacy/privacy.component';
 import { TermsComponent } from './terms/terms.component';
-import { EditComponent } from './updateresearch/edit/edit.component';
-import { AddComponent } from './updateresearch/add/add.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { SpacstableComponent } from './spacstable/spacstable.component';
 import { TabModule } from '@syncfusion/ej2-angular-navigations';
@@ -100,30 +89,19 @@ export function HttpLoaderFactory(http: HttpClient) {
     SpacsComponent,
     SpacDetComponent,
     ChartjsComponent,
-    CalendarComponent,
     FixedMenuComponent,
     ResearchComponent,
-    CardnewsComponent,
     NavbarComponent,
     HomeComponent,
     CalendardatesComponent,
     SpacdatableComponent,
-    HomeAllComponent,
-    HomeIpoComponent,
-    HomeNewsComponent,
-    HomeResearchComponent,
-    HomeSecComponent,
     AbboutComponent,
     ProfileComponent,
-    ModifyspacComponent,
     LoginComponent,
     RegisterComponent,
-    UpdateresearchComponent,
     SpacpageComponent,
     PrivacyComponent,
     TermsComponent,
-    EditComponent,
-    AddComponent,
     SpacstableComponent
   ],
   imports: [ 
