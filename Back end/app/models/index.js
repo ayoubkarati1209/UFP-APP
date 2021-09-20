@@ -38,6 +38,25 @@ db.trusts = require("./trusts.model")(sequelize, Sequelize);
 db.warrant_info = require("./warrant_info.model")(sequelize, Sequelize);
 db.uploads = require("./uploads.model")(sequelize, Sequelize);
 db.users = require("./users.model")(sequelize, Sequelize);
+db.s4_data=require('./S4_data.modal')(sequelize,Sequelize);
+db.sponsors=require('./sponsors.model')(sequelize,Sequelize);
+
+db.spacs.belongsTo(db.sponsors, {
+    foreignKey: 'spac_id'
+});
+db.sponsors.hasMany(db.spacs, {
+    foreignKey: {
+        name: 'spac_id'
+    }
+});
+db.s4_data.belongsTo(db.spacs, {
+    foreignKey: 'spac_id'
+});
+db.spacs.hasMany(db.s4_data, {
+    foreignKey: {
+        name: 'spac_id'
+    }
+});
 db.news.belongsTo(db.spacs, {
     foreignKey: 'spac_id'
 });

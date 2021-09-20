@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Spac = sequelize.define("spacs", {
+    const Spac = sequelize.define("sponsors", {
         id: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -13,10 +13,6 @@ module.exports = (sequelize, Sequelize) => {
         cik: {
             type: Sequelize.STRING,
             allowNull: false
-        },
-        id_hot_list:{
-            type:Sequelize.INTEGER,
-            is_hot_lis:Sequelize.INTEGER
         }
     });
 
