@@ -14,7 +14,11 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        id_hot_list:{
+        id_sponsor:{
+            type:Sequelize.INTEGER,
+            is_hot_lis:Sequelize.INTEGER
+        },
+        is_hot_list:{
             type:Sequelize.INTEGER,
             is_hot_lis:Sequelize.INTEGER
         }
