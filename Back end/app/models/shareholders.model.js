@@ -7,16 +7,16 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         fund_name: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(150),
+            allowNull: true
         },
         shares: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         percentage: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.FLOAT,
+            allowNull: true
         },
         spac_id: {
             type: Sequelize.INTEGER,

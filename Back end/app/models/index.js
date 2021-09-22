@@ -40,6 +40,26 @@ db.uploads = require("./uploads.model")(sequelize, Sequelize);
 db.users = require("./users.model")(sequelize, Sequelize);
 db.s4_data=require('./S4_data.modal')(sequelize,Sequelize);
 db.sponsors=require('./sponsors.model')(sequelize,Sequelize);
+db.follows=require('./follows.model')(sequelize,Sequelize);
+db.dates=require('./dates.model')(sequelize,Sequelize);
+db.datetypes=require('./datetypes.model')(sequelize,Sequelize);
+db.spacs.belongsTo(db.follows, {
+    foreignKey: 'spac_id'
+});
+db.follows.hasMany(db.spacs, {
+    foreignKey: {
+        name: 'spac_id'
+    }
+});
+
+db.follows.belongsTo(db.users, {
+    foreignKey: 'user_id'
+});
+db.users.hasMany(db.follows, {
+    foreignKey: {
+        name: 'user_id'
+    }
+});
 
 db.spacs.belongsTo(db.sponsors, {
     foreignKey: 'spac_id'
@@ -121,13 +141,13 @@ db.industries.hasMany(db.overviews, {
 db.overviews.belongsTo(db.industries, {
     foreignKey: 'id_industries'
 });
-db.overviews.hasMany(db.targets, {
+db.spacs.hasMany(db.targets, {
     foreignKey: {
-        name: 'id_overviews'
+        name: 'spac_id'
     }
 });
-db.targets.belongsTo(db.overviews, {
-    foreignKey: 'id_overviews'
+db.targets.belongsTo(db.spacs, {
+    foreignKey: 'spac_id'
 });
 db.filings.belongsTo(db.spacs, {
     foreignKey: 'spac_id'
@@ -171,6 +191,27 @@ db.spacs.hasMany(db.trusts, {
 });
 db.auxs.belongsTo(db.spacs, {
     foreignKey: 'spac_id'
+});
+db.spacs.hasMany(db.auxs, {
+    foreignKey: {
+        name: 'spac_id'
+    }
+});
+db.dates.belongsTo(db.spacs, {
+    foreignKey: 'spac_id'
+});
+db.spacs.hasMany(db.dates, {
+    foreignKey: {
+        name: 'spac_id'
+    }
+});
+db.dates.belongsTo(db.datetypes, {
+    foreignKey: 'type'
+});
+db.datetypes.hasMany(db.dates, {
+    foreignKey: {
+        name: 'type'
+    }
 });
 db.spacs.hasMany(db.trusts, {
     foreignKey: {

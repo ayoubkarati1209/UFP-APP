@@ -7,28 +7,28 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         strike: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.FLOAT,
+            allowNull: true
         },
         multiplier: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.FLOAT,
+            allowNull: true
         },
         first_exercise: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: true
         },
         expiration: {
             type: Sequelize.DATE,
-            allowNull: false
+            allowNull: true
         },
         delta: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.FLOAT,
+            allowNull: true
         },
         vol: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.FLOAT,
+            allowNull: true
         },
         spac_id: {
             type: Sequelize.INTEGER,

@@ -7,11 +7,11 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         name: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(150),
+            allowNull: true
         },
         cik: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(45),
             allowNull: false
         },
         id_sponsor:{
@@ -21,7 +21,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         is_hot_list:{
             type:Sequelize.INTEGER,
-            is_hot_lis:Sequelize.INTEGER
+            allowNull: true
         }
     });
 

@@ -7,14 +7,14 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         name: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(150),
+            allowNull: true
         },
         cik: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(45),
+            allowNull: true
         },
-        id_overviews: {
+        spac_id: {
             type: Sequelize.INTEGER,
             allowNull: true
         }

@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         fpa: {
             type: Sequelize.FLOAT,
-            allowNull: false
+            allowNull: true
         },
         backstop: {
             type: Sequelize.FLOAT,

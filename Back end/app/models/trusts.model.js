@@ -6,41 +6,29 @@ module.exports = (sequelize, Sequelize) => {
             autoIncrement: true,
             primaryKey: true,
         },
-        ipo_date: {
-            type: Sequelize.DATE,
-            allowNull: false
-        },
         ipo_price: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.FLOAT,
+            allowNull: true
         },
         ipo_issuance: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        combination_months: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.INTEGER,
+            allowNull: true
         },
         extendable: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         units_over_warrents: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.INTEGER,
+            allowNull: true
         },
         recent_cash: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.FLOAT,
+            allowNull: true
         },
         recent_shares: {
             type: Sequelize.INTEGER,
-            allowNull: false
-        },
-        split_date: {
-            type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         spac_id: {
             type: Sequelize.INTEGER,

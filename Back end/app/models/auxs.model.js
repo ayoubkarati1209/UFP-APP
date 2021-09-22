@@ -1,27 +1,27 @@
 module.exports = (sequelize, Sequelize) => {
-    const Aux = sequelize.define("aux", {
+    const Aux = sequelize.define("auxs", {
         id: {
             type: Sequelize.INTEGER,
             allowNull: false,
             autoIncrement: true,
             primaryKey: true,
         },
-        name: {
-            type: Sequelize.STRING,
+        type: {
+            type: Sequelize.STRING(45),
             allowNull: false
+        },
+        name: {
+            type: Sequelize.STRING(45),
+            allowNull: true
         },
         cik: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(45),
+            allowNull: true
         },
-        admin_id: {
+        spac_id: {
             type: Sequelize.INTEGER,
             allowNull: false
-        },
-        type_id: {
-            type: Sequelize.INTEGER,
-            allowNull: false
-        },
+        }
     });
 
     return Aux;

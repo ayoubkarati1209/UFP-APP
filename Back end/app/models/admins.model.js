@@ -7,16 +7,16 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         address: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(45),
+            allowNull: true
         },
         incorporation: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(45),
+            allowNull: true
         },
         phone: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(45),
+            allowNull: true
         },
         spac_id: {
             type: Sequelize.INTEGER,

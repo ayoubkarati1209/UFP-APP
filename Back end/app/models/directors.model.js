@@ -7,19 +7,23 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
         },
         name: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(150),
+            allowNull: true
         },
         position: {
-            type: Sequelize.STRING,
-            allowNull: false
+            type: Sequelize.STRING(150),
+            allowNull: true
         },
         age: {
             type: Sequelize.INTEGER,
-            allowNull: false
+            allowNull: true
         },
         description: {
             type: Sequelize.STRING,
+            allowNull: false
+        },
+        cik: {
+            type: Sequelize.STRING(150),
             allowNull: false
         },
         spac_id: {

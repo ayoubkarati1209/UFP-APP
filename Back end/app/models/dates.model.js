@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Market = sequelize.define("market", {
+    const dates = sequelize.define("dates", {
         id: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -12,22 +12,13 @@ module.exports = (sequelize, Sequelize) => {
         },
         date: {
             type: Sequelize.DATE,
-            allowNull: true
-        },
-        price: {
-            type: Sequelize.STRING(255),
-            allowNull: true
-        },
-        volume: {
-            type: Sequelize.STRING(255),
-            allowNull: true
+            allowNull: false
         },
         spac_id: {
             type: Sequelize.INTEGER,
             allowNull: false
-        },
-
+        }
     });
 
-    return Market;
+    return dates;
 };
