@@ -15,7 +15,7 @@ import { NgZone,Inject, LOCALE_ID } from '@angular/core';
 import { allinfos } from '../services/alltable.bd';
 import bootstrapPlugin from '@fullcalendar/bootstrap';
 import { formatDate, CommonModule } from '@angular/common';
-
+import {dates} from '../services/dates.bd';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path : 'spacedet/:id',component:SpacDetComponent,canActivate:[AuthGuard]},
@@ -52,28 +52,13 @@ currentEvents=[];
   eventsterm=[];
   ipos:any;
   spacsticker:any;
-  constructor(@Inject(LOCALE_ID) public locale: string,private allinfos:allinfos,private router: Router,private spacsS:spacglobal,private event:events,private newses:spacs,private ngZone:NgZone, private Spacspage:spacspage) { }
+  constructor(@Inject(LOCALE_ID) public locale: string,private dates:dates,private allinfos:allinfos,private router: Router,private spacsS:spacglobal,private event:events,private newses:spacs,private ngZone:NgZone, private Spacspage:spacspage) { }
   ngOnInit(): void {
   
     forwardRef(() => Calendar);
     this.newses.getAll().subscribe(
       data => {
     this.news = data;
-    this.allinfos.getAlltrusts().subscribe(data=>{
-      this.ipos=data;
-      for(let i of this.ipos){
-        this.allinfos.getSpacsid(i.spac_id).subscribe(data=>{
-          this.spacsticker=data;
-          if(this.spacsticker){
-
-          this.ipo_date=formatDate(i.ipo_date, 'yyyy-MM-dd' ,this.locale);
-          this.currentEvents.push({id:i.id,title:this.spacsticker.name, date:this.ipo_date,color:'#1587B9'})
-          this.eventsipos.push({id:i.id,title:this.spacsticker.name, date:this.ipo_date,color:'#1587B9'})
-          }
-        })
-       
-      }
-    })
     for(let n of this.news){
       if(n.date!=""){
         this.currentEvents.push({id:n.id,title: n.title, date:n.date,color:'#69F0AE'})
@@ -82,6 +67,22 @@ currentEvents=[];
     }
       }
     )
+    this.dates.getAll().subscribe(data=>{
+      this.ipos=data;
+      for(let i of this.ipos){
+        this.allinfos.getSpacsid(i.spac_id).subscribe(data=>{
+          this.spacsticker=data;
+          if(this.spacsticker){
+
+          this.ipo_date=formatDate(i.date, 'yyyy-MM-dd' ,this.locale);
+          this.currentEvents.push({id:i.id,title:this.spacsticker.name, date:this.ipo_date,color:'#1587B9'})
+          this.eventsipos.push({id:i.id,title:this.spacsticker.name, date:this.ipo_date,color:'#1587B9'})
+          }
+        })
+       
+      }
+    })
+  
  
     this.calendarOptions= {
       initialView: 'dayGridMonth',

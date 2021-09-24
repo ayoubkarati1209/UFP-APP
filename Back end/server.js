@@ -41,7 +41,7 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/targets.routes")(app);
 require("./app/routes/trusts.routes")(app);
 require("./app/routes/markets.routes")(app);
-
+require("./app/routes/dates.routes")(app);
 // simple route
 app.use(express.static(path.join(__dirname, 'public')));
 
