@@ -31,7 +31,7 @@ export class allinfos {
   }
   getspacpagination(){
     return this.http.get(`${baseUrl6}?page=1&size=6`);
-  }
+  } 
   spacpagination(page){
     return this.http.get(`${baseUrl6}?page=${page}&size=${page}`);
   }
